@@ -1,0 +1,86 @@
+<%= form_for(@event) do |f| %>
+  <% if @event.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+      <ul>
+      <% @event.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :address %>
+    <%= f.text_field :address %>
+    <%= f.input :address, :input_html =>{:id => 'gmaps-input-address'}, :placeholder => 'Start typing a place name...' %>
+  </div>
+  <div class="field">
+    <%= f.label :date %><br>
+    <%= f.date_select :date %>
+  </div>
+  <div class="field">
+    <%= f.label :time_start %><br>
+    <%= f.time_select :time_start %>
+  </div>
+  <div class="field">
+    <%= f.label :time_weighing %><br>
+    <%= f.time_select :time_weighing %>
+  </div>
+  <div class="field">
+    <%= f.label :time_doctor %><br>
+    <%= f.time_select :time_doctor %>
+  </div>
+  <div class="field">
+    <%= f.label :contact_name %><br>
+    <%= f.text_field :contact_name %>
+  </div>
+  <div class="field">
+    <%= f.label :contact_name_public %><br>
+    <%= f.check_box :contact_name_public %>
+  </div>
+  <div class="field">
+    <%= f.label :contact_phone %><br>
+    <%= f.text_field :contact_phone %>
+  </div>
+  <div class="field">
+    <%= f.label :contact_phone_public %><br>
+    <%= f.check_box :contact_phone_public %>
+  </div>
+  <div class="field">
+    <%= f.label :contact_mail %><br>
+    <%= f.text_field :contact_mail %>
+  </div>
+  <div class="field">
+    <%= f.label :contact_mail_public %><br>
+    <%= f.check_box :contact_mail_public %>
+  </div>
+  <div class="field">
+    <%= f.label :additional_info %><br>
+    <%= f.text_area :additional_info %>
+  </div>
+  <div class="field">
+    <%= f.label :gloves_available %><br>
+    <%= f.check_box :gloves_available %>
+  </div>
+  <div class="field">
+    <%= f.label :catering_available %><br>
+    <%= f.check_box :catering_available %>
+  </div>
+  <div class="field">
+    <%= f.label :admission %><br>
+    <%= f.text_field :admission %>
+  </div>
+  <div class="field">
+    <%= f.label :admission_discounted %><br>
+    <%= f.text_field :admission_discounted %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

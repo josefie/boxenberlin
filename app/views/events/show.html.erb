@@ -1,0 +1,82 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @event.title %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @event.address %>
+</p>
+
+<%= image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@event.latitude}%2C#{@event.longitude}" %>
+
+<p>
+  <strong>Date:</strong>
+  <%= @event.date %>
+</p>
+
+<p>
+  <strong>Time start:</strong>
+  <%= @event.time_start %>
+</p>
+
+<p>
+  <strong>Time weighing:</strong>
+  <%= @event.time_weighing %>
+</p>
+
+<p>
+  <strong>Time doctor:</strong>
+  <%= @event.time_doctor %>
+</p>
+
+<% if @event.contact_name_public %>
+<p>
+  <strong>Contact name:</strong>
+  <%= @event.contact_name %>
+</p>
+<% end %>
+
+<% if @event.contact_phone_public %>
+<p>
+  <strong>Contact phone:</strong>
+  <%= @event.contact_phone %>
+</p>
+<% end %>
+
+<% if @event.contact_mail_public %>
+<p>
+  <strong>Contact mail:</strong>
+  <%= @event.contact_mail %>
+</p>
+<% end %>
+
+<p>
+  <strong>Additional info:</strong>
+  <%= @event.additional_info %>
+</p>
+
+<p>
+  <strong>Gloves available:</strong>
+  <%= @event.gloves_available %>
+</p>
+
+<p>
+  <strong>Catering available:</strong>
+  <%= @event.catering_available %>
+</p>
+
+<p>
+  <strong>Admission:</strong>
+  <%= @event.admission %>
+</p>
+
+<p>
+  <strong>Admission discounted:</strong>
+  <%= @event.admission_discounted %>
+</p>
+
+<%= link_to 'Edit', edit_event_path(@event) %> |
+<%= link_to 'Back', events_path %>

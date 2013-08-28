@@ -1,0 +1,63 @@
+<h1>Listing events</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Date</th>
+      <th>Time start</th>
+      <th>Time weighing</th>
+      <th>Time doctor</th>
+      <th>Contact name</th>
+      <th>Contact phone</th>
+      <th>Contact mail</th>
+      <th>Additional info</th>
+      <th>Gloves available</th>
+      <th>Catering available</th>
+      <th>Admission</th>
+      <th>Admission discounted</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @events.each do |event| %>
+      <tr>
+        <td><%= event.title %></td>
+        <td><%= event.date %></td>
+        <td><%= event.time_start %></td>
+        <td><%= event.time_weighing %></td>
+        <td><%= event.time_doctor %></td>
+        <td>
+        <% if event.contact_name_public == true %>
+          <%= event.contact_name %>
+        <% end %>
+        </td>
+        <td>
+        <% if event.contact_phone_public == true %>
+          <%= event.contact_phone %>
+        <% end %>
+        </td>
+        <td>
+        <% if event.contact_mail_public == true %>
+          <%= event.contact_mail %>
+        <% end %>
+        </td>
+        <td><%= event.additional_info %></td>
+        <td><%= event.gloves_available %></td>
+        <td><%= event.catering_available %></td>
+        <td><%= event.admission %></td>
+        <td><%= event.admission_discounted %></td>
+        <td><%= link_to 'Show', event %></td>
+        <td><%= link_to 'Edit', edit_event_path(event) %></td>
+        <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Event', new_event_path %>
