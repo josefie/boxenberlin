@@ -1,3 +1,22 @@
+<!-- google maps -->
+<script type="text/javascript"
+  src="http://maps.google.com/maps/api/js?sensor=false">
+</script>
+
+<!-- jquery -->
+<script type="text/javascript"
+  src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">
+</script>
+
+<!-- jquery UI -->
+<script type="text/javascript"
+  src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js">
+</script>
+
+<!-- https://github.com/rjshade/gmaps-autocomplete -->
+<script type="text/javascript" src="assets/javascripts/gmaps.js"></script>
+
+
 <%= form_for(@event) do |f| %>
   <% if @event.errors.any? %>
     <div id="error_explanation">
@@ -15,11 +34,16 @@
     <%= f.label :title %><br>
     <%= f.text_field :title %>
   </div>
+  
   <div class="field">
-    <%= f.label :address %>
-    <%= f.text_field :address %>
-    <%= f.input :address, :input_html =>{:id => 'gmaps-input-address'}, :placeholder => 'Start typing a place name...' %>
+    <%= f.label :address %><br>
+    <%= f.text_field :address, :id=>'gmaps-input-address' %>
+    <%= f.hidden_field :latitude, :id=>'gmaps-output-latitude' %>
+    <%= f.hidden_field :longitude, :id=>'gmaps-output-longitude' %>
   </div>
+  <div id='gmaps-error'></div>
+  <div id='gmaps-canvas'></div>
+  
   <div class="field">
     <%= f.label :date %><br>
     <%= f.date_select :date %>

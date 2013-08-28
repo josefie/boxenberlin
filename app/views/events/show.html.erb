@@ -1,8 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Title:</strong>
-  <%= @event.title %>
+  <strong><%= @event.title %></strong>
 </p>
 
 <p>
@@ -70,12 +69,12 @@
 
 <p>
   <strong>Admission:</strong>
-  <%= @event.admission %>
+  <%= @event.admission %> €
 </p>
 
 <p>
   <strong>Admission discounted:</strong>
-  <%= @event.admission_discounted %>
+  <%= @event.admission_discounted %> €
 </p>
 
 <%= link_to 'Edit', edit_event_path(@event) %> |
