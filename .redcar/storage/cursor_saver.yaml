@@ -39,21 +39,6 @@ cursor_positions:
   - :path: app/views/events/show.json.jbuilder
     :cursor_offset: 0
     :timestamp: 2013-08-27 17:42:23 +02:00
-  - :path: app/views/events/show.html.erb
-    :cursor_offset: 716
-    :timestamp: 2013-08-28 12:07:18 +02:00
-  - :path: app/models/event.rb
-    :cursor_offset: 0
-    :timestamp: 2013-08-27 17:42:22 +02:00
-  - :path: app/views/events/index.html.erb
-    :cursor_offset: 1133
-    :timestamp: 2013-08-28 11:55:10 +02:00
-  - :path: app/views/events/_form.html.erb
-    :cursor_offset: 1467
-    :timestamp: 2013-08-28 11:46:10 +02:00
-  - :path: Gemfile
-    :cursor_offset: 807
-    :timestamp: 2013-08-28 12:46:02 +02:00
   - :path: db/migrate/20130828134327_create_locations.rb
     :cursor_offset: 0
     :timestamp: 2013-08-28 15:43:27 +02:00
@@ -66,21 +51,12 @@ cursor_positions:
   - :path: db/migrate/20130828142231_drop_tables_location_and_address.rb
     :cursor_offset: 125
     :timestamp: 2013-08-28 16:22:58 +02:00
-  - :path: db/migrate/20130828104919_drop_table_locations.rb
-    :cursor_offset: 89
-    :timestamp: 2013-08-28 12:49:44 +02:00
   - :path: config/routes.rb
     :cursor_offset: 0
     :timestamp: 2013-08-28 16:14:14 +02:00
-  - :path: app/controllers/events_controller.rb
-    :cursor_offset: 1487
-    :timestamp: 2013-08-28 12:01:39 +02:00
   - :path: app/views/events/new.html.erb
     :cursor_offset: 0
     :timestamp: 2013-08-27 17:42:23 +02:00
-  - :path: db/migrate/20130828144704_add_location_to_events.rb
-    :cursor_offset: 111
-    :timestamp: 2013-08-28 16:53:34 +02:00
   - :path: test/test_helper.rb
     :cursor_offset: 117
     :timestamp: 2013-08-21 21:11:41 +02:00
@@ -93,9 +69,6 @@ cursor_positions:
   - :path: app/controllers/locations_controller.rb
     :cursor_offset: 0
     :timestamp: 2013-08-28 16:24:08 +02:00
-  - :path: db/migrate/20130828171347_add_address_and_latitude_and_longitude_to_events.rb
-    :cursor_offset: 213
-    :timestamp: 2013-08-28 19:14:36 +02:00
   - :path: vendor/assets/javascripts/gmaps.js
     :cursor_offset: 0
     :timestamp: 2013-08-28 21:26:05 +02:00
@@ -117,7 +90,49 @@ cursor_positions:
   - :path: app/assets/stylesheets/main.css
     :cursor_offset: 186
     :timestamp: 2013-08-28 22:32:16 +02:00
+  - :path: test/functional/locations_controller_test.rb
+    :cursor_offset: 0
+    :timestamp: 2013-08-28 12:33:02 +02:00
+  - :path: test/unit/location_test.rb
+    :cursor_offset: 0
+    :timestamp: 2013-08-28 12:33:02 +02:00
+  - :path: app/models/event.rb
+    :cursor_offset: 14
+    :timestamp: 2013-09-02 16:39:15 +02:00
+  - :path: app/views/events/index.html.erb
+    :cursor_offset: 155
+    :timestamp: 2013-09-29 13:09:59 +02:00
+  - :path: app/views/events/_form.html.erb
+    :cursor_offset: 0
+    :timestamp: 2013-09-02 13:21:53 +02:00
+  - :path: Gemfile
+    :cursor_offset: 0
+    :timestamp: 2013-09-02 14:07:11 +02:00
+  - :path: app/controllers/events_controller.rb
+    :cursor_offset: 2184
+    :timestamp: 2013-09-29 13:51:00 +02:00
+  - :path: app/views/events/show.html.erb
+    :cursor_offset: 67
+    :timestamp: 2013-08-28 22:47:32 +02:00
+  - :path: db/migrate/20130828171347_add_address_and_latitude_and_longitude_to_events.rb
+    :cursor_offset: 213
+    :timestamp: 2013-08-28 19:14:36 +02:00
+  - :path: db/migrate/20130828104919_drop_table_locations.rb
+    :cursor_offset: 89
+    :timestamp: 2013-08-28 12:49:44 +02:00
+  - :path: db/migrate/20131007154106_drop_locations.rb
+    :cursor_offset: 95
+    :timestamp: 2013-10-07 17:41:28 +02:00
+  - :path: db/migrate/20131007154832_remove_location_from_events.rb
+    :cursor_offset: 119
+    :timestamp: 2013-10-07 17:49:45 +02:00
+  - :path: db/migrate/20130828144704_add_location_to_events.rb
+    :cursor_offset: 111
+    :timestamp: 2013-08-28 16:53:34 +02:00
+  - :path: test/fixtures/events.yml
+    :cursor_offset: 790
+    :timestamp: 2013-10-07 17:58:44 +02:00
   - :path: db/schema.rb
-    :cursor_offset: 947
-    :timestamp: 2013-08-28 19:14:47 +02:00
+    :cursor_offset: 1037
+    :timestamp: 2013-10-07 17:49:53 +02:00
 files_to_retain: 0

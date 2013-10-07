@@ -1,7 +1,21 @@
 require 'test_helper'
 
 class EventTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  
+  test "geocode" do
+    event = Event.create(address: "Berlin")
+    refute_nil( event.latitude, "Geocoding address failed" )
+    refute_nil( event.longitude, "Geocoding address failed" )
+  end
+  
+  test "validate title presence" do
+    event = Event.create(title: "")
+    assert( !event.valid?, "No title given" )
+  end
+  
+  test "validate address presence" do
+    event = Event.create(address: "")
+    assert( !event.valid?, "No address given" )
+  end
+  
 end

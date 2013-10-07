@@ -2,7 +2,7 @@ require 'test_helper'
 
 class EventsControllerTest < ActionController::TestCase
   setup do
-    @event = events(:one)
+    @event = events(:my_event)
   end
 
   test "should get index" do
@@ -18,7 +18,7 @@ class EventsControllerTest < ActionController::TestCase
 
   test "should create event" do
     assert_difference('Event.count') do
-      post :create, event: { additional_info: @event.additional_info, admission: @event.admission, admission_discounted: @event.admission_discounted, catering_available: @event.catering_available, contact_mail: @event.contact_mail, contact_name: @event.contact_name, contact_phone: @event.contact_phone, date: @event.date, gloves_available: @event.gloves_available, time_doctor: @event.time_doctor, time_start: @event.time_start, time_weighing: @event.time_weighing, title: @event.title }
+      post :create, event: { address: @event.address, additional_info: @event.additional_info, admission: @event.admission, admission_discounted: @event.admission_discounted, catering_available: @event.catering_available, contact_mail: @event.contact_mail, contact_name: @event.contact_name, contact_phone: @event.contact_phone, date: @event.date, gloves_available: @event.gloves_available, time_doctor: @event.time_doctor, time_start: @event.time_start, time_weighing: @event.time_weighing, title: @event.title }
     end
 
     assert_redirected_to event_path(assigns(:event))
@@ -35,7 +35,7 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test "should update event" do
-    patch :update, id: @event, event: { additional_info: @event.additional_info, admission: @event.admission, admission_discounted: @event.admission_discounted, catering_available: @event.catering_available, contact_mail: @event.contact_mail, contact_name: @event.contact_name, contact_phone: @event.contact_phone, date: @event.date, gloves_available: @event.gloves_available, time_doctor: @event.time_doctor, time_start: @event.time_start, time_weighing: @event.time_weighing, title: @event.title }
+    patch :update, id: @event, event: { address: @event.address, additional_info: @event.additional_info, admission: @event.admission, admission_discounted: @event.admission_discounted, catering_available: @event.catering_available, contact_mail: @event.contact_mail, contact_name: @event.contact_name, contact_phone: @event.contact_phone, date: @event.date, gloves_available: @event.gloves_available, time_doctor: @event.time_doctor, time_start: @event.time_start, time_weighing: @event.time_weighing, title: @event.title }
     assert_redirected_to event_path(assigns(:event))
   end
 
@@ -46,4 +46,9 @@ class EventsControllerTest < ActionController::TestCase
 
     assert_redirected_to events_path
   end
+  
+  test "should show only upcoming events" do
+    assert false
+  end
+  
 end

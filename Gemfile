@@ -47,4 +47,4 @@ gem 'geocoder'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem "mocha", group: :test
+gem "mocha", group: :test, require: false

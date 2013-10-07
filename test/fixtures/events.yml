@@ -1,5 +1,24 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
+my_event:
+  title: MyEvent
+  date: 2013-10-01
+  time_weighing: 2013-10-01 10:00:00
+  time_doctor: 2013-10-01 11:00:00
+  time_start: 2013-10-01 12:00:00
+  contact_name: TestName
+  contact_phone: TestPhone
+  contact_mail: TestMail
+  additional_info: TestText
+  gloves_available: false
+  catering_available: false
+  admission: 3.00
+  admission_discounted: 2.00
+  contact_name_public: true
+  contact_phone_public: true
+  contact_mail_public: true
+  address: TestAddress
+
 one:
   title: MyString
   date: 2013-08-27

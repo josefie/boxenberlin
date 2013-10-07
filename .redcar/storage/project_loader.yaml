@@ -1,11 +1,8 @@
 --- 
 open_files: 
-  - test/test_helper.rb
   - app/models/event.rb
   - app/views/events/index.html.erb
-  - app/views/events/new.html.erb
-  - config/routes.rb
-  - db/schema.rb
   - app/views/events/_form.html.erb
-  - app/controllers/events_controller.rb
   - Gemfile
+  - app/controllers/events_controller.rb
+  - app/views/events/show.html.erb

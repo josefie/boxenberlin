@@ -1,10 +1,18 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
 
+  Inf = 1.0 / 0.0
+  
   # GET /events
   # GET /events.json
   def index
     @events = Event.all
+    today = Date.today
+    past = Date.parse("2013-01-01")
+    upcoming_dates = today..Inf
+    past_dates = past..(today - 1.day)
+    @upcoming_events = Event.where(:date => upcoming_dates).order("date")
+    @past_events = Event.where(:date => past_dates).order("date")
   end
 
   # GET /events/1
@@ -71,4 +79,5 @@ class EventsController < ApplicationController
     def event_params
       params.require(:event).permit(:title, :date, :time_start, :time_weighing, :time_doctor, :contact_name, :contact_name_public, :contact_phone, :contact_phone_public, :contact_mail, :contact_mail_public, :additional_info, :gloves_available, :catering_available, :admission, :admission_discounted, :address, :latitude, :longitude)
     end
-end
+    
+  end
