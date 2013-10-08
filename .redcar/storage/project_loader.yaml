@@ -1,8 +1,0 @@
---- 
-open_files: 
-  - app/models/event.rb
-  - app/views/events/index.html.erb
-  - app/views/events/_form.html.erb
-  - Gemfile
-  - app/controllers/events_controller.rb
-  - app/views/events/show.html.erb
