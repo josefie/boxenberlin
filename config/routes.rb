@@ -1,4 +1,6 @@
 Boxenberlin::Application.routes.draw do
+  resources :clubs
+
   resources :events
 
   # The priority is based upon order of creation: first created -> highest priority.

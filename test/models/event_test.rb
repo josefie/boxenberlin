@@ -18,4 +18,9 @@ class EventTest < ActiveSupport::TestCase
     assert( !event.valid?, "No address given" )
   end
   
+  test "validate club_id presence" do
+    event = Event.create(title: "Test", address: "Test")
+    assert( !event.valid?, "No club_id given" )
+  end
+  
 end

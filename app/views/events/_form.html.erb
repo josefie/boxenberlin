@@ -102,6 +102,10 @@
     <%= f.label :admission_discounted %><br>
     <%= f.text_field :admission_discounted %>
   </div>
+    <div class="field">
+    <%= f.label :club_id %><br>
+    <%= f.select :club_id, options_from_collection_for_select(Club.all, :id, :name) %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

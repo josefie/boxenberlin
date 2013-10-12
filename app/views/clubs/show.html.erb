@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @club.name %>
+</p>
+
+<p>
+  <strong>Address:</strong></br>
+  <%= @club.street %>
+  <%= @club.street_no %></br>
+  <%= @club.zip %>
+  <%= @club.city %>
+</p>
+
+<p>
+  <strong>Website:</strong>
+  <%= @club.website %>
+</p>
+
+<p>
+  <strong>Coaches:</strong>
+  <%= @club.coaches %>
+</p>
+
+<p>
+  <strong>Contact name:</strong>
+  <%= @club.contact_name %>
+</p>
+
+<p>
+  <strong>Contact phone:</strong>
+  <%= @club.contact_phone %>
+</p>
+
+<p>
+  <strong>Contact mail:</strong>
+  <%= @club.contact_mail %>
+</p>
+
+<p>
+  <strong>Events:</strong></br>
+  <% @club.events.each do |e| %>
+    <%= link_to e.title, event_path(e.id) %></br>
+  <% end %>
+</p>
+
+<%= link_to 'Edit', edit_club_path(@club) %> |
+<%= link_to 'Back', clubs_path %>

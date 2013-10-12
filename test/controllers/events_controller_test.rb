@@ -2,13 +2,13 @@ require 'test_helper'
 
 class EventsControllerTest < ActionController::TestCase
   setup do
-    @event = events(:my_event)
+    @event = events(:one)
   end
 
   test "should get index" do
     get :index
     assert_response :success
-    assert_not_nil assigns(:events)
+    assert_not_nil assigns(:@upcoming_events)
   end
 
   test "should get new" do
@@ -45,10 +45,6 @@ class EventsControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to events_path
-  end
-  
-  test "should show only upcoming events" do
-    assert false
   end
   
 end

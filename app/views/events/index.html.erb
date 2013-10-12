@@ -1,23 +1,27 @@
-<h1>Listing events</h1>
+<h2>Events</h2>
 
 <table>
   <thead>
     <tr>
-      <th></th>
       <th>Title</th>
       <th>Location</th>
       <th></th>
-      <th></th>
+      <th>Date</th>
+      <th>Host</th>
     </tr>
   </thead>
 
   <tbody>
-    <% @events.each do |event| %>
+    <tr>
+      <td><%= @this_month %></td>
+    </tr>
+    <% @upcoming_events.each do |event| %>
       <tr>
-        <td><%= image_tag "http://maps.google.com/maps/api/staticmap?size=80x80&sensor=false&zoom=11&markers=#{event.latitude}%2C#{event.longitude}" %></td>
         <td><%= link_to event.title, event %></td>
         <td><%= event.address %></td>
+        <td><%= image_tag "http://maps.google.com/maps/api/staticmap?size=80x80&sensor=false&zoom=11&markers=#{event.latitude}%2C#{event.longitude}" %></td>
         <td><%= event.date %></td>
+        <td><%= unless event.club.nil? then event.club.name end %></td>
         <td><%= link_to 'Edit', edit_event_path(event) %></td>
         <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

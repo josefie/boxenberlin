@@ -16,3 +16,6 @@
 /tmp
 
 .redcar
+.rspec
+
+*~
