@@ -1,0 +1,45 @@
+<h1>Listing boxers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Date of birth</th>
+      <th>Weight</th>
+      <th>Fights won</th>
+      <th>Fights lost</th>
+      <th>Fights drawn</th>
+      <th>Gender</th>
+      <th>Active</th>
+      <th>Club</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @boxers.each do |boxer| %>
+      <tr>
+        <td><%= boxer.first_name %></td>
+        <td><%= boxer.last_name %></td>
+        <td><%= boxer.date_of_birth %></td>
+        <td><%= boxer.weight %></td>
+        <td><%= boxer.fights_won %></td>
+        <td><%= boxer.fights_lost %></td>
+        <td><%= boxer.fights_drawn %></td>
+        <td><%= boxer.gender %></td>
+        <td><%= boxer.active %></td>
+        <td><%= boxer.club_id %></td>
+        <td><%= link_to 'Show', boxer %></td>
+        <td><%= link_to 'Edit', edit_boxer_path(boxer) %></td>
+        <td><%= link_to 'Destroy', boxer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Boxer', new_boxer_path %>

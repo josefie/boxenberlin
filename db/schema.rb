@@ -11,7 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131010215808) do
+ActiveRecord::Schema.define(version: 20131012212124) do
+
+  create_table "boxers", force: true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.date     "date_of_birth"
+    t.float    "weight"
+    t.integer  "fights_won"
+    t.integer  "fights_lost"
+    t.integer  "fights_drawn"
+    t.boolean  "gender"
+    t.boolean  "active"
+    t.integer  "club_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "clubs", force: true do |t|
     t.string   "name"

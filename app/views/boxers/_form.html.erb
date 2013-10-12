@@ -1,0 +1,60 @@
+<%= form_for(@boxer) do |f| %>
+  <% if @boxer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@boxer.errors.count, "error") %> prohibited this boxer from being saved:</h2>
+
+      <ul>
+      <% @boxer.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :first_name %><br>
+    <%= f.text_field :first_name %>
+  </div>
+  <div class="field">
+    <%= f.label :last_name %><br>
+    <%= f.text_field :last_name %>
+  </div>
+  <div class="field">
+    <%= f.label :date_of_birth %><br>
+    <%= f.date_select :date_of_birth, :start_year => Date.current.year - 50 %>
+  </div>
+  <div class="field">
+    <%= f.label :weight %><br>
+    <%= f.text_field :weight %>
+  </div>
+  <div class="field">
+    <%= f.label :fights_won %><br>
+    <%= f.text_field :fights_won %>
+  </div>
+  <div class="field">
+    <%= f.label :fights_lost %><br>
+    <%= f.text_field :fights_lost %>
+  </div>
+  <div class="field">
+    <%= f.label :fights_drawn %><br>
+    <%= f.text_field :fights_drawn %>
+  </div>
+  <div class="field">
+    <%= f.label :gender %><br>
+    <%= f.radio_button :gender, true %>
+    <%= f.label "female", :class => :gender %>
+    <%= f.radio_button :gender, false %>
+    <%= f.label "male", :class => :gender %>
+  </div>
+  <div class="field">
+    <%= f.label :active %><br>
+    <%= f.check_box :active %>
+  </div>
+  <div class="field">
+    <%= f.label :club_id %><br>
+    <%= f.select :club_id, options_from_collection_for_select(Club.all, :id, :name) %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

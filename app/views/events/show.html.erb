@@ -6,7 +6,7 @@
 
 <p>
   <strong>Club:</strong>
-  <%= @event.club.name %>
+  <%= link_to @event.club.name, club_path(@event.club.id) %>
 </p>
 
 <p>

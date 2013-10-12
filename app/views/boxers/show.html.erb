@@ -1,0 +1,58 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>First name:</strong>
+  <%= @boxer.first_name %>
+</p>
+
+<p>
+  <strong>Last name:</strong>
+  <%= @boxer.last_name %>
+</p>
+
+<p>
+  <strong>Date of birth:</strong>
+  <%= @boxer.date_of_birth %>
+</p>
+
+<p>
+  <strong>Weight:</strong>
+  <%= @boxer.weight %>
+</p>
+
+<p>
+  <strong>Fights won:</strong>
+  <%= @boxer.fights_won %>
+</p>
+
+<p>
+  <strong>Fights lost:</strong>
+  <%= @boxer.fights_lost %>
+</p>
+
+<p>
+  <strong>Fights drawn:</strong>
+  <%= @boxer.fights_drawn %>
+</p>
+
+<p>
+  <strong>Gender:</strong>
+  <% if @boxer.gender %>
+  Female
+  <% else %>
+  Male
+  <% end %>
+</p>
+
+<p>
+  <strong>Active:</strong>
+  <%= @boxer.active %>
+</p>
+
+<p>
+  <strong>Club:</strong>
+  <%= @boxer.club.name %>
+</p>
+
+<%= link_to 'Edit', edit_boxer_path(@boxer) %> |
+<%= link_to 'Back', club_path(@boxer.club.id) %>

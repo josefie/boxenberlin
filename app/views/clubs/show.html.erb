@@ -45,5 +45,15 @@
   <% end %>
 </p>
 
+<p>
+  <strong>Members active:</strong></br>
+  <% @club.boxers.each do |b| %>
+    <% if b.active %>
+    <%= link_to ("#{b.first_name} #{b.last_name}"), boxer_path(b.id) %></br>
+    <% end %>
+  <% end %>
+  <%= link_to 'New Boxer', new_boxer_path %>
+</p>
+
 <%= link_to 'Edit', edit_club_path(@club) %> |
 <%= link_to 'Back', clubs_path %>
