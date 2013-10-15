@@ -1,18 +1,30 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
-
+  
   Inf = 1.0 / 0.0
   
   # GET /events
   # GET /events.json
   def index
     #@events = Event.all
-    today = Date.today
-    past = Date.parse("2013-01-01")
-    upcoming_dates = today..Inf
-    past_dates = past..(today - 1.day)    
-    @this_month = Date::MONTHNAMES[today.month]
-    @upcoming_events = Event.all.group("date").having("date >= ?", today)
+    #past = Date.parse("2013-01-01")
+    #upcoming_dates = today..Inf
+    #past_dates = past..(today - 1.day)
+    
+    if params[:date].nil?
+      @current_date = Date.today
+    else
+      @current_date = Date.parse(params[:date])
+    end
+    
+    @events = Event.by_date(@current_date) #.order('date')
+    
+    if !(params[:search].nil? or params[:search] == "")
+      @current_date = Date.today
+      @events = Event.search(params[:search])#.order('date')
+    end
+    
+    #@events = Event.search(params[:search], Date.today)  #.group("date").having("date >= ?", today)
   end
 
   # GET /events/1

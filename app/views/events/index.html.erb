@@ -1,5 +1,23 @@
 <h2>Events</h2>
 
+<%# form_tag events_path, :method => 'get' do %>
+  <p>
+    <%#= text_field_tag :search %>
+    <%#= submit_tag "Search" %>
+  </p>
+<%# end %>
+
+<%= form_tag calendar_path, :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+<% end %>
+
+<div>
+  <%= render 'calendar' %>
+</div>
+
 <table>
   <thead>
     <tr>
@@ -12,10 +30,7 @@
   </thead>
 
   <tbody>
-    <tr>
-      <td><%= @this_month %></td>
-    </tr>
-    <% @upcoming_events.each do |event| %>
+    <% @events.each do |event| %>
       <tr>
         <td><%= link_to event.title, event %></td>
         <td><%= event.address %></td>

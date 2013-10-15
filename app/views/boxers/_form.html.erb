@@ -21,7 +21,7 @@
   </div>
   <div class="field">
     <%= f.label :date_of_birth %><br>
-    <%= f.date_select :date_of_birth, :start_year => Date.current.year - 50 %>
+    <%= f.date_select :date_of_birth, :start_year => Date.current.year - 37, :end_year => Date.current.year %>
   </div>
   <div class="field">
     <%= f.label :weight %><br>
