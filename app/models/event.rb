@@ -10,7 +10,13 @@ class Event < ActiveRecord::Base
   
   
   def self.search(search)
-    find(:all, :conditions => ['title LIKE ?', "%#{search}%"])
+    club_id = 0
+    club = Club.where("name LIKE ?", "%#{search}%")
+    if !club.take.nil?
+      club_id = club.take.id
+    end
+    
+    find(:all, :conditions => ['title LIKE ? OR contact_name LIKE ? OR club_id = ?', "%#{search}%", "%#{search}%", club_id])
   end
   
   def self.find_upcoming

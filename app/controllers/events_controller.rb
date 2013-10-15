@@ -17,14 +17,13 @@ class EventsController < ApplicationController
       @current_date = Date.parse(params[:date])
     end
     
-    @events = Event.by_date(@current_date) #.order('date')
+    @events = Event.by_date(@current_date).sort! { |a,b| a.date <=> b.date }
     
     if !(params[:search].nil? or params[:search] == "")
       @current_date = Date.today
-      @events = Event.search(params[:search])#.order('date')
+      @events = Event.search(params[:search]).sort! { |a,b| a.date <=> b.date }
     end
     
-    #@events = Event.search(params[:search], Date.today)  #.group("date").having("date >= ?", today)
   end
 
   # GET /events/1
