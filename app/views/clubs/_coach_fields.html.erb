@@ -1,0 +1,9 @@
+<div class="fields">
+  <%= f.label :first_name %>
+  <%= f.text_field :first_name %>
+  <%= f.label :last_name %>
+  <%= f.text_field :last_name %>
+  
+  <%= f.hidden_field :_destroy, :id => "destroy" %>
+  <%= link_to "remove", "#", :onclick => "remove_element(this)" %>
+</div>

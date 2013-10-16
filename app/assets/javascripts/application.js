@@ -12,5 +12,21 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
+
 //= require_tree .
+
+  
+  function myFunction() {
+    alert("Hi");
+  }
+
+  function remove_element(link) {
+    //console.log($(link).prev().val());
+    //$(link).prev().val(true);
+    //$(link).parent().hide();
+    
+    $(link).prev("input[type=hidden]").val("1");
+    //$("#destroy").val(true);
+    $(link).closest(".fields").hide();
+  }
+    

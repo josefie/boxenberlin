@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131012212124) do
+ActiveRecord::Schema.define(version: 20131016141953) do
 
   create_table "boxers", force: true do |t|
     t.string   "first_name"
@@ -35,10 +35,17 @@ ActiveRecord::Schema.define(version: 20131012212124) do
     t.string   "zip"
     t.string   "city"
     t.string   "website"
-    t.text     "coaches"
     t.string   "contact_name"
     t.string   "contact_phone"
     t.string   "contact_mail"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "coaches", force: true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.integer  "club_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -66,6 +73,26 @@ ActiveRecord::Schema.define(version: 20131012212124) do
     t.float    "latitude"
     t.float    "longitude"
     t.integer  "club_id"
+  end
+
+  create_table "training_coaches", force: true do |t|
+    t.integer  "training_id"
+    t.integer  "coach_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "training_coaches", ["coach_id"], name: "index_training_coaches_on_coach_id"
+  add_index "training_coaches", ["training_id"], name: "index_training_coaches_on_training_id"
+
+  create_table "trainings", force: true do |t|
+    t.integer  "weekday"
+    t.datetime "time_start"
+    t.datetime "time_end"
+    t.text     "description"
+    t.integer  "club_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

@@ -4,15 +4,6 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Street</th>
-      <th>Street no</th>
-      <th>Zip</th>
-      <th>City</th>
-      <th>Website</th>
-      <th>Coaches</th>
-      <th>Contact name</th>
-      <th>Contact phone</th>
-      <th>Contact mail</th>
       <th></th>
       <th></th>
       <th></th>
@@ -23,15 +14,6 @@
     <% @clubs.each do |club| %>
       <tr>
         <td><%= club.name %></td>
-        <td><%= club.street %></td>
-        <td><%= club.street_no %></td>
-        <td><%= club.zip %></td>
-        <td><%= club.city %></td>
-        <td><%= club.website %></td>
-        <td><%= club.coaches %></td>
-        <td><%= club.contact_name %></td>
-        <td><%= club.contact_phone %></td>
-        <td><%= club.contact_mail %></td>
         <td><%= link_to 'Show', club %></td>
         <td><%= link_to 'Edit', edit_club_path(club) %></td>
         <td><%= link_to 'Destroy', club, method: :delete, data: { confirm: 'Are you sure?' } %></td>

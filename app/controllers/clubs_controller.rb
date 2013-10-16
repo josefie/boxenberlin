@@ -4,7 +4,7 @@ class ClubsController < ApplicationController
   # GET /clubs
   # GET /clubs.json
   def index
-    @clubs = Club.all
+    @clubs = Club.all.order("name")
   end
 
   # GET /clubs/1
@@ -15,16 +15,22 @@ class ClubsController < ApplicationController
   # GET /clubs/new
   def new
     @club = Club.new
+    3.times do
+      @club.coaches.build
+    end
   end
 
   # GET /clubs/1/edit
   def edit
+    3.times do
+      @club.coaches.build
+    end
   end
 
   # POST /clubs
   # POST /clubs.json
   def create
-    @club = Club.new(club_params)
+    @club = Club.new(new_club_params)
 
     respond_to do |format|
       if @club.save
@@ -70,5 +76,9 @@ class ClubsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def club_params
       params.require(:club).permit(:name, :street, :street_no, :zip, :city, :website, :coaches, :contact_name, :contact_phone, :contact_mail)
+    end
+    
+    def new_club_params
+      params.require(:club).permit(:name, :street, :street_no, :zip, :city, :website, :contact_name, :contact_phone, :contact_mail, coaches_attributes: [:id, :first_name, :last_name, :club_id])
     end
 end

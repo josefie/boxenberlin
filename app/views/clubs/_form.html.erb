@@ -32,12 +32,16 @@
     <%= f.text_field :city %>
   </div>
   <div class="field">
-    <%= f.label :website %><br>
-    <%= f.text_field :website %>
+    <%= f.label :coaches %><br>
+    
+    <%= f.fields_for :coaches do |builder| %>
+      <%= render "coach_fields", :f => builder %>
+    <% end %>
+    <%  %>
   </div>
   <div class="field">
-    <%= f.label :coaches %><br>
-    <%= f.text_area :coaches %>
+    <%= f.label :website %><br>
+    <%= f.text_field :website %>
   </div>
   <div class="field">
     <%= f.label :contact_name %><br>

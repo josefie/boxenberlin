@@ -1,4 +1,7 @@
 Boxenberlin::Application.routes.draw do
+
+  resources :trainings
+
   resources :boxers
 
   resources :clubs

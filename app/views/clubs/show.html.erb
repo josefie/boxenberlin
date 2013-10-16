@@ -19,22 +19,18 @@
 </p>
 
 <p>
-  <strong>Coaches:</strong>
-  <%= @club.coaches %>
+  <strong>Coaches:</strong></br>
+  <% @club.coaches.each do |e| %>
+    <%= "- #{e.first_name} #{e.last_name}" %></br>
+  <% end %>
 </p>
 
 <p>
-  <strong>Contact name:</strong>
-  <%= @club.contact_name %>
-</p>
-
-<p>
-  <strong>Contact phone:</strong>
-  <%= @club.contact_phone %>
-</p>
-
-<p>
-  <strong>Contact mail:</strong>
+  <strong>Contact:</strong></br>
+  <%= @club.contact_name %></br>
+  <span>Phone:</span>
+  <%= @club.contact_phone %></br>
+  <span>Mail:</span>
   <%= @club.contact_mail %>
 </p>
 
