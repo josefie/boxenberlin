@@ -26,6 +26,20 @@
 </p>
 
 <p>
+  <strong>Trainings:</strong></br>
+  <% @club.trainings.each do |t| %>
+    <p>
+    <strong><%= @weekdays[t.weekday] %></strong>
+    <%= t.time_start.strftime('%H:%M') %> to 
+    <%= t.time_end.strftime('%H:%M') %>
+    <% unless t.description.blank? %>
+      <%= "(#{t.description})" %>
+    <% end%>
+    </p>
+  <% end %>
+</p>
+
+<p>
   <strong>Contact:</strong></br>
   <%= @club.contact_name %></br>
   <span>Phone:</span>

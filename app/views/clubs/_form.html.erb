@@ -33,11 +33,27 @@
   </div>
   <div class="field">
     <%= f.label :coaches %><br>
-    
+    <%= link_to_add_fields("Add Coach", f, :coaches) %>
     <%= f.fields_for :coaches do |builder| %>
       <%= render "coach_fields", :f => builder %>
     <% end %>
-    <%  %>
+  </div>
+  <div class="field">
+    <%= f.label :trainings %><br>
+    <%= link_to "Add training", new_training_path(:club => @club.id) %>
+    
+    <% @club.trainings.each do |t| %>
+      <p>
+      <strong><%= @weekdays[t.weekday] %></strong>
+      <%= t.time_start.strftime('%H:%M') %> to 
+      <%= t.time_end.strftime('%H:%M') %>
+      <% unless t.description.blank? %>
+        <%= "(#{t.description})" %>
+      <% end %>
+      <%= link_to "Edit", edit_training_path(t.id) %>
+      <%= link_to "Delete", training_path(t.id), :method => :delete %></br>
+      </p>
+    <% end %>
   </div>
   <div class="field">
     <%= f.label :website %><br>

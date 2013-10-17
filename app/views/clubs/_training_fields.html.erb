@@ -1,0 +1,21 @@
+<div class="fields">
+  
+  <div class="field">
+    <%= f.label :weekday %><br>
+    <%= f.select :weekday, options_for_select(@weekdays, selected=@training.weekday) %>
+  </div>
+  <div class="field">
+    <%= f.label :time_start %><br>
+    <%= f.time_select :time_start %>
+  </div>
+  <div class="field">
+    <%= f.label :time_end %><br>
+    <%= f.time_select :time_end %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_area :description %>
+  </div>
+  
+  <%= link_to_remove_fields("Remove", f) %>
+</div>

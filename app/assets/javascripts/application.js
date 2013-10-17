@@ -21,12 +21,15 @@
   }
 
   function remove_element(link) {
-    //console.log($(link).prev().val());
-    //$(link).prev().val(true);
-    //$(link).parent().hide();
-    
+    event.preventDefault();
     $(link).prev("input[type=hidden]").val("1");
-    //$("#destroy").val(true);
     $(link).closest(".fields").hide();
   }
     
+  function add_elements(link, association, content) {
+    event.preventDefault();
+    var new_id = new Date().getTime();
+    var regexp = new RegExp("new_" + association, "g")
+    $(link).parent().append(content.replace(regexp, new_id));
+  }
+  

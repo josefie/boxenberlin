@@ -1,10 +1,8 @@
 class CreateTrainingCoaches < ActiveRecord::Migration
   def change
-    create_table :training_coaches do |t|
-      t.references :training, index: true
-      t.references :coach, index: true
-
-      t.timestamps
+    create_join_table :trainings, :coaches do |t|
+      t.index :training_id
+      t.index :coach_id
     end
   end
 end

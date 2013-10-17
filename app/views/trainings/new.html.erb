@@ -2,4 +2,8 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Back', trainings_path %>
+<% if !params[:club].nil? %>
+  <%= link_to 'Back', edit_club_path(params[:club]) %>
+<% else %>
+  <%= link_to 'Back', clubs_path %>
+<% end %>

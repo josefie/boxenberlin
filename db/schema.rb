@@ -50,6 +50,14 @@ ActiveRecord::Schema.define(version: 20131016141953) do
     t.datetime "updated_at"
   end
 
+  create_table "coaches_trainings", id: false, force: true do |t|
+    t.integer "training_id", null: false
+    t.integer "coach_id",    null: false
+  end
+
+  add_index "coaches_trainings", ["coach_id"], name: "index_coaches_trainings_on_coach_id"
+  add_index "coaches_trainings", ["training_id"], name: "index_coaches_trainings_on_training_id"
+
   create_table "events", force: true do |t|
     t.string   "title"
     t.date     "date"
@@ -74,16 +82,6 @@ ActiveRecord::Schema.define(version: 20131016141953) do
     t.float    "longitude"
     t.integer  "club_id"
   end
-
-  create_table "training_coaches", force: true do |t|
-    t.integer  "training_id"
-    t.integer  "coach_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "training_coaches", ["coach_id"], name: "index_training_coaches_on_coach_id"
-  add_index "training_coaches", ["training_id"], name: "index_training_coaches_on_training_id"
 
   create_table "trainings", force: true do |t|
     t.integer  "weekday"
