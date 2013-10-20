@@ -29,7 +29,7 @@
   <strong>Trainings:</strong></br>
   <% @club.trainings.each do |t| %>
     <p>
-    <strong><%= @weekdays[t.weekday] %></strong>
+    <%= weekdays.key(t.weekday) %>
     <%= t.time_start.strftime('%H:%M') %> to 
     <%= t.time_end.strftime('%H:%M') %>
     <% unless t.description.blank? %>

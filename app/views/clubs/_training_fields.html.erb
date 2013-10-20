@@ -2,7 +2,7 @@
   
   <div class="field">
     <%= f.label :weekday %><br>
-    <%= f.select :weekday, options_for_select(@weekdays, selected=@training.weekday) %>
+    <%= f.select :weekday, options_for_select(weekdays) %>
   </div>
   <div class="field">
     <%= f.label :time_start %><br>
