@@ -1,9 +1,0 @@
-<h1>New training</h1>
-
-<%= render 'form' %>
-
-<% if !params[:club].nil? %>
-  <%= link_to 'Back', edit_club_path(params[:club]) %>
-<% else %>
-  <%= link_to 'Back', clubs_path %>
-<% end %>
