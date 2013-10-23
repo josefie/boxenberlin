@@ -1,5 +1,7 @@
 <p id="notice"><%= notice %></p>
 
+<%= debug params %>
+
 <p>
   <strong><%= @event.title %></strong>
 </p>
@@ -18,22 +20,22 @@
 
 <p>
   <strong>Date:</strong>
-  <%= @event.date %>
+  <%= format_date(@event.date) %>
 </p>
 
 <p>
   <strong>Time start:</strong>
-  <%= @event.time_start %>
+  <%= format_time(@event.time_start) %>
 </p>
 
 <p>
   <strong>Time weighing:</strong>
-  <%= @event.time_weighing %>
+  <%= format_time(@event.time_weighing) %>
 </p>
 
 <p>
   <strong>Time doctor:</strong>
-  <%= @event.time_doctor %>
+  <%= format_time(@event.time_doctor) %>
 </p>
 
 <% if @event.contact_name_public %>
@@ -82,5 +84,7 @@
   <%= @event.admission_discounted %> €
 </p>
 
+<% if admin? %>
 <%= link_to 'Edit', edit_event_path(@event) %> |
+<% end %>
 <%= link_to 'Back', calendar_path(@event.date) %>

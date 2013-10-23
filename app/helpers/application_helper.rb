@@ -19,4 +19,12 @@ module ApplicationHelper
     weekdays
   end
   
+  def format_date(date)
+    date.strftime('%d.%m.%Y')
+  end
+  
+  def format_time(time)
+    time.strftime('%H:%M')
+  end
+  
 end

@@ -5,6 +5,7 @@ class Event < ActiveRecord::Base
   validates :title, presence: true
   validates :address, presence: true
   validates :club_id, presence: true
+  validates :date, presence: true
   
   belongs_to :club, :foreign_key => 'club_id'
   

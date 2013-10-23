@@ -21,7 +21,7 @@
 <p>
   <strong>Coaches:</strong></br>
   <% @club.coaches.each do |e| %>
-    <%= "- #{e.first_name} #{e.last_name}" %></br>
+    <%= "#{e.first_name} #{e.last_name}" %></br>
   <% end %>
 </p>
 
@@ -30,8 +30,8 @@
   <% @club.trainings.each do |t| %>
     <p>
     <%= weekdays.key(t.weekday) %>
-    <%= t.time_start.strftime('%H:%M') %> to 
-    <%= t.time_end.strftime('%H:%M') %>
+    <%= format_time(t.time_start) %> to 
+    <%= format_time(t.time_end) %>
     <% unless t.description.blank? %>
       <%= "(#{t.description})" %>
     <% end%>
@@ -53,17 +53,34 @@
   <% @club.events.each do |e| %>
     <%= link_to e.title, event_path(e.id) %></br>
   <% end %>
+  
+  <% if admin? %>
+  <%= link_to 'Add Event', new_event_path %>
+  <% end %>
 </p>
 
 <p>
-  <strong>Members active:</strong></br>
+  <strong>Members:</strong></br>
+  <% if admin? %>
   <% @club.boxers.each do |b| %>
     <% if b.active %>
-    <%= link_to ("#{b.first_name} #{b.last_name}"), boxer_path(b.id) %></br>
+    <%= link_to ("#{b.first_name} #{b.last_name}"), boxer_path(b.id), :class => "boxer_active" %>
+    <% else %>
+    <%= link_to ("#{b.first_name} #{b.last_name}"), boxer_path(b.id), :class => "boxer_inactive" %>
+    <% end %>
+    <%= link_to "Edit", edit_boxer_path(b.id) %></br>
+  <% end %>
+  <%= link_to 'Add Boxer', new_boxer_path %>
+  <% else %>
+  <% @club.boxers.each do |b| %>
+    <% if b.active %>
+    <%= "#{b.first_name} #{b.last_name}" %>
     <% end %>
   <% end %>
-  <%= link_to 'New Boxer', new_boxer_path %>
+  <% end %>
 </p>
 
+<% if admin? %>
 <%= link_to 'Edit', edit_club_path(@club) %> |
+<% end %>
 <%= link_to 'Back', clubs_path %>

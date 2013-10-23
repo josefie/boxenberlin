@@ -1,6 +1,7 @@
 class BoxersController < ApplicationController
   before_action :set_boxer, only: [:show, :edit, :update, :destroy]
-
+  before_action :authorize
+  
   # GET /boxers
   # GET /boxers.json
   def index

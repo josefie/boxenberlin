@@ -1,6 +1,10 @@
 Boxenberlin::Application.routes.draw do
 
-  resources :boxers
+  #get 'sessions/new' => 'sessions#new', as: :new_session
+
+  resources :sessions, :only => [:new, :create, :destroy]
+  
+  resources :boxers, :except => :index
 
   resources :clubs
 
@@ -15,7 +19,8 @@ Boxenberlin::Application.routes.draw do
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
   
-  get 'calendar/:date' => 'events#index', defaults: {date: Date.today}, as: :calendar
+  get 'calendar/(:date)' => 'events#index', defaults: {date: Date.today.to_s}, as: :calendar, 
+  constraints: { date: /\d{4}-\d{2}-\d{2}/ }
   
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase

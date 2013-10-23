@@ -1,25 +1,22 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
+  before_action :authorize, except: [:index, :show]
   
   Inf = 1.0 / 0.0
   
   # GET /events
   # GET /events.json
   def index
-    #@events = Event.all
-    #past = Date.parse("2013-01-01")
-    #upcoming_dates = today..Inf
-    #past_dates = past..(today - 1.day)
     
-    if params[:date].nil?
-      @current_date = Date.today
-    else
+    if params[:date]
       @current_date = Date.parse(params[:date])
+    else
+      @current_date = Date.today
     end
     
     @events = Event.by_date(@current_date).sort! { |a,b| a.date <=> b.date }
     
-    if !(params[:search].nil? or params[:search] == "")
+    if !(params[:search].nil? or params[:search])
       @current_date = Date.today
       @events = Event.search(params[:search]).sort! { |a,b| a.date <=> b.date }
     end
@@ -43,7 +40,7 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.json
   def create
-    @event = Event.new(event_params)    
+    @event = Event.new(event_params)
     respond_to do |format|
       if @event.save
         format.html { redirect_to @event, notice: 'Event was successfully created.' }

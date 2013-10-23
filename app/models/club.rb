@@ -9,8 +9,7 @@ class Club < ActiveRecord::Base
   
   validates :name, presence: true
   
-  
-  #arams = { club: { name: 'joe', coaches_attributes: [{ first_name: 'Test', last_name: 'Test' }] }}
-  #club = Club.create(params[:club])
+  has_secure_password
+  validates :password, presence: true, :on => :create
 
 end
