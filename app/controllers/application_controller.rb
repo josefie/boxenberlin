@@ -10,14 +10,22 @@ class ApplicationController < ActionController::Base
   end
   
   def admin?
-    false #TODO
+    false
   end
   
-  def authorize
-    unless admin?
+  def authorize    
+    unless current_user
       flash[:notice] = "Please log in to see this page."
       redirect_to new_session_path
       false
+    else
+      unless admin?
+        flash[:notice] = "You are not authorized to see this page."
+        false
+      else
+        flash[:notice] = "True."
+        true
+      end
     end
   end
   

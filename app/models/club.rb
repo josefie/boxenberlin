@@ -12,4 +12,11 @@ class Club < ActiveRecord::Base
   has_secure_password
   validates :password, presence: true, :on => :create
 
+  def admin?
+    false
+    if self.id == 0
+      true
+    end
+  end
+  
 end

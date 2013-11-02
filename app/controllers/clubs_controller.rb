@@ -1,6 +1,7 @@
 class ClubsController < ApplicationController
   before_action :set_club, only: [:show, :edit, :update, :destroy]
-  before_action :authorize, except: [:index, :show, :new, :create]
+  load_and_authorize_resource
+  #before_action :authorize, except: [:index, :show, :new, :create]
   #force_ssl
   
   # GET /clubs
