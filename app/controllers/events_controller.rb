@@ -1,11 +1,6 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource
-  #before_action :authorize
-  
-  #before_action except: [:index, :show, :new] do |controller|
-    #controller.send(:authorize, id: @event.club_id)
-  #end
   
   Inf = 1.0 / 0.0
   
