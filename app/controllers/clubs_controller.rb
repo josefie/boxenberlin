@@ -6,7 +6,7 @@ class ClubsController < ApplicationController
   # GET /clubs
   # GET /clubs.json
   def index
-    @clubs = Club.all.order("name")
+    @clubs = Club.all.order("zip")
   end
 
   # GET /clubs/1
@@ -17,7 +17,6 @@ class ClubsController < ApplicationController
   # GET /clubs/new
   def new
     @club = Club.new
-    
   end
 
   # GET /clubs/1/edit

@@ -1,0 +1,48 @@
+<h1><%= @club.name %></h1>
+
+<div>
+  <strong>Website:</strong>
+  <%= @club.website %>
+</div>
+
+<div>
+  <strong>Address:</strong></br>
+  <%= @club.street %>
+  <%= @club.street_no %></br>
+  <%= @club.zip %>
+  <%= @club.city %>
+</div>
+
+<div>
+  <%= image_tag "Map" %>
+</div>
+
+<div>
+  <strong>Coaches:</strong></br>
+  <% @club.coaches.each do |e| %>
+    <%= "#{e.first_name} #{e.last_name}" %></br>
+  <% end %>
+</div>
+
+<div>
+  <strong>Trainings:</strong></br>
+  <% @club.trainings.each do |t| %>
+    <p>
+    <%= weekdays.key(t.weekday) %>
+    <%= format_time(t.time_start) %> to 
+    <%= format_time(t.time_end) %>
+    <% unless t.description.blank? %>
+      <%= "(#{t.description})" %>
+    <% end%>
+    </p>
+  <% end %>
+</div>
+
+<div>
+  <strong>Contact:</strong></br>
+  <%= @club.contact_name %></br>
+  <span>Phone:</span>
+  <%= @club.contact_phone %></br>
+  <span>Mail:</span>
+  <%= @club.contact_mail %>
+</div>

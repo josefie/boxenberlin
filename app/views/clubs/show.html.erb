@@ -1,86 +1,15 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @club.name %>
-</p>
+<%= render 'clubs/info' %>
 
-<p>
-  <strong>Address:</strong></br>
-  <%= @club.street %>
-  <%= @club.street_no %></br>
-  <%= @club.zip %>
-  <%= @club.city %>
-</p>
-
-<p>
-  <strong>Website:</strong>
-  <%= @club.website %>
-</p>
-
-<p>
-  <strong>Coaches:</strong></br>
-  <% @club.coaches.each do |e| %>
-    <%= "#{e.first_name} #{e.last_name}" %></br>
-  <% end %>
-</p>
-
-<p>
-  <strong>Trainings:</strong></br>
-  <% @club.trainings.each do |t| %>
-    <p>
-    <%= weekdays.key(t.weekday) %>
-    <%= format_time(t.time_start) %> to 
-    <%= format_time(t.time_end) %>
-    <% unless t.description.blank? %>
-      <%= "(#{t.description})" %>
-    <% end%>
-    </p>
-  <% end %>
-</p>
-
-<p>
-  <strong>Contact:</strong></br>
-  <%= @club.contact_name %></br>
-  <span>Phone:</span>
-  <%= @club.contact_phone %></br>
-  <span>Mail:</span>
-  <%= @club.contact_mail %>
-</p>
-
-<p>
+<div>
   <strong>Events:</strong></br>
   <% @club.events.each do |e| %>
     <%= link_to e.title, event_path(e.id) %></br>
   <% end %>
-  
-  <% if admin? %>
-  <%= link_to 'Add Event', new_event_path %>
-  <% end %>
-</p>
+</div>
 
-<p>
-  <strong>Members:</strong></br>
-  <% if admin? %>
-  <% @club.boxers.each do |b| %>
-    <% if b.active %>
-    <%= link_to ("#{b.first_name} #{b.last_name}"), boxer_path(b.id), :class => "boxer_active" %>
-    <% else %>
-    <%= link_to ("#{b.first_name} #{b.last_name}"), boxer_path(b.id), :class => "boxer_inactive" %>
-    <% end %>
-    <%= link_to "Edit", edit_boxer_path(b.id) %></br>
-  <% end %>
-  <%= link_to 'Add Boxer', new_boxer_path %>
-  <% else %>
-  <% @club.boxers.each do |b| %>
-    <% if b.active %>
-    <%= "#{b.first_name} #{b.last_name}" %>
-    <% end %>
-  <% end %>
-  <% end %>
-</p>
-
-<% if admin? %>
+<% if can? :update, @club %>
 <%= link_to 'Edit', edit_club_path(@club) %> |
 <% end %>
 <%= link_to 'Back', clubs_path %>

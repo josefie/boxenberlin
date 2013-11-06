@@ -9,25 +9,25 @@ class ApplicationController < ActionController::Base
     @current_user ||= Club.find(session[:club_id]) if session[:club_id]
   end
   
-  def admin?
-    false
-  end
+  #def admin?
+    #false
+  #end
   
-  def authorize    
-    unless current_user
-      flash[:notice] = "Please log in to see this page."
-      redirect_to new_session_path
-      false
-    else
-      unless admin?
-        flash[:notice] = "You are not authorized to see this page."
-        false
-      else
-        flash[:notice] = "True."
-        true
-      end
-    end
-  end
+  #def authorize    
+    #unless current_user
+      #flash[:notice] = "Please log in to see this page."
+      #redirect_to new_session_path
+      #false
+    #else
+      #unless admin?
+        #flash[:notice] = "You are not authorized to see this page."
+        #false
+      #else
+        #flash[:notice] = "True."
+        #true
+      #end
+    #end
+  #end
   
   helper_method :current_user, :admin?
 

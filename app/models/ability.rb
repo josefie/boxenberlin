@@ -14,6 +14,10 @@ class Ability
         can [:update, :destroy], Club do |club|
           club.id == user.id
         end
+        can :create, Boxer
+        can [:update, :destroy], Boxer do |boxer|
+          boxer.club_id == user.id
+        end
       else #guest
         can :read, Event
         can [:read, :create], Club

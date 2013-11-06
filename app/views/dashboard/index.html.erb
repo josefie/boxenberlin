@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Dashboard</h1>
+
+<div>
+
+<ul class="nav">
+<li><%= link_to 'My Profile', my_profile_path(@club.id) %></li>
+<li><%= link_to 'My Events', my_events_path(@club.id) %></li>
+<li><%= link_to 'My Boxers', my_boxers_path(@club.id) %></li>
+</ul>
+
+
+
+</div>

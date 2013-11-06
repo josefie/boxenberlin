@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
     
     if club && club.authenticate(params[:password])
       session[:club_id] = club.id
-      redirect_to club_path(club.id), notice: 'Login successful.'
+      redirect_to dashboard_path(club.id), notice: 'Login successful.'
     else
       flash.now[:alert] = 'Invalid email or password.'
       render action: 'new'
