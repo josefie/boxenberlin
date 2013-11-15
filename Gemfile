@@ -44,6 +44,8 @@ gem "bcrypt-ruby", "~> 3.0.1"
 
 gem "cancan"
 
+gem 'email_validator'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

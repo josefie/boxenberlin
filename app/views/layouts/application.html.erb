@@ -29,7 +29,7 @@
   <ul class="nav">
     <li><%= link_to 'Home', root_path %></li>
     <% unless current_user.nil? %>
-      <li><%= link_to "#{current_user.name} (id=#{current_user.id})", dashboard_path(current_user) %>
+      <li><%= link_to "#{current_user.name} (id=#{current_user.id})", my_profile_path(current_user) %>
     <% end %>
     <li><%= link_to 'Calendar', calendar_path %></li>
     <li><%= link_to 'Clubs', clubs_path %></li>

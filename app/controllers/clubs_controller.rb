@@ -1,6 +1,6 @@
 class ClubsController < ApplicationController
   before_action :set_club, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource
+  load_and_authorize_resource :except => :create
   #force_ssl
   
   # GET /clubs
@@ -27,10 +27,13 @@ class ClubsController < ApplicationController
   # POST /clubs.json
   def create
     @club = Club.new(club_params)
-
+    
+    authorize! :create, @club
+    
     respond_to do |format|
       if @club.save
         format.html { redirect_to @club, notice: 'Signup successful.' }
+        session[:club_id] = @club.id #log in
         format.json { render action: 'show', status: :created, location: @club }
       else
         format.html { render action: 'new' }

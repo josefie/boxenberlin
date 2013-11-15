@@ -44,6 +44,8 @@ GEM
       execjs
     coffee-script-source (1.6.3)
     diff-lcs (1.2.4)
+    email_validator (1.4.0)
+      activemodel
     erubis (2.7.0)
     execjs (2.0.0)
     geocoder (1.1.8)
@@ -141,6 +143,7 @@ DEPENDENCIES
   cancan
   capybara
   coffee-rails (~> 4.0.0)
+  email_validator
   geocoder
   jbuilder (~> 1.2)
   jquery-rails

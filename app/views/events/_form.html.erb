@@ -25,7 +25,7 @@
 
   <div class="field">
     <%= f.label :date %><br>
-    <%= f.date_field :date, :value => Date.today.to_s %>
+    <%= f.date_field :date, "value" => Time.now.to_date.to_s %>
   </div>
   <div class="field">
     <%= f.label :time_start %><br>

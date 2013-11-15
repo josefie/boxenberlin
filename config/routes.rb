@@ -22,7 +22,6 @@ Boxenberlin::Application.routes.draw do
   get 'calendar/(:date)' => 'events#index', defaults: {date: Date.today.to_s}, as: :calendar, 
   constraints: { date: /\d{4}-\d{2}-\d{2}/ }
   
-  get 'dashboard/:id' => 'dashboard#index', as: :dashboard
   get 'dashboard/:id/profile' => 'dashboard#profile', as: :my_profile
   get 'dashboard/:id/events' => 'dashboard#events', as: :my_events
   get 'dashboard/:id/boxers' => 'dashboard#boxers', as: :my_boxers

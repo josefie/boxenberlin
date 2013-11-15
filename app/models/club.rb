@@ -8,8 +8,9 @@ class Club < ActiveRecord::Base
   accepts_nested_attributes_for :trainings, allow_destroy: true, reject_if: proc { |a| a['weekday'].blank? }
   
   validates :name, presence: true
-  validates :email, presence: true
-  validates :email, uniqueness: true
+  validates :contact_mail, presence: true
+  validates :contact_mail, uniqueness: true
+  validates :contact_mail, email: true
   
   has_secure_password
   validates :password, presence: true, :on => :create
