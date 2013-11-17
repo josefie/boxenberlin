@@ -7,8 +7,6 @@
       <th>PLZ</th>
       <th>Ort</th>
       <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
 
@@ -19,12 +17,6 @@
         <td><%= club.zip %></td>
         <td><%= club.city %></td>
         <td><%= link_to 'Show', club %></td>
-        <% if can? :update, club %>
-          <td><%= link_to 'Edit', edit_club_path(club) %></td>
-        <% end %>
-        <% if can? :destroy, club %>
-          <td><%= link_to 'Destroy', club, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
       </tr>
     <% end %>
   </tbody>

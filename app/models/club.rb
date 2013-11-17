@@ -23,7 +23,7 @@ class Club < ActiveRecord::Base
   end
   
   def get_events
-    Event.find(:all, :conditions => ['club_id == ?', self.id])
+    Event.find(:all, :conditions => ['club_id == ?', self.id]) # or boxers participating the event
   end
   
   def get_boxers

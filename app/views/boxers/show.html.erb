@@ -1,5 +1,12 @@
 <p id="notice"><%= notice %></p>
 
+<% if can? :update, @boxer %>
+  <%= link_to 'Edit', edit_boxer_path(@boxer) %>
+<% end %>
+<% if can? :destroy, @boxer %>
+  <%= link_to 'Destroy', @boxer, method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>
+
 <p>
   <strong>First name:</strong>
   <%= @boxer.first_name %>
@@ -53,6 +60,3 @@
   <strong>Club:</strong>
   <%= @boxer.club.name %>
 </p>
-
-<%= link_to 'Edit', edit_boxer_path(@boxer) %> |
-<%= link_to 'Back', club_path(@boxer.club.id) %>

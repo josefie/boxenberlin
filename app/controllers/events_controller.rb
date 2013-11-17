@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource
+  #load_and_authorize_resource
   
   Inf = 1.0 / 0.0
   
@@ -16,7 +16,7 @@ class EventsController < ApplicationController
     
     @events = Event.by_date(@current_date).sort! { |a,b| a.date <=> b.date }
     
-    if !(params[:search].nil? or params[:search])
+    if !(params[:search].nil?)
       @current_date = Date.today
       @events = Event.search(params[:search]).sort! { |a,b| a.date <=> b.date }
     end
@@ -31,16 +31,19 @@ class EventsController < ApplicationController
   # GET /events/new
   def new
     @event = Event.new
+    authorize! :create, @event
   end
 
   # GET /events/1/edit
   def edit
+    authorize! :update, @event
   end
 
   # POST /events
   # POST /events.json
   def create
     @event = Event.new(event_params)
+    authorize! :create, @event
     respond_to do |format|
       if @event.save
         format.html { redirect_to @event, notice: 'Event was successfully created.' }
@@ -55,6 +58,7 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1
   # PATCH/PUT /events/1.json
   def update    
+    authorize! :update, @event
     respond_to do |format|
       if @event.update(event_params)
         format.html { redirect_to @event, notice: 'Event was successfully updated.' }
@@ -69,6 +73,7 @@ class EventsController < ApplicationController
   # DELETE /events/1
   # DELETE /events/1.json
   def destroy
+    authorize! :destroy, @event
     @event.destroy
     respond_to do |format|
       format.html { redirect_to calendar_url(@event.date) }

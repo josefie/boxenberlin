@@ -47,7 +47,7 @@ class ClubsController < ApplicationController
   def update
     respond_to do |format|
       if @club.update(club_params)
-        format.html { redirect_to @club, notice: 'Club was successfully updated.' }
+        format.html { redirect_to my_profile_path(@club), notice: 'Club was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

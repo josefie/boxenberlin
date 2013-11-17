@@ -1,5 +1,13 @@
 <p id="notice"><%= notice %></p>
 
+<% if can? :update, @event %>
+<%= link_to 'Edit', edit_event_path(@event) %>
+<% end %>
+
+<% if can? :destroy, @event %>
+  <%= link_to 'Destroy', @event, method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>
+
 <p>
   <strong><%= @event.title %></strong>
 </p>
@@ -81,8 +89,3 @@
   <strong>Admission discounted:</strong>
   <%= @event.admission_discounted %> €
 </p>
-
-<% if can? :update, @event %>
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<% end %>
-<%= link_to 'Back', calendar_path(@event.date) %>
