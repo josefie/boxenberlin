@@ -1,0 +1,7 @@
+<% if can? :create, Event %>
+  <%= link_to 'Add event', new_event_path %>
+<% end %>
+
+<div>
+  <%= render 'events/list' %>
+</div>

@@ -1,6 +1,6 @@
 class ClubsController < ApplicationController
   before_action :set_club, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource :except => :create
+  #load_and_authorize_resource :except => [:create, :my_profile]
   #force_ssl
   
   # GET /clubs
@@ -17,19 +17,19 @@ class ClubsController < ApplicationController
   # GET /clubs/new
   def new
     @club = Club.new
+    authorize! :create, @club
   end
 
   # GET /clubs/1/edit
   def edit
+    authorize! :update, @club
   end
 
   # POST /clubs
   # POST /clubs.json
   def create
     @club = Club.new(club_params)
-    
     authorize! :create, @club
-    
     respond_to do |format|
       if @club.save
         format.html { redirect_to @club, notice: 'Signup successful.' }
@@ -45,6 +45,7 @@ class ClubsController < ApplicationController
   # PATCH/PUT /clubs/1
   # PATCH/PUT /clubs/1.json
   def update
+    authorize! :update, @club
     respond_to do |format|
       if @club.update(club_params)
         format.html { redirect_to my_profile_path(@club), notice: 'Club was successfully updated.' }
@@ -59,6 +60,7 @@ class ClubsController < ApplicationController
   # DELETE /clubs/1
   # DELETE /clubs/1.json
   def destroy
+    authorize! :destroy, @club
     @club.destroy
     respond_to do |format|
       format.html { redirect_to clubs_url }
@@ -66,6 +68,14 @@ class ClubsController < ApplicationController
     end
   end
 
+  def my_profile
+    if current_user then
+      @club = current_user and return
+    else
+      redirect_to new_session_path
+    end
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_club

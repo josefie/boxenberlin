@@ -80,6 +80,16 @@ class EventsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def my_events
+    if current_user then
+      @club = current_user
+      @events = current_user.get_events
+      return
+    else
+      redirect_to new_session_path
+    end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

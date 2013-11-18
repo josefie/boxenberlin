@@ -7,12 +7,12 @@ class Ability
     else
       if user #logged in
         can :read, :all
+        can :crud, Club do |club|
+          club.id == user.id
+        end
         can :create, Event
         can [:update, :destroy], Event do |event|
           event.club_id == user.id
-        end
-        can [:update, :destroy], Club do |club|
-          club.id == user.id
         end
         can :create, Boxer
         can [:update, :destroy], Boxer do |boxer|

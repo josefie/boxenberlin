@@ -1,6 +1,6 @@
 class BoxersController < ApplicationController
   before_action :set_boxer, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource
+  load_and_authorize_resource except: [:create, :my_boxers]
   
   # GET /boxers
   # GET /boxers.json
@@ -16,17 +16,19 @@ class BoxersController < ApplicationController
   # GET /boxers/new
   def new
     @boxer = Boxer.new
+    authorize! :create, @boxer
   end
 
   # GET /boxers/1/edit
   def edit
+    authorize! :update, @boxer
   end
 
   # POST /boxers
   # POST /boxers.json
   def create
     @boxer = Boxer.new(boxer_params)
-
+    authorize! :create, @boxer
     respond_to do |format|
       if @boxer.save
         format.html { redirect_to @boxer, notice: 'Boxer was successfully created.' }
@@ -41,6 +43,7 @@ class BoxersController < ApplicationController
   # PATCH/PUT /boxers/1
   # PATCH/PUT /boxers/1.json
   def update
+    authorize! :update, @boxer
     respond_to do |format|
       if @boxer.update(boxer_params)
         format.html { redirect_to @boxer, notice: 'Boxer was successfully updated.' }
@@ -55,10 +58,21 @@ class BoxersController < ApplicationController
   # DELETE /boxers/1
   # DELETE /boxers/1.json
   def destroy
+    authorize! :destroy, @boxer
     @boxer.destroy
     respond_to do |format|
       format.html { redirect_to boxers_url }
       format.json { head :no_content }
+    end
+  end
+  
+  def my_boxers
+    if current_user then
+      @club = current_user
+      @boxers = current_user.get_boxers
+      return
+    else
+      redirect_to new_session_path
     end
   end
 

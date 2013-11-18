@@ -17,12 +17,6 @@
         <td><%= image_tag "http://maps.google.com/maps/api/staticmap?size=80x80&sensor=false&zoom=11&markers=#{event.latitude}%2C#{event.longitude}" %></td>
         <td><%= event.date %></td>
         <td><%= unless event.club.nil? then event.club.name end %></td>
-        <% if can? :update, event %>
-          <td><%= link_to 'Edit', edit_event_path(event) %></td>
-        <% end %>
-        <% if can? :destroy, event %>
-          <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
       </tr>
     <% end %>
   </tbody>

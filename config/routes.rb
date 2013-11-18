@@ -3,12 +3,12 @@ Boxenberlin::Application.routes.draw do
   #get 'sessions/new' => 'sessions#new', as: :new_session
 
   resources :sessions, :only => [:new, :create, :destroy]
-  
-  resources :boxers, :except => :index
 
   resources :clubs
 
   resources :events, :except => :index
+  
+  resources :boxers, :except => :index
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -22,9 +22,15 @@ Boxenberlin::Application.routes.draw do
   get 'calendar/(:date)' => 'events#index', defaults: {date: Date.today.to_s}, as: :calendar, 
   constraints: { date: /\d{4}-\d{2}-\d{2}/ }
   
-  get 'dashboard/:id/profile' => 'dashboard#profile', as: :my_profile
-  get 'dashboard/:id/events' => 'dashboard#events', as: :my_events
-  get 'dashboard/:id/boxers' => 'dashboard#boxers', as: :my_boxers
+  get 'profile' => 'clubs#my_profile', as: :my_profile
+  get 'events' => 'events#my_events', as: :my_events
+  get 'boxers' => 'boxers#my_boxers', as: :my_boxers
+  
+  #resources :clubs do
+    #resources :events
+    #resources :boxers
+  #end
+  
   
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase

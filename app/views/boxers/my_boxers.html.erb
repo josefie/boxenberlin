@@ -1,0 +1,7 @@
+<% if can? :create, Boxer %>
+  <%= link_to 'Add boxer', new_boxer_path %>
+<% end %>
+
+<div>
+  <%= render 'boxers/list' %>
+</div>

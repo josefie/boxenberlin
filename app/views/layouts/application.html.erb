@@ -26,16 +26,16 @@
   
   <%= debug params %>
   
-  <ul class="nav">
+  <ul id="main-nav" class="nav">
     <li><%= link_to 'Home', root_path %></li>
     <% unless current_user.nil? %>
-      <li><%= link_to "#{current_user.name} (id=#{current_user.id})", my_profile_path(current_user) %>
+      <li><%= link_to "#{current_user.name} (id=#{current_user.id})", my_profile_path %>
     <% end %>
     <li><%= link_to 'Calendar', calendar_path %></li>
     <li><%= link_to 'Clubs', clubs_path %></li>
   </ul>
   
-  <ul class="nav">
+  <ul id="second-nav" class="nav">
     <% if current_user.nil? %>
     <li><%= link_to 'Sign up', new_club_path %></li>
     <li><%= link_to 'Login', new_session_path %></li>
@@ -43,6 +43,16 @@
       <li><%= link_to 'Logout', session_path(current_user), method: :delete %></li>
     <% end %>
   </ul>
+  
+  <% if current_user %>
+  <div>
+  <strong>Dashboard</strong>
+  <ul id="dashboard-nav" class="nav">
+    <li><%= link_to 'My Profile', my_profile_path %></li>
+    <li><%= link_to 'My Events', my_events_path %></li>
+    <li><%= link_to 'My Boxers', my_boxers_path %></li>
+  </ul>
+  <% end %>
   
   <% if !flash.empty? %>
     <div id="flash">

@@ -1,0 +1,8 @@
+<% if can? :crud, @club %>
+  <%= link_to 'Edit profile', edit_club_path(@club) %> |
+  <%= link_to 'Delete profile', @club, method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>
+
+<div>
+  <%= render 'clubs/info' %>
+</div>
