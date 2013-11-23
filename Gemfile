@@ -46,6 +46,8 @@ gem "cancan"
 
 gem 'email_validator'
 
+gem "combined_time_select", "~> 1.0.1"
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

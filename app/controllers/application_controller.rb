@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   private
 
   def current_user
+    #session[:club_id] = nil
     @current_user ||= Club.find(session[:club_id]) if session[:club_id]
   end
   

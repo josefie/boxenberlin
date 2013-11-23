@@ -32,7 +32,7 @@ class ClubsController < ApplicationController
     authorize! :create, @club
     respond_to do |format|
       if @club.save
-        format.html { redirect_to @club, notice: 'Signup successful.' }
+        format.html { redirect_to my_profile_path(@club), notice: 'Signup successful.' }
         session[:club_id] = @club.id #log in
         format.json { render action: 'show', status: :created, location: @club }
       else
@@ -62,8 +62,9 @@ class ClubsController < ApplicationController
   def destroy
     authorize! :destroy, @club
     @club.destroy
+    session[:club_id] = nil
     respond_to do |format|
-      format.html { redirect_to clubs_url }
+      format.html { redirect_to root_url, notice: 'Your club profile was successfully deleted.' }
       format.json { head :no_content }
     end
   end

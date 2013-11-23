@@ -2,7 +2,7 @@ Boxenberlin::Application.routes.draw do
 
   #get 'sessions/new' => 'sessions#new', as: :new_session
 
-  resources :sessions, :only => [:new, :create, :destroy]
+  resources :sessions, :only => [:new, :create, :destroy]  
 
   resources :clubs
 

@@ -1,5 +1,5 @@
 class Club < ActiveRecord::Base
-  has_many :events
+  has_many :events, :dependent => :destroy
   has_many :trainings, :dependent => :destroy
   has_many :boxers, :dependent => :destroy
   has_many :coaches, :dependent => :destroy
