@@ -1,4 +1,4 @@
-class CreateTrainingCoaches < ActiveRecord::Migration
+class CreateTrainingsCoaches < ActiveRecord::Migration
   def change
     create_join_table :trainings, :coaches do |t|
       t.index :training_id

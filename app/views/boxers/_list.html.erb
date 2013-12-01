@@ -1,37 +1,28 @@
 <table>
   <thead>
     <tr>
-      <th>First name</th>
-      <th>Last name</th>
-      <th>Date of birth</th>
+      <th>Performance Class</th>
+      <th>Name</th>
       <th>Weight</th>
-      <th>Fights won</th>
-      <th>Fights lost</th>
-      <th>Fights drawn</th>
-      <th>Gender</th>
-      <th>Active</th>
-      <th>Club</th>
-      <th></th>
-      <th></th>
+      <th>Fights (w/l/d)</th>
       <th></th>
     </tr>
   </thead>
-
+  
   <tbody>
     <% @boxers.each do |boxer| %>
-      <tr>
-        <td><%= boxer.first_name %></td>
-        <td><%= boxer.last_name %></td>
-        <td><%= boxer.date_of_birth %></td>
-        <td><%= boxer.weight %></td>
-        <td><%= boxer.fights_won %></td>
-        <td><%= boxer.fights_lost %></td>
-        <td><%= boxer.fights_drawn %></td>
-        <td><%= boxer.gender %></td>
-        <td><%= boxer.active %></td>
-        <td><%= boxer.club_id %></td>
-        <td><%= link_to 'Show', boxer %></td>
-      </tr>
+      <% if boxer.active then %>
+        <tr class="active">
+      <% else %>
+        <tr class="inactive">
+      <% end %>
+      <td><%= boxer.performance_class.title %></td>
+      <td><%= boxer.first_name %>
+      <%= boxer.last_name %></td>
+      <td><%= boxer.weight.to_i %> kg</td>
+      <td><%= "#{boxer.fights_won}/#{boxer.fights_lost}/#{boxer.fights_drawn}" %></td>
+      <td><%= link_to 'Show', boxer %></td>
+    </tr>
     <% end %>
   </tbody>
 </table>

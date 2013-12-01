@@ -29,6 +29,7 @@ class BoxersController < ApplicationController
   def create
     @boxer = Boxer.new(boxer_params)
     authorize! :create, @boxer
+    @boxer.classify
     respond_to do |format|
       if @boxer.save
         format.html { redirect_to @boxer, notice: 'Boxer was successfully created.' }
@@ -44,6 +45,7 @@ class BoxersController < ApplicationController
   # PATCH/PUT /boxers/1.json
   def update
     authorize! :update, @boxer
+    @boxer.classify
     respond_to do |format|
       if @boxer.update(boxer_params)
         format.html { redirect_to @boxer, notice: 'Boxer was successfully updated.' }
@@ -84,6 +86,7 @@ class BoxersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def boxer_params
-      params.require(:boxer).permit(:first_name, :last_name, :date_of_birth, :weight, :fights_won, :fights_lost, :fights_drawn, :gender, :active, :club_id)
+      params.require(:boxer).permit(:first_name, :last_name, :date_of_birth, :weight, :fights_won, :fights_lost, :fights_drawn, :gender, :active, 
+      :club_id, :age_class_id, :weight_class_id)
     end
 end

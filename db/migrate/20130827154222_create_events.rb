@@ -3,9 +3,9 @@ class CreateEvents < ActiveRecord::Migration
     create_table :events do |t|
       t.string :title
       t.date :date
-      t.datetime :time_start
-      t.datetime :time_weighing
-      t.datetime :time_doctor
+      t.time :time_start
+      t.time :time_weighing
+      t.time :time_doctor
       t.string :contact_name
       t.string :contact_phone
       t.string :contact_mail

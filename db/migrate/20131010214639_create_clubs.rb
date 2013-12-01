@@ -7,7 +7,6 @@ class CreateClubs < ActiveRecord::Migration
       t.string :zip
       t.string :city
       t.string :website
-      t.text :coaches
       t.string :contact_name
       t.string :contact_phone
       t.string :contact_mail

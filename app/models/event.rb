@@ -6,9 +6,10 @@ class Event < ActiveRecord::Base
   validates :address, presence: true
   validates :club_id, presence: true
   validates :date, presence: true
+  validates :time_start, presence: true
   
   belongs_to :club, :foreign_key => 'club_id'
-  
+  has_and_belongs_to_many :performance_classes
   
   def self.search(search)
     club_id = 0

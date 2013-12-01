@@ -32,16 +32,6 @@
   <%= format_time(@event.time_start) %>
 </p>
 
-<p>
-  <strong>Time weighing:</strong>
-  <%= format_time(@event.time_weighing) %>
-</p>
-
-<p>
-  <strong>Time doctor:</strong>
-  <%= format_time(@event.time_doctor) %>
-</p>
-
 <% if @event.contact_name_public %>
 <p>
   <strong>Contact name:</strong>
@@ -86,4 +76,11 @@
 <p>
   <strong>Admission discounted:</strong>
   <%= @event.admission_discounted %> €
+</p>
+
+<p>
+  <strong>Performance Classes:</strong></br>
+  <% @event.performance_classes.each do |pc| %>
+    <%= pc.title %></br>
+  <% end %>
 </p>

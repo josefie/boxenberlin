@@ -1,0 +1,8 @@
+<p>
+  <strong>Alle Altersklassen:</strong>
+  <ul>
+  <% PerformanceClass.all.each do |pc| %>
+  <li><%= pc.title %>: <%= pc.age_min %> bis <%= pc.age_max %></li>
+  <% end %>
+  </ul>
+</p>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131022153326) do
+ActiveRecord::Schema.define(version: 20131201164549) do
 
   create_table "boxers", force: true do |t|
     t.string   "first_name"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20131022153326) do
     t.integer  "club_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "performance_class_id"
   end
 
   create_table "clubs", force: true do |t|
@@ -62,6 +63,7 @@ ActiveRecord::Schema.define(version: 20131022153326) do
   create_table "events", force: true do |t|
     t.string   "title"
     t.date     "date"
+    t.time     "time_start"
     t.time     "time_weighing"
     t.time     "time_doctor"
     t.string   "contact_name"
@@ -74,7 +76,6 @@ ActiveRecord::Schema.define(version: 20131022153326) do
     t.decimal  "admission_discounted"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.time     "time_start"
     t.boolean  "contact_name_public"
     t.boolean  "contact_phone_public"
     t.boolean  "contact_mail_public"
@@ -82,6 +83,27 @@ ActiveRecord::Schema.define(version: 20131022153326) do
     t.float    "latitude"
     t.float    "longitude"
     t.integer  "club_id"
+    t.decimal  "fee"
+    t.boolean  "approved"
+  end
+
+  create_table "events_performance_classes", id: false, force: true do |t|
+    t.integer "event_id",             null: false
+    t.integer "performance_class_id", null: false
+  end
+
+  add_index "events_performance_classes", ["event_id"], name: "index_events_performance_classes_on_event_id"
+  add_index "events_performance_classes", ["performance_class_id"], name: "index_events_performance_classes_on_performance_class_id"
+
+  create_table "performance_classes", force: true do |t|
+    t.string   "title"
+    t.integer  "age_min"
+    t.integer  "age_max"
+    t.integer  "weight_min"
+    t.integer  "weight_max"
+    t.boolean  "gender"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "trainings", force: true do |t|
