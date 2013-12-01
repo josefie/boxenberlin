@@ -6,10 +6,13 @@ class Event < ActiveRecord::Base
   validates :address, presence: true
   validates :club_id, presence: true
   validates :date, presence: true
-  validates :time_start, presence: true
+  #validates :schedule_items, presence: true # todo: at least 1
   
   belongs_to :club, :foreign_key => 'club_id'
   has_and_belongs_to_many :performance_classes
+  has_many :schedule_items
+  
+  accepts_nested_attributes_for :schedule_items, allow_destroy: true#, reject_if: proc { |a| a['time'].nil? }
   
   def self.search(search)
     club_id = 0

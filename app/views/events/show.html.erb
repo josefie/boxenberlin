@@ -28,8 +28,11 @@
 </p>
 
 <p>
-  <strong>Time start:</strong>
-  <%= format_time(@event.time_start) %>
+  <strong>Schedule:</strong></br>
+  <% @event.schedule_items.each do |si| %>
+    <%= si.label %>:
+    <%= format_time(si.time) %></br>
+  <% end %>
 </p>
 
 <% if @event.contact_name_public %>
