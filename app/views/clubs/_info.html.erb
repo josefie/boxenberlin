@@ -61,7 +61,9 @@
     Keine Veranstaltungen in nächster Zeit.
   <% else %>
   <% @club.events.each do |e| %>
-    <%= link_to e.title, event_path(e.id) %></br>
+    <% if e.approved %>
+      <%= link_to e.title, event_path(e.id) %></br>
+    <% end %>
   <% end %>
   <% end %>
 </div>
