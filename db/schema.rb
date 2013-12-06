@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131201210256) do
+ActiveRecord::Schema.define(version: 20131201213843) do
 
   create_table "boxers", force: true do |t|
     t.string   "first_name"
@@ -112,11 +112,17 @@ ActiveRecord::Schema.define(version: 20131201210256) do
   end
 
   create_table "trainings", force: true do |t|
-    t.integer  "weekday"
     t.datetime "time_start"
     t.datetime "time_end"
     t.text     "description"
     t.integer  "club_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "weekday_id"
+  end
+
+  create_table "weekdays", force: true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -1,25 +1,21 @@
-<h2>Clubs</h2>
+<h2><%= t(:club, count: 2) %></h2>
 
 <table>
   <thead>
     <tr>
-      <th>Name</th>
-      <th>PLZ</th>
-      <th>Ort</th>
-      <th></th>
+      <th><%= t(:name) %></th>
+      <th><%= t(:zip) %></th>
+      <th><%= t(:city) %></th>
     </tr>
   </thead>
 
   <tbody>
     <% @clubs.each do |club| %>
       <tr>
-        <td><%= club.name %></td>
+        <td><%= link_to club.name, club %></td>
         <td><%= club.zip %></td>
         <td><%= club.city %></td>
-        <td><%= link_to 'Show', club %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>

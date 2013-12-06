@@ -21,10 +21,10 @@ clubs = Club.create([
 events = Event.create([
   
   # Beispielveranstaltungen
-  { title: 'Boxevent Neukölln', address: 'Berlin Neukölln', date: Date.parse("2013-12-10"), time_start: Time.parse("14:00:00 GMT"), club_id: 1 }, 
-  { title: 'Juliusturmpokalturnier', address: 'Berlin Spandau', date: Date.parse("2014-02-01"), time_start: Time.parse("10:00:00 GMT"), club_id: 3 }, 
-  { title: 'Berliner Meisterschaft', address: 'Berlin Spandau', date: Date.parse("2013-12-15"), time_start: Time.parse("11:00:00 GMT"), club_id: 3 }, 
-  { title: 'Johann Trollmann Boxturnier', address: 'Berlin Kreuzberg', date: Date.today, time_start: Time.parse("13:00:00 GMT"), club_id: 5 }
+  { title: 'Boxevent Neukölln', address: 'Berlin Neukölln', date: Date.parse("2013-12-10"), club_id: 1 }, 
+  { title: 'Juliusturmpokalturnier', address: 'Berlin Spandau', date: Date.parse("2014-02-01"), club_id: 3 }, 
+  { title: 'Berliner Meisterschaft', address: 'Berlin Spandau', date: Date.parse("2013-12-15"), club_id: 3 }, 
+  { title: 'Johann Trollmann Boxturnier', address: 'Berlin Kreuzberg', date: Date.today, club_id: 5 }
   
   ])
   
@@ -70,7 +70,19 @@ age_classes_6 = PerformanceClass.create([
   
 ######
 
+### WEEKDAYS ###
 
+weekdays = Weekday.create([
+  { name: I18n.t(:mon) },
+  { name: I18n.t(:tue) },
+  { name: I18n.t(:wed) },
+  { name: I18n.t(:thu) },
+  { name: I18n.t(:fri) },
+  { name: I18n.t(:sat) },
+  { name: I18n.t(:sun) }
+  ])
+
+######
 
 
 

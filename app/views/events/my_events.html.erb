@@ -1,5 +1,7 @@
+<h2>Meine <%= t(:event, count: 2) %></h2>
+
 <% if can? :create, Event %>
-  <%= link_to 'Add event', new_event_path %>
+  <%= link_to "#{t(:event, count: 1)} hinzufügen", new_event_path %>
 <% end %>
 
 <div>

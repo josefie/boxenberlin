@@ -12,56 +12,53 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br>
+  <%= f.label t(:name) %><br>
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :street %><br>
+  <%= f.label t(:street) %><br>
     <%= f.text_field :street %>
   </div>
   <div class="field">
-    <%= f.label :street_no %><br>
+  <%= f.label t(:street_no) %><br>
     <%= f.number_field :street_no %>
   </div>
   <div class="field">
-    <%= f.label :zip %><br>
+  <%= f.label t(:zip) %><br>
     <%= f.text_field :zip %>
   </div>
   <div class="field">
-    <%= f.label :city %><br>
+  <%= f.label t(:city) %><br>
     <%= f.text_field :city %>
   </div>
   <div class="field">
-    <%= f.label :coaches %><br>
-    <%= link_to_add_fields("Add Coach", f, :coaches) %>
+  <%= f.label t(:coach) %><br>
+    <%= link_to_add_fields("Trainer hinzufügen", f, :coaches) %>
     <%= f.fields_for :coaches do |builder| %>
       <%= render "coach_fields", :f => builder %>
     <% end %>
   </div>
   <div class="field">
-    <%= f.label :trainings %><br>
-    <%= link_to_add_fields("Add Training", f, :trainings) %>
+    <%= f.label t(:training) %><br>
+    <%= link_to_add_fields("Training hinzufügen", f, :trainings) %>
     <%= f.fields_for :trainings do |builder| %>
       <%= render "training_fields", :f => builder %>
     <% end %>
   </div>
   <div class="field">
-    <%= f.label :website %><br>
+    <%= f.label t(:website) %><br>
     <%= f.text_field :website %>
   </div>
   <div class="field">
-    <%= f.label :contact_name %><br>
-    <%= f.text_field :contact_name %>
-  </div>
-  <div class="field">
-    <%= f.label :contact_phone %><br>
-    <%= f.text_field :contact_phone %>
-  </div>
-  <div class="field">
-    <%= f.label :contact_mail %><br>
+    <%= f.label t(:contact) %><br>
+    <%= f.label t(:name) %>
+    <%= f.text_field :contact_name %><br>
+    <%= f.label t(:phone) %>
+    <%= f.text_field :contact_phone %><br>
+    <%= f.label t(:mail) %>
     <%= f.text_field :contact_mail %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit t(:save) %>
   </div>
 <% end %>

@@ -1,12 +1,19 @@
-<h1><%= @club.name %></h1>
+<h2><%= @club.name %></h2>
+
+<% if can? :update, @club %>
+  <%= link_to "#{t(:profile)} bearbeiten", edit_club_path(@club) %>
+<% end %>
+<% if can? :destroy, @club %>
+  | <%= link_to "#{t(:profile)} löschen", @club, method: :delete, data: { confirm: t(:confirm_delete_profile) } %>
+<% end %>
 
 <div>
-  <strong>Website:</strong>
+  <strong><%= t(:website) %>:</strong>
   <%= @club.website %>
 </div>
 
 <div>
-  <strong>Address:</strong></br>
+  <strong><%= t(:address)%>:</strong></br>
   <%= @club.street %>
   <%= @club.street_no %></br>
   <%= @club.zip %>
@@ -18,18 +25,19 @@
 </div>
 
 <div>
-  <strong>Coaches:</strong></br>
+  <strong><%= t(:coach)%>:</strong></br>
   <% @club.coaches.each do |e| %>
     <%= "#{e.first_name} #{e.last_name}" %></br>
   <% end %>
 </div>
 
 <div>
-  <strong>Trainings:</strong></br>
+  <strong><%= t(:training)%>:</strong></br>
   <% @club.trainings.each do |t| %>
     <p>
-    <%= weekdays.key(t.weekday) %>
-    <%= format_time(t.time_start) %> to 
+    <%#= weekdays.key(t.weekday) %>
+    <%= t.weekday.name %>
+    <%= format_time(t.time_start) %> bis 
     <%= format_time(t.time_end) %>
     <% unless t.description.blank? %>
       <%= "(#{t.description})" %>
@@ -39,10 +47,21 @@
 </div>
 
 <div>
-  <strong>Contact:</strong></br>
+  <strong><%= t(:contact)%>:</strong></br>
   <%= @club.contact_name %></br>
-  <span>Phone:</span>
+  <span><%= t(:phone)%>:</span>
   <%= @club.contact_phone %></br>
-  <span>Mail:</span>
+  <span><%= t(:mail)%>:</span>
   <%= @club.contact_mail %>
+</div>
+
+<div>
+  <strong>Anstehende <%= t(:event, count: 2) %>:</strong></br>
+  <% if @club.events.empty? %>
+    Keine Veranstaltungen in nächster Zeit.
+  <% else %>
+  <% @club.events.each do |e| %>
+    <%= link_to e.title, event_path(e.id) %></br>
+  <% end %>
+  <% end %>
 </div>

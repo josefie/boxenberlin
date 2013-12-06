@@ -1,10 +1,10 @@
 <table>
   <thead>
     <tr>
-      <th>Performance Class</th>
-      <th>Name</th>
-      <th>Weight</th>
-      <th>Fights (w/l/d)</th>
+      <th><%= t(:performance_class, count: 1) %></th>
+      <th><%= t(:name) %></th>
+      <th><%= t(:weight) %></th>
+      <th><%= "#{t(:fights, count: 2)} (g/v/u)" %></th>
       <th></th>
     </tr>
   </thead>
@@ -21,7 +21,7 @@
       <%= boxer.last_name %></td>
       <td><%= boxer.weight.to_i %> kg</td>
       <td><%= "#{boxer.fights_won}/#{boxer.fights_lost}/#{boxer.fights_drawn}" %></td>
-      <td><%= link_to 'Show', boxer %></td>
+      <td><%= link_to t(:show), boxer %></td>
     </tr>
     <% end %>
   </tbody>

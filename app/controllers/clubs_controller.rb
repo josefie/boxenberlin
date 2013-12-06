@@ -88,7 +88,8 @@ class ClubsController < ApplicationController
       params.require(:club).permit(:name, :street, :street_no, :zip, :city, :website, :contact_name, :contact_phone,
       :contact_mail, :password, :password_confirmation,
       coaches_attributes: [:id, :first_name, :last_name, :club_id, :_destroy],
-      trainings_attributes: [:id, :weekday, :time_start, :time_end, :description, :club_id, :_destroy])
+      trainings_attributes: [:id, :weekday_id, :time_start, :time_end, :description, :club_id, :_destroy]
+      )
     end
     
 end

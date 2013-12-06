@@ -1,8 +1,8 @@
 <div class="fields">
-  <%= f.label :first_name %>
+<%= f.label t(:first_name) %>
   <%= f.text_field :first_name %>
-  <%= f.label :last_name %>
+  <%= f.label t(:last_name) %>
   <%= f.text_field :last_name %>
   
-  <%= link_to_remove_fields("Remove", f) %>
+  <%= link_to_remove_fields(t(:remove), f) %>
 </div>

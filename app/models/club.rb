@@ -5,7 +5,7 @@ class Club < ActiveRecord::Base
   has_many :coaches, :dependent => :destroy
   
   accepts_nested_attributes_for :coaches, allow_destroy: true, reject_if: proc { |a| a['first_name'].blank? and a['last_name'].blank? }
-  accepts_nested_attributes_for :trainings, allow_destroy: true, reject_if: proc { |a| a['weekday'].blank? }
+  accepts_nested_attributes_for :trainings, allow_destroy: true, reject_if: proc { |a| a['weekday_id'].blank? }
   
   validates :name, presence: true
   validates :contact_mail, presence: true
@@ -17,7 +17,7 @@ class Club < ActiveRecord::Base
 
   def admin?
     false
-    if self.id == 0
+    if self.id == 1
       true
     end
   end

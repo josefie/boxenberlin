@@ -1,72 +1,71 @@
 <% if can? :update, @boxer %>
-  <%= link_to 'Edit', edit_boxer_path(@boxer) %>
+  <%= link_to t('edit'), edit_boxer_path(@boxer) %>
 <% end %>
 <% if can? :destroy, @boxer %>
-  <%= link_to 'Destroy', @boxer, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%= link_to t('destroy'), @boxer, method: :delete, data: { confirm: t(:confirm_delete) } %>
 <% end %>
 
 <p>
-  <strong>First name:</strong>
+  <strong><%= t(:first_name) %>:</strong>
   <%= @boxer.first_name %>
 </p>
 
 <p>
-  <strong>Last name:</strong>
+  <strong><%= t(:last_name) %>:</strong>
   <%= @boxer.last_name %>
 </p>
 
 <p>
-  <strong>Date of birth:</strong>
+  <strong><%= t(:date_of_birth) %>:</strong>
   <%= format_date(@boxer.date_of_birth) %>
 </p>
 
 <p>
-  <strong>Age Class:</strong>
+  <strong><%= t(:age_class, count: 2) %>:</strong>
   <%= @boxer.performance_class.title %>
 </p>
 
 <p>
-  <strong>Weight:</strong>
-  <%= @boxer.weight.to_i %>
+  <strong><%= t(:weight) %>:</strong>
+  <%= @boxer.weight.to_i %> kg
 </p>
 
 <p>
-  <strong>Gewichtsklasse:</strong>
+  <strong><%= t(:weight_class, count: 1)%>:</strong>
   TODO
 </p>
 
 <p>
-  <strong>Fights won:</strong>
-  <%= @boxer.fights_won %>
-</p>
-
-<p>
-  <strong>Fights lost:</strong>
-  <%= @boxer.fights_lost %>
-</p>
-
-<p>
-  <strong>Fights drawn:</strong>
+  <strong><%= t(:fights, count: 2) %></strong></br>
+  <%= t(:won) %>:
+  <%= @boxer.fights_won %></br>
+  <%= t(:lost) %>:
+  <%= @boxer.fights_lost %></br>
+  <%= t(:drawn) %>:
   <%= @boxer.fights_drawn %>
 </p>
 
 <p>
-  <strong>Gender:</strong>
+  <strong><%= t(:gender) %>:</strong>
   <% if @boxer.gender %>
-  Female
+  <%= t(:female) %>
   <% else %>
-  Male
+  <%= t(:male) %>
   <% end %>
 </p>
 
 <p>
-  <strong>Active:</strong>
-  <%= @boxer.active %>
+  <strong><%= t(:active) %>:</strong>
+  <% if @boxer.active %>
+    Ja
+  <% else %>
+    Nein
+  <% end %>
 </p>
 
 <p>
-  <strong>Club:</strong>
+<strong><%= t(:club, count: 1) %>:</strong>
   <%= @boxer.club.name %>
 </p>
 
-<%= link_to 'Back', :back %>
+<%= link_to t(:back), :back %>

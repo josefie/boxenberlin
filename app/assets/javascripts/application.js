@@ -33,3 +33,18 @@
     $(link).parent().append(content.replace(regexp, new_id));
   }
   
+  function approve_event() {
+    event.preventDefault();
+    $("approve_form").submit();
+    $('.approve-buttons').hide();
+    //$('#flash.notice').append("Approved!");
+    alert("Veranstaltung genehmigt!");
+  }
+  
+  function decline_event() {
+    event.preventDefault();
+    $("approve_form").submit();
+    $('.approve-buttons').hide();
+    alert("Veranstaltung abgelehnt!");
+  }
+  

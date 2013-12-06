@@ -1,89 +1,117 @@
+<h3><%= @event.title %></h3>
+
 <% if can? :update, @event %>
-<%= link_to 'Edit', edit_event_path(@event) %>
+<%= link_to t(:edit), edit_event_path(@event) %>
 <% end %>
 
 <% if can? :destroy, @event %>
-  <%= link_to 'Destroy', @event, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%= link_to t(:destroy), @event, method: :delete, data: { confirm: t(:confirm_delete) } %>
 <% end %>
 
 <p>
-  <strong><%= @event.title %></strong>
-</p>
-
-<p>
-  <strong>Club:</strong>
+  <strong><%= t(:club, count: 1) %>:</strong>
   <%= link_to @event.club.name, club_path(@event.club.id) %>
 </p>
 
 <p>
-  <strong>Address:</strong>
+  <strong><%= t(:address) %>:</strong>
   <%= @event.address %>
 </p>
 
 <%= image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@event.latitude}%2C#{@event.longitude}" %>
 
 <p>
-  <strong>Date:</strong>
+  <strong><%= t(:date) %>:</strong>
   <%= format_date(@event.date) %>
 </p>
 
 <p>
-  <strong>Schedule:</strong></br>
+  <strong><%= t(:schedule) %>:</strong></br>
   <% @event.schedule_items.each do |si| %>
     <%= si.label %>:
     <%= format_time(si.time) %></br>
   <% end %>
 </p>
 
-<% if @event.contact_name_public %>
-<p>
-  <strong>Contact name:</strong>
-  <%= @event.contact_name %>
-</p>
-<% end %>
+<div>
+  <strong><%= t(:contact) %></strong>
+  <% if @event.contact_name_public %>
+  <p>
+    <strong><%= t(:name) %>:</strong>
+    <%= @event.contact_name %>
+  </p>
+  <% end %>
 
-<% if @event.contact_phone_public %>
-<p>
-  <strong>Contact phone:</strong>
-  <%= @event.contact_phone %>
-</p>
-<% end %>
+  <% if @event.contact_phone_public %>
+  <p>
+    <strong><%= t(:phone) %>:</strong>
+    <%= @event.contact_phone %>
+  </p>
+  <% end %>
 
-<% if @event.contact_mail_public %>
-<p>
-  <strong>Contact mail:</strong>
-  <%= @event.contact_mail %>
-</p>
-<% end %>
+  <% if @event.contact_mail_public %>
+  <p>
+    <strong><%= t(:mail) %>:</strong>
+    <%= @event.contact_mail %>
+  </p>
+  <% end %>
+</div>
 
 <p>
-  <strong>Additional info:</strong>
+  <strong><%= t(:description) %>:</strong>
   <%= @event.additional_info %>
 </p>
 
 <p>
-  <strong>Gloves available:</strong>
-  <%= @event.gloves_available %>
+  <strong><%= t(:available) %></strong>
+  <ul>
+  <% if @event.gloves_available %>
+    <li><%= t(:gloves) %></li>
+  <% end %>
+  <% if @event.catering_available %>
+    <li><%= t(:catering) %></li>
+  <% end %>
+  </ul>
 </p>
 
 <p>
-  <strong>Catering available:</strong>
-  <%= @event.catering_available %>
+  <strong><%= t(:admission) %> (<%= t(:discounted) %>):</strong>
+  <%= @event.admission %> € (<%= @event.admission_discounted %> €)
 </p>
 
 <p>
-  <strong>Admission:</strong>
-  <%= @event.admission %> €
-</p>
-
-<p>
-  <strong>Admission discounted:</strong>
-  <%= @event.admission_discounted %> €
-</p>
-
-<p>
-  <strong>Performance Classes:</strong></br>
+  <strong><%= t(:performance_class, count: 2) %>:</strong></br>
   <% @event.performance_classes.each do |pc| %>
     <%= pc.title %></br>
   <% end %>
 </p>
+
+<p class="approved">
+  <strong>genehmigt?</strong></br>
+  <% if @event.approved.nil? then %>
+    Offen
+  <% elsif @event.approved then %>
+    Ja
+  <% else %>
+    Nein
+  <% end %>
+</p>
+
+<% if can? :manage, @event and !@event.approved then %>
+<div class="approve-buttons">
+  <%= form_for(@event, :remote => true, :class => "approve_form", :html => {:onsubmit => "approve_event()"}) do |f| %>
+      <%= f.hidden_field :approved, value: true %>
+      <div class="actions">
+        <%= f.submit t(:approve) %>
+      </div>
+    <% end %>
+
+    <%= form_for(@event, :remote => true, :class => "approve_form", :html => {:onsubmit => "decline_event()"}) do |f| %>
+      <%= f.hidden_field :approved, value: false %>
+      <div class="actions">
+        <%= f.submit t(:decline) %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+

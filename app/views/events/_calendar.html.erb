@@ -1,3 +1,3 @@
 <%= link_to "<<", calendar_path(@current_date-1.month) %>
-<%= Date::MONTHNAMES[@current_date.month] %><%= @current_date.year %>
+<%= Date::MONTHNAMES[@current_date.month] %> <%= @current_date.year %>
 <%= link_to ">>", calendar_path(@current_date+1.month) %>

@@ -26,6 +26,10 @@ Boxenberlin::Application.routes.draw do
   get 'events' => 'events#my_events', as: :my_events
   get 'boxers' => 'boxers#my_boxers', as: :my_boxers
   
+  get 'manage/(:status)' => 'events#manage', as: :manage
+  get 'approved' => 'events#approved'
+  get 'declined' => 'events#declined'
+  
   #resources :clubs do
     #resources :events
     #resources :boxers

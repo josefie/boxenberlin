@@ -11,52 +11,49 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :first_name %><br>
+  <div class="field required">
+    <%= f.label t(:first_name) %><br>
     <%= f.text_field :first_name %>
   </div>
-  <div class="field">
-    <%= f.label :last_name %><br>
+  <div class="field required">
+  <%= f.label t(:last_name) %><br>
     <%= f.text_field :last_name %>
   </div>
-  <div class="field">
-    <%= f.label :date_of_birth %><br>
+  <div class="field required">
+  <%= f.label t(:date_of_birth) %><br>
     <%= f.date_select :date_of_birth,
     :start_year => Date.current.year - 37,
     :end_year => Date.current.year - 6,
     :order => [:day, :month, :year] %>
   </div>
-  <div class="field">
-    <%= f.label :weight %><br>
+  <div class="field required">
+  <%= f.label t(:weight) %><br>
     <%= f.text_field :weight %>
   </div>
   <div class="field">
-    <%= f.label :fights_won %><br>
-    <%= f.text_field :fights_won, :value => 0 %>
-  </div>
-  <div class="field">
-    <%= f.label :fights_lost %><br>
-    <%= f.text_field :fights_lost, :value => 0 %>
-  </div>
-  <div class="field">
-    <%= f.label :fights_drawn %><br>
+  <%= f.label t(:fights, count: 2) %><br>
+  <%= f.label t(:won) %>
+    <%= f.text_field :fights_won, :value => 0 %></br>
+    <%= f.label t(:lost) %>
+    <%= f.text_field :fights_lost, :value => 0 %></br>
+    <%= f.label t(:drawn) %>
     <%= f.text_field :fights_drawn, :value => 0 %>
   </div>
-  <div class="field">
-    <%= f.label :gender %><br>
+  <div class="field required">
+  <%= f.label t(:gender) %><br>
     <%= f.radio_button :gender, true %>
-    <%= f.label "female", :class => :gender %>
+    <%= f.label t("female"), :class => :gender %>
     <%= f.radio_button :gender, false %>
-    <%= f.label "male", :class => :gender %>
+    <%= f.label t("male"), :class => :gender %>
   </div>
   <div class="field">
-    <%= f.label :active %><br>
+  <%= f.label t(:active) %>?<br>
     <%= f.check_box :active %>
   </div>
   <div class="field">
     <%= f.hidden_field :club_id, :value => current_user.id %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit t(:save) %>
   </div>
 <% end %>

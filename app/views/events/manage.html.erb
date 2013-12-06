@@ -1,0 +1,15 @@
+<% if params[:status] == "open" %>
+<h3>Offene 
+<% elsif params[:status] == "approved" %>
+<h3>Bestätigte 
+<% elsif params[:status] == "declined" %>
+  <h3>Abgelehnte 
+<% end %>
+<%= t(:event, count: 2) %></h3>
+
+
+<% if can? :manage, Event %>
+  <div>
+    <%= render 'events/list' %>
+  </div>
+<% end %>

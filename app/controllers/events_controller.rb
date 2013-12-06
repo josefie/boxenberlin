@@ -7,6 +7,7 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
+    events_approved = Event.where(:approved => true)
     
     if params[:date]
       @current_date = Date.parse(params[:date])
@@ -14,11 +15,11 @@ class EventsController < ApplicationController
       @current_date = Date.today
     end
     
-    @events = Event.by_date(@current_date).sort! { |a,b| a.date <=> b.date }
+    @events = events_approved.by_date(@current_date).sort! { |a,b| a.date <=> b.date }
     
-    if !(params[:search].nil?)
+    if !(params[:search].blank?)
       @current_date = Date.today
-      @events = Event.search(params[:search]).sort! { |a,b| a.date <=> b.date }
+      @events = events_approved.search(params[:search]).sort! { |a,b| a.date <=> b.date }
     end
     
   end
@@ -46,7 +47,7 @@ class EventsController < ApplicationController
     authorize! :create, @event
     respond_to do |format|
       if @event.save
-        format.html { redirect_to @event, notice: 'Event was successfully created.' }
+        format.html { redirect_to @event, notice: "#{I18n.t('events', count: 1)} #{I18n.t('creation_successful')}" }
         format.json { render action: 'show', status: :created, location: @event }
       else
         format.html { render action: 'new' }
@@ -61,7 +62,7 @@ class EventsController < ApplicationController
     authorize! :update, @event
     respond_to do |format|
       if @event.update(event_params)
-        format.html { redirect_to @event, notice: 'Event was successfully updated.' }
+        format.html { redirect_to @event, notice: "#{I18n.t('events', count: 1)} #{I18n.t('update_successful')}" }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -88,6 +89,20 @@ class EventsController < ApplicationController
       return
     else
       redirect_to new_session_path
+    end
+  end
+  
+  def manage
+    authorize! :manage, @events
+    if current_user.admin? then
+      if params[:status] == "approved" then
+        @events = Event.where(:approved => true)
+      elsif params[:status] == "declined" then
+        @events = Event.where(:approved => false)
+      elsif params[:status] == "open" then
+        @events = Event.where(:approved => nil)
+      end
+      
     end
   end
 

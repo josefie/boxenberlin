@@ -1,21 +1,22 @@
 <div class="fields">
   
   <div class="field">
-    <%= f.label :weekday %><br>
-    <%= f.select :weekday, options_for_select(weekdays) %>
+  <%= f.label t(:weekday) %><br>
+    <%#= f.select :weekday, options_for_select(weekdays) %>
+    <%= f.select :weekday_id, options_from_collection_for_select(Weekday.all, :id, :name) %>
   </div>
   <div class="field">
-    <%= f.label :time_start %><br>
+  <%= f.label t(:start) %><br>
     <%= f.time_select :time_start %>
   </div>
   <div class="field">
-    <%= f.label :time_end %><br>
+  <%= f.label t(:end) %><br>
     <%= f.time_select :time_end %>
   </div>
   <div class="field">
-    <%= f.label :description %><br>
+  <%= f.label t(:description) %><br>
     <%= f.text_area :description %>
   </div>
   
-  <%= link_to_remove_fields("Remove", f) %>
+  <%= link_to_remove_fields(t(:remove), f) %>
 </div>
