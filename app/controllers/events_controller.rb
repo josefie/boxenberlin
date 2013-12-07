@@ -47,7 +47,7 @@ class EventsController < ApplicationController
     authorize! :create, @event
     respond_to do |format|
       if @event.save
-        format.html { redirect_to @event, notice: "#{I18n.t('events', count: 1)} #{I18n.t('creation_successful')}" }
+        format.html { redirect_to @event, notice: "#{I18n.t(:event, count: 1)} #{I18n.t(:creation_successful)}" }
         format.json { render action: 'show', status: :created, location: @event }
       else
         format.html { render action: 'new' }
@@ -62,7 +62,7 @@ class EventsController < ApplicationController
     authorize! :update, @event
     respond_to do |format|
       if @event.update(event_params)
-        format.html { redirect_to @event, notice: "#{I18n.t('events', count: 1)} #{I18n.t('update_successful')}" }
+        format.html { redirect_to @event, notice: "#{I18n.t(:event, count: 1)} #{I18n.t(:update_successful)}" }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

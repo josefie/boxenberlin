@@ -9,7 +9,7 @@ class Boxer < ActiveRecord::Base
   validates :first_name, presence: true # todo: first_name or last_name
   validates :weight, presence: true
   validates :date_of_birth, presence: true
-  validates :gender, presence: true
+  validates :gender, presence: true # todo: male or female
   
   def classify
     age = (Date.today.to_s.to_i - self.date_of_birth.to_s.to_i) # ??

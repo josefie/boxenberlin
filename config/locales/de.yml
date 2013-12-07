@@ -2,12 +2,20 @@ de:
   
   # Flash Messages
   creation_successful: " wurde erfolgreich erstellt."
-  update_successful: " wurde erfolgreich aktualisiert."
   creation_failed: " konnte nicht erstellt werden."
+  update_successful: " wurde erfolgreich aktualisiert."
   update_failed: " konnte nicht aktualisiert werden."
+  deletion_successful: " wurde erfolgreich gelöscht."
+  deletion_failed: " konnte nicht gelöscht werden."
   confirm_delete: "Sind Sie sicher?"
   confirm_delete_profile: "Sind Sie sicher, dass Sie das wollen? Ihr Vereinsprofil und all Ihre Daten werden gelöscht!"
-
+  signup_successful: "Registrierung erfolgreich."
+  signup_failed: "Registrierung fehlgeschlagen."
+  login_successful: "Anmeldung erfolgreich."
+  login_failed: "E-Mail oder Passwort ungültig."
+  logout_successful: "Abmeldung erfolgreich."
+  logout_failed: "Abmeldung fehlgeschlagen."
+  
   # Buttons
   back: "Zurück"
   home: "Startseite"

@@ -15,29 +15,27 @@
   <%= f.label t(:name) %><br>
     <%= f.text_field :name %>
   </div>
+  
   <div class="field">
-  <%= f.label t(:street) %><br>
+    <%= f.label t(:address) %><br>
+    <%= f.label t(:street) %>
     <%= f.text_field :street %>
+    <%= f.label t(:street_no) %>
+    <%= f.number_field :street_no %><br>
+    <%= f.label t(:zip) %>
+    <%= f.text_field :zip %><br>
+    <%= f.label t(:city) %>
+    <%= f.text_field :city %><br>
   </div>
+  
   <div class="field">
-  <%= f.label t(:street_no) %><br>
-    <%= f.number_field :street_no %>
-  </div>
-  <div class="field">
-  <%= f.label t(:zip) %><br>
-    <%= f.text_field :zip %>
-  </div>
-  <div class="field">
-  <%= f.label t(:city) %><br>
-    <%= f.text_field :city %>
-  </div>
-  <div class="field">
-  <%= f.label t(:coach) %><br>
+    <%= f.label t(:coach) %><br>
     <%= link_to_add_fields("Trainer hinzufügen", f, :coaches) %>
     <%= f.fields_for :coaches do |builder| %>
       <%= render "coach_fields", :f => builder %>
     <% end %>
   </div>
+  
   <div class="field">
     <%= f.label t(:training) %><br>
     <%= link_to_add_fields("Training hinzufügen", f, :trainings) %>
@@ -45,10 +43,12 @@
       <%= render "training_fields", :f => builder %>
     <% end %>
   </div>
+  
   <div class="field">
     <%= f.label t(:website) %><br>
     <%= f.text_field :website %>
   </div>
+  
   <div class="field">
     <%= f.label t(:contact) %><br>
     <%= f.label t(:name) %>
@@ -58,7 +58,9 @@
     <%= f.label t(:mail) %>
     <%= f.text_field :contact_mail %>
   </div>
+  
   <div class="actions">
     <%= f.submit t(:save) %>
   </div>
+  
 <% end %>

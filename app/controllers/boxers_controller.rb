@@ -32,7 +32,7 @@ class BoxersController < ApplicationController
     @boxer.classify
     respond_to do |format|
       if @boxer.save
-        format.html { redirect_to @boxer, notice: 'Boxer was successfully created.' }
+        format.html { redirect_to @boxer, notice: "#{I18n.t(:boxer)} #{I18n.t(:creation_successful)}" }
         format.json { render action: 'show', status: :created, location: @boxer }
       else
         format.html { render action: 'new' }
@@ -48,7 +48,7 @@ class BoxersController < ApplicationController
     @boxer.classify
     respond_to do |format|
       if @boxer.update(boxer_params)
-        format.html { redirect_to @boxer, notice: 'Boxer was successfully updated.' }
+        format.html { redirect_to @boxer, notice: "#{I18n.t(:boxer)} #{I18n.t(:update_successful)}" }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
