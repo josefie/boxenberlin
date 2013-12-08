@@ -30,4 +30,8 @@ class Club < ActiveRecord::Base
     Boxer.find(:all, :conditions => ['club_id == ?', self.id])
   end
   
+  def get_messages
+    # todo
+  end
+  
 end

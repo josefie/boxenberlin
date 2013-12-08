@@ -77,6 +77,14 @@ class ClubsController < ApplicationController
     end
   end
   
+  def messages
+    if current_user then
+      @messages = current_user.get_messages
+    else
+      redirect_to new_session_path
+    end
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_club

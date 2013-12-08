@@ -12,6 +12,9 @@ class Event < ActiveRecord::Base
   has_and_belongs_to_many :performance_classes
   has_many :schedule_items
   
+  has_many :participations
+  has_many :boxers, through: :participations
+  
   accepts_nested_attributes_for :schedule_items, allow_destroy: true#, reject_if: proc { |a| a['time'].nil? }
   
   def self.search(search)

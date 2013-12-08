@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131201213843) do
+ActiveRecord::Schema.define(version: 20131208214402) do
 
   create_table "boxers", force: true do |t|
     t.string   "first_name"
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 20131201213843) do
   create_table "clubs", force: true do |t|
     t.string   "name"
     t.string   "street"
-    t.integer  "street_no"
+    t.string   "street_no"
     t.string   "zip"
     t.string   "city"
     t.string   "website"
@@ -91,6 +91,14 @@ ActiveRecord::Schema.define(version: 20131201213843) do
 
   add_index "events_performance_classes", ["event_id"], name: "index_events_performance_classes_on_event_id"
   add_index "events_performance_classes", ["performance_class_id"], name: "index_events_performance_classes_on_performance_class_id"
+
+  create_table "participations", force: true do |t|
+    t.integer  "event_id"
+    t.integer  "boxer_id"
+    t.boolean  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "performance_classes", force: true do |t|
     t.string   "title"

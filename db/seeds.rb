@@ -21,10 +21,11 @@ clubs = Club.create([
 events = Event.create([
   
   # Beispielveranstaltungen
-  { title: 'Boxevent Neukölln', address: 'Berlin Neukölln', date: Date.parse("2013-12-10"), club_id: 1 }, 
-  { title: 'Juliusturmpokalturnier', address: 'Berlin Spandau', date: Date.parse("2014-02-01"), club_id: 3 }, 
-  { title: 'Berliner Meisterschaft', address: 'Berlin Spandau', date: Date.parse("2013-12-15"), club_id: 3 }, 
-  { title: 'Johann Trollmann Boxturnier', address: 'Berlin Kreuzberg', date: Date.today, club_id: 5 }
+  { title: 'Boxevent Neukölln', address: 'Berlin Neukölln', date: Date.parse("2013-12-10"), club_id: 1, approved: false }, 
+  { title: 'Juliusturmpokalturnier', address: 'Berlin Spandau', date: Date.parse("2014-02-01"), club_id: 3, approved: true }, 
+  { title: 'Berliner Meisterschaft', address: 'Berlin Spandau', date: Date.parse("2013-12-15"), club_id: 3, approved: true }, 
+  { title: 'Johann Trollmann Boxturnier', address: 'Berlin Kreuzberg', date: Date.today, club_id: 5, approved: true },
+  { title: 'Neujahrsboxen', address: 'Berlin Kreuzberg', date: Date.parse("2014-01-01"), club_id: 5 }
   
   ])
   

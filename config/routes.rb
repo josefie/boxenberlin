@@ -25,6 +25,7 @@ Boxenberlin::Application.routes.draw do
   get 'profile' => 'clubs#my_profile', as: :my_profile
   get 'events' => 'events#my_events', as: :my_events
   get 'boxers' => 'boxers#my_boxers', as: :my_boxers
+  get 'messages' => 'clubs#messages', as: :messages
   
   get 'manage/(:status)' => 'events#manage', as: :manage
   get 'approved' => 'events#approved'
