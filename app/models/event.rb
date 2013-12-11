@@ -13,7 +13,7 @@ class Event < ActiveRecord::Base
   has_many :schedule_items
   
   has_many :participations
-  has_many :boxers, through: :participations
+  has_many :boxers, -> { distinct }, through: :participations
   
   accepts_nested_attributes_for :schedule_items, allow_destroy: true#, reject_if: proc { |a| a['time'].nil? }
   

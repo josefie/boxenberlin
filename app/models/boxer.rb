@@ -2,8 +2,8 @@ class Boxer < ActiveRecord::Base
   belongs_to :club, :foreign_key => 'club_id'
   belongs_to :performance_class, :foreign_key => 'performance_class_id'
   
-  has_many :particiations
-  has_many :events, through: :participations
+  has_many :participations
+  has_many :events, -> { distinct }, through: :participations
   
   validates :fights_won, :numericality => {:only_integer => true, :greater_than_or_equal_to => 0}
   validates :fights_lost, :numericality => {:only_integer => true, :greater_than_or_equal_to => 0}

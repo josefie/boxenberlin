@@ -73,7 +73,7 @@
     <%= f.text_field :fee %>
   </div>
     
-  <div class="field">
+  <div class="field checkboxes">
     <%= f.label t(:performance_class, count: 2) %><br>
     <%= f.collection_check_boxes :performance_class_ids, PerformanceClass.all, :id, :title %>
   </div>

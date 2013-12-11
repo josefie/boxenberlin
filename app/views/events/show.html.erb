@@ -102,21 +102,41 @@
   <% end %>
 </p>
 
+<% if current_user then %>
+<div class="participations">
+  <div class="apply-button">
+    <% if can? :create, Boxer %>
+    <%= link_to t(:apply), application_path(@event.id) %>
+    <% end %>
+  </div>
+
+  <p>Angemeldet:</p>
+  <ul>
+    <% @boxers_applied.each do |b| %>
+      <li>
+        <%= b.first_name %> <%= b.last_name %>
+        <%= link_to t(:undo_application), "#" %>
+      </li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
 <% if can? :manage, @event and !@event.approved then %>
 <div class="approve-buttons">
   <%= form_for(@event, :remote => true, :class => "approve_form", :html => {:onsubmit => "approve_event()"}) do |f| %>
-      <%= f.hidden_field :approved, value: true %>
-      <div class="actions">
-        <%= f.submit t(:approve) %>
-      </div>
-    <% end %>
+    <%= f.hidden_field :approved, value: true %>
+    <div class="actions">
+      <%= f.submit t(:approve) %>
+    </div>
+  <% end %>
 
-    <%= form_for(@event, :remote => true, :class => "approve_form", :html => {:onsubmit => "decline_event()"}) do |f| %>
-      <%= f.hidden_field :approved, value: false %>
-      <div class="actions">
-        <%= f.submit t(:decline) %>
-      </div>
-    <% end %>
-  </div>
+  <%= form_for(@event, :remote => true, :class => "approve_form", :html => {:onsubmit => "decline_event()"}) do |f| %>
+    <%= f.hidden_field :approved, value: false %>
+    <div class="actions">
+      <%= f.submit t(:decline) %>
+    </div>
+  <% end %>
+</div>
 <% end %>
 

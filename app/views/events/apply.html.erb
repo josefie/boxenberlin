@@ -1,0 +1,29 @@
+<h2><%= t(:apply) %></h2>
+
+<p>Sie möchten zu der folgenden Veranstaltung Boxer anmelden:</p>
+
+<%= render 'list' %>
+
+<p>Aktive Boxer (bitte auswählen):</p>
+
+<%= form_tag send_application_path, method: :post do %>
+  
+<ul class="field checkboxes">
+  
+  <% @boxers.each do |b| %>
+    <li>
+      <%= check_box_tag "boxer_ids[]", b.id %>
+      <%= b.first_name %> <%= b.last_name %>
+    </li>
+  <% end %>
+  <li>alle</li>
+    
+</ul>
+
+<%= link_to "Neuen Boxer hinzufügen", new_boxer_path %>
+
+<div class="actions">
+  <%= submit_tag t(:apply) %>
+</div>
+  
+<% end %>

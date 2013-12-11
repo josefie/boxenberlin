@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show, :edit, :update, :destroy]
+  before_action :set_event, only: [:show, :edit, :update, :destroy, :apply, :send_application]
   #load_and_authorize_resource
   
   Inf = 1.0 / 0.0
@@ -27,6 +27,7 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
   def show
+    @boxers_applied = @event.boxers.where('club_id = ?', current_user)
   end
 
   # GET /events/new
@@ -105,6 +106,27 @@ class EventsController < ApplicationController
       
     end
   end
+  
+  def apply
+    if current_user then
+      authorize! :create, Boxer
+      @events = Event.where('id = ?', params[:id])
+      @boxers = current_user.boxers
+      @particiation = Participation.new
+    else
+      redirect_to new_session_path
+    end
+  end
+  
+  def send_application
+    unless params[:boxer_ids].nil? then
+      params[:boxer_ids].each do |id|
+        @event.participations.build(:boxer_id => id)
+      end
+    end
+    @event.save
+    redirect_to @event
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -139,5 +161,5 @@ class EventsController < ApplicationController
       schedule_items_attributes: [:id, :label, :time, :event_id, :_destroy]
       )
     end
-    
-  end
+
+end

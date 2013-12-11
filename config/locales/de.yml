@@ -32,6 +32,8 @@ de:
   logout: "Abmelden"
   save: "Speichern"
   show: "Anzeigen"
+  apply: "Boxer anmelden"
+  undo_application: "Abmelden"
   
   approve: "Bestätigen"
   decline: "Ablehnen"

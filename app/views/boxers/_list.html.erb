@@ -6,6 +6,7 @@
       <th><%= t(:weight) %></th>
       <th><%= "#{t(:fights, count: 2)} (g/v/u)" %></th>
       <th></th>
+      <th></th>
     </tr>
   </thead>
   
@@ -21,6 +22,7 @@
       <%= boxer.last_name %></td>
       <td><%= boxer.weight.to_i %> kg</td>
       <td><%= "#{boxer.fights_won}/#{boxer.fights_lost}/#{boxer.fights_drawn}" %></td>
+      <td><% if boxer.active then %>aktiv<% end %></td>
       <td><%= link_to t(:show), boxer %></td>
     </tr>
     <% end %>
