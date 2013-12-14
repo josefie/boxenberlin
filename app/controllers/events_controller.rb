@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show, :edit, :update, :destroy, :apply, :send_application]
+  before_action :set_event, only: [:show, :edit, :update, :destroy, :apply, :send_application, :participations]
   #load_and_authorize_resource
   
   Inf = 1.0 / 0.0
@@ -87,10 +87,22 @@ class EventsController < ApplicationController
     if current_user then
       @club = current_user
       @events = current_user.get_events
+      @host = "Veranstalter"
+      @participate = "Teilnehmer"
+      @past = "Vergangene"
       return
     else
       redirect_to new_session_path
     end
+  end
+  
+  def participations
+    #participations = @event.participations
+    #@boxers = Array.new
+    #participations.each do |participation|
+      #@boxers << Boxer.find(participation.boxer_id)
+    #end
+    @boxers = @event.boxers
   end
   
   def manage

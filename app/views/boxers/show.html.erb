@@ -37,11 +37,11 @@
 
 <p>
   <strong><%= t(:fights, count: 2) %></strong></br>
-  <%= t(:won) %>:
+  <%= t(:fights_won, scope: [:activerecord, :attributes, :boxers]) %>:
   <%= @boxer.fights_won %></br>
-  <%= t(:lost) %>:
+  <%= t(:fights_lost, scope: [:activerecord, :attributes, :boxers]) %>:
   <%= @boxer.fights_lost %></br>
-  <%= t(:drawn) %>:
+  <%= t(:fights_drawn, scope: [:activerecord, :attributes, :boxers]) %>:
   <%= @boxer.fights_drawn %>
 </p>
 

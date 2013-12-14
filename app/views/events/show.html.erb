@@ -7,6 +7,11 @@
 <% if can? :destroy, @event %>
   <%= link_to t(:destroy), @event, method: :delete, data: { confirm: t(:confirm_delete) } %>
 <% end %>
+<br>
+
+<% if can? :destroy, @event %>
+  <%= link_to "Teilnehmer (#{@event.boxers.count})", participations_path(@event.id) %>
+<% end %>
 
 <p>
   <strong><%= t(:club, count: 1) %>:</strong>
@@ -118,7 +123,6 @@
         <li>
         <%= b.first_name %> <%= b.last_name %>
         <%= link_to t(:undo_application), participation_path(b.participations.find_by_event_id(@event.id).id), method: :delete, data: { confirm: t(:confirm_delete) } %>
-        <%#= link_to_undo_application(b, @event) %>
         </li>
       <% end %>
     </ul>

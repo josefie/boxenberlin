@@ -132,14 +132,14 @@ de:
       training: "Training"
       weekday: "Wochentag"
     attributes:
-      boxer:
+      boxers:
         first_name: "Vorname"
         last_name: "Nachname"
         date_of_birth: "Geburtsdatum"
         weight: "Gewicht"
-        fights_won: "gewonnene Kämpfe"
-        fights_lost: "verlorene Kämpfe"
-        fights_drawn: "unentschiedene Kämpfe"
+        fights_won: "Siege"
+        fights_lost: "Niederlagen"
+        fights_drawn: "Unentschieden"
         gender: "Geschlecht"
         active: "aktiv"
       events:

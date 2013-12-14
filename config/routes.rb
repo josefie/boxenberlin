@@ -36,6 +36,8 @@ Boxenberlin::Application.routes.draw do
   get 'events/:id/apply' => 'events#apply', as: :application
   post 'events/:id/apply' => 'events#send_application', as: :send_application
   
+  get 'events/:id/participation' => 'events#participations', as: :participations
+  
   #resources :clubs do
     #resources :events
     #resources :boxers
