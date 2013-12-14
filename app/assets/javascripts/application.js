@@ -48,3 +48,4 @@
     alert("Veranstaltung abgelehnt!");
   }
   
+  

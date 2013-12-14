@@ -17,7 +17,13 @@
       <% else %>
         <tr class="inactive">
       <% end %>
-      <td><%= boxer.performance_class.title %></td>
+      <td>
+        <% unless boxer.performance_class.nil? then %>
+        <%= boxer.performance_class.title %>
+        <% else %>
+        Nicht klassifiziert
+        <% end %>
+      </td>
       <td><%= boxer.first_name %>
       <%= boxer.last_name %></td>
       <td><%= boxer.weight.to_i %> kg</td>

@@ -22,7 +22,7 @@
 
 <p>
   <strong><%= t(:age_class, count: 2) %>:</strong>
-  <%= @boxer.performance_class.title %>
+  <%= unless @boxer.performance_class.nil? then @boxer.performance_class.title end %>
 </p>
 
 <p>

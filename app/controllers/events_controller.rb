@@ -110,9 +110,14 @@ class EventsController < ApplicationController
   def apply
     if current_user then
       authorize! :create, Boxer
-      @events = Event.where('id = ?', params[:id])
-      @boxers = current_user.boxers
-      @particiation = Participation.new
+      @events = [@event]
+      #@boxers = current_user.boxers
+      @boxers = Array.new
+      current_user.boxers.each do |b|
+        if b.participations.find_by_event_id(@event.id).nil? then
+          @boxers << b
+        end
+      end
     else
       redirect_to new_session_path
     end
@@ -127,6 +132,7 @@ class EventsController < ApplicationController
     @event.save
     redirect_to @event
   end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -161,5 +167,5 @@ class EventsController < ApplicationController
       schedule_items_attributes: [:id, :label, :time, :event_id, :_destroy]
       )
     end
-
+    
 end

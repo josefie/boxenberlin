@@ -7,7 +7,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-clubs = Club.create([
+clubs = Club.create!([
   
   # Beispielvereine
   { name: 'Neuköllner Sportfreunde', contact_mail: 'info@nsf.de', password: 'password1', password_confirmation: 'password1' }, 
@@ -17,21 +17,32 @@ clubs = Club.create([
   { name: 'Seitenwechsel', contact_mail: 'info@sw.de', password: 'password5', password_confirmation: 'password5' }
   
   ])
+
+schedule_items = ScheduleItem.create!([
   
-events = Event.create([
-  
-  # Beispielveranstaltungen
-  { title: 'Boxevent Neukölln', address: 'Berlin Neukölln', date: Date.parse("2013-12-10"), club_id: 1, approved: false }, 
-  { title: 'Juliusturmpokalturnier', address: 'Berlin Spandau', date: Date.parse("2014-02-01"), club_id: 3, approved: true }, 
-  { title: 'Berliner Meisterschaft', address: 'Berlin Spandau', date: Date.parse("2013-12-15"), club_id: 3, approved: true }, 
-  { title: 'Johann Trollmann Boxturnier', address: 'Berlin Kreuzberg', date: Date.today, club_id: 5, approved: true },
-  { title: 'Neujahrsboxen', address: 'Berlin Kreuzberg', date: Date.parse("2014-01-01"), club_id: 5 }
+  { label: 'Beginn', time: Time.parse("10:00"), event_id: 1 },
+  { label: 'Beginn', time: Time.parse("10:00"), event_id: 2 },
+  { label: 'Beginn', time: Time.parse("10:00"), event_id: 3 },
+  { label: 'Beginn', time: Time.parse("10:00"), event_id: 4 },
+  { label: 'Beginn', time: Time.parse("10:00"), event_id: 5 }
   
   ])
   
+events = Event.create!([
+  
+  # Beispielveranstaltungen
+  { title: 'Boxevent Neukölln', address: 'Berlin Neukölln', date: Date.parse("2013-12-10"), contact_name: "A", contact_mail: "info@nsf.de", club_id: 1, approved: false }, 
+  { title: 'Juliusturmpokalturnier', address: 'Berlin Spandau', date: Date.parse("2014-02-01"), contact_name: "B", contact_mail: "info@sbc.de", club_id: 3, approved: true }, 
+  { title: 'Berliner Meisterschaft', address: 'Berlin Spandau', date: Date.parse("2013-12-15"), contact_name: "B", contact_mail: "info@sbc.de", club_id: 3, approved: true }, 
+  { title: 'Johann Trollmann Boxturnier', address: 'Berlin Kreuzberg', date: Date.today, contact_name: "C", contact_mail: "info@sw.de", club_id: 5, approved: true },
+  { title: 'Neujahrsboxen', address: 'Berlin Kreuzberg', date: Date.parse("2014-01-01"), contact_name: "C", contact_mail: "info@sw.de", club_id: 5 }
+  
+  ])
+
+  
 ### ALTERSKLASSEN ###
 
-age_classes_1 = PerformanceClass.create([
+age_classes_1 = PerformanceClass.create!([
   # Schüler und Kadetten
   schueler_c = { title: 'Schüler C', age_min: 6, age_max: 7, gender: false }, 
   schueler_b = { title: 'Schüler B', age_min: 8, age_max: 9, gender: false }, 
@@ -39,18 +50,18 @@ age_classes_1 = PerformanceClass.create([
   kadetten = { title: 'Kadetten (U15)', age_min: 12, age_max: 14, gender: false }
   ])
 
-age_classes_2 = PerformanceClass.create([
+age_classes_2 = PerformanceClass.create!([
   # Junioren
   junioren = { title: 'Junioren (U17)', age_min: 15, age_max: 16, gender: false }
   ])
   
-age_classes_3 = PerformanceClass.create([
+age_classes_3 = PerformanceClass.create!([
   # männliche Jugend und Männer
   m_jugend = { title: 'männliche Jugend (U19)', age_min: 17, age_max: 18, gender: false }, 
   maenner = { title: 'Männer', age_min: 19, age_max: 37, gender: false }
   ])
   
-age_classes_4 = PerformanceClass.create([
+age_classes_4 = PerformanceClass.create!([
   # Schülerinnen und Kadettinnen
   { title: 'Schülerinnen C', age_min: 6, age_max: 7, gender: true }, 
   { title: 'Schülerinnen B', age_min: 8, age_max: 9, gender: true }, 
@@ -58,12 +69,12 @@ age_classes_4 = PerformanceClass.create([
   { title: 'Kadettinnen (U15)', age_min: 12, age_max: 14, gender: true }, 
   ])
   
-age_classes_5 = PerformanceClass.create([
+age_classes_5 = PerformanceClass.create!([
   # Juniorinnen
   { title: 'Juniorinnen (U17)', age_min: 15, age_max: 16, gender: true }
   ])
   
-age_classes_6 = PerformanceClass.create([
+age_classes_6 = PerformanceClass.create!([
   # weibliche Jugend und Frauen 
   { title: 'weibliche Jugend (U19)', age_min: 17, age_max: 18, gender: true }, 
   { title: 'Frauen', age_min: 19, age_max: 37, gender: true }
@@ -73,7 +84,7 @@ age_classes_6 = PerformanceClass.create([
 
 ### WEEKDAYS ###
 
-weekdays = Weekday.create([
+weekdays = Weekday.create!([
   { name: I18n.t(:mon) },
   { name: I18n.t(:tue) },
   { name: I18n.t(:wed) },

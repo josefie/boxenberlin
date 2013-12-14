@@ -16,7 +16,9 @@
       <%= b.first_name %> <%= b.last_name %>
     </li>
   <% end %>
-  <li>alle</li>
+  <% unless @boxers.empty? %>
+  <li><%= link_to "alle", "#" %></li>
+  <% end %>
     
 </ul>
 
