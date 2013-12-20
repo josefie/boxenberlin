@@ -3,8 +3,8 @@ require "spec_helper"
 describe BoxersController do
   describe "routing" do
 
-    it "routes to #index" do
-      get("/boxers").should route_to("boxers#index")
+    it "routes to #my_boxers" do
+      get("/boxers").should route_to("boxers#my_boxers")
     end
 
     it "routes to #new" do

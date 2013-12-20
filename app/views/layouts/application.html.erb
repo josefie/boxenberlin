@@ -34,11 +34,11 @@
   
   <ul id="second-nav" class="nav">
     <% if current_user.nil? %>
-    <li><%= link_to t(:sign_up), new_club_path %></li>
-    <li><%= link_to t(:login), new_session_path %></li>
+    <li><%= link_to t(:sign_up), signup_path %></li>
+    <li><%= link_to t(:login), login_path %></li>
     <% else %>
     <li><%= current_user.name %>
-    <%= link_to t(:logout), session_path(current_user), method: :delete %></li>
+    <%= link_to t(:logout), logout_path(current_user), method: :delete %></li>
     <% end %>
   </ul>
   

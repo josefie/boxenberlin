@@ -38,7 +38,11 @@ group :development, :test do
   gem 'rspec-rails', '~> 2.0'
 end
 
-gem 'capybara'
+group :test do
+  gem 'capybara'
+  gem 'factory_girl_rails', "~> 4.0"
+  gem 'guard-rspec'
+end
 
 gem "bcrypt-ruby", "~> 3.0.1"
 

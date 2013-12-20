@@ -1,10 +1,13 @@
 Boxenberlin::Application.routes.draw do
+  
+  get 'login' => 'sessions#new'
+  post 'login' => 'sessions#create'
+  delete 'logout/:id' => 'sessions#destroy', as: :logout
 
-  #get 'sessions/new' => 'sessions#new', as: :new_session
-
-  resources :sessions, :only => [:new, :create, :destroy]  
-
-  resources :clubs
+  resources :clubs, :except => [:new, :create]
+  
+  get 'signup' => 'clubs#new'
+  post 'signup' => 'clubs#create'
 
   resources :events, :except => :index
   
@@ -27,11 +30,8 @@ Boxenberlin::Application.routes.draw do
   get 'profile' => 'clubs#my_profile', as: :my_profile
   get 'events' => 'events#my_events', as: :my_events
   get 'boxers' => 'boxers#my_boxers', as: :my_boxers
-  #get 'messages' => 'clubs#messages', as: :messages
   
   get 'manage/(:status)' => 'events#manage', as: :manage
-  get 'approved' => 'events#approved'
-  get 'declined' => 'events#declined'
   
   get 'events/:id/apply' => 'events#apply', as: :application
   post 'events/:id/apply' => 'events#send_application', as: :send_application
