@@ -33,6 +33,7 @@ group :doc do
 end
 
 gem 'geocoder'
+gem 'gmaps4rails'
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.0'
@@ -40,8 +41,9 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'factory_girl_rails', "~> 4.0"
+  gem 'factory_girl_rails', "~> 4.2.1"
   gem 'guard-rspec'
+  gem "database_cleaner", "~> 1.2.0"
 end
 
 gem "bcrypt-ruby", "~> 3.0.1"

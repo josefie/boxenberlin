@@ -15,6 +15,7 @@ de:
   login_failed: "E-Mail oder Passwort ungültig."
   logout_successful: "Abmeldung erfolgreich."
   logout_failed: "Abmeldung fehlgeschlagen."
+  request_successful: " wurde erfolgreich beantragt."
 
   # Buttons
   back: "Zurück"

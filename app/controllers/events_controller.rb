@@ -28,6 +28,23 @@ class EventsController < ApplicationController
   # GET /events/1.json
   def show
     @boxers_applied = @event.boxers.where('club_id = ?', current_user)
+    @hash = Gmaps4rails.build_markers(@event) do |event, marker|
+      marker.lat event.latitude
+      marker.lng event.longitude
+      marker.infowindow "<strong>#{event.title}</strong></br>#{event.address}"
+    end
+    
+    @gmaps_options = {
+      "map_options" => {
+        "auto_zoom" => false,
+        "zoom" => 12,
+        "center_latitude" => @event.latitude,
+        "center_longitude" => @event.longitude
+      },
+      "markers" => {
+        "data" => @hash
+      }
+    }
   end
 
   # GET /events/new
@@ -48,7 +65,7 @@ class EventsController < ApplicationController
     authorize! :create, @event
     respond_to do |format|
       if @event.save
-        format.html { redirect_to @event, notice: "#{I18n.t(:event, count: 1)} #{I18n.t(:creation_successful)}" }
+        format.html { redirect_to @event, notice: "#{I18n.t(:event, count: 1)} #{I18n.t(:request_successful)}" }
         format.json { render action: 'show', status: :created, location: @event }
       else
         format.html { render action: 'new' }

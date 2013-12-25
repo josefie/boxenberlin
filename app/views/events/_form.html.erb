@@ -21,7 +21,7 @@
   </div>
 
   <div class="field">
-    <%= f.label :date %><br>
+    <%= label_tag 'Datum' %><br>
     <%= f.date_field :date, "value" => @event.date || Time.now.to_date.to_s %>
   </div>
   

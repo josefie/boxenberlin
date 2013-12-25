@@ -14,7 +14,8 @@
 //= require jquery_ujs
 
 //= require_tree .
-
+//= require underscore
+//= require gmaps/google
   
   function myFunction() {
     alert("Hi");
