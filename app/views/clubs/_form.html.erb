@@ -58,8 +58,9 @@
     <%= f.text_field :contact_mail %>
   </div>
   
-  <div class="actions">
-    <%= f.submit t(:save) %>
+  <div class="actions form-actions">
+    <%= f.submit t(:save), :class => "btn" %>
+    <%= link_to t(:cancel), my_profile_path, :class => "btn" %>
   </div>
   
 <% end %>

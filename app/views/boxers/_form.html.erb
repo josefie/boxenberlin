@@ -53,7 +53,8 @@
   <div class="field">
     <%= f.hidden_field :club_id, :value => current_user.id %>
   </div>
-  <div class="actions">
-    <%= f.submit t(:save) %>
+  <div class="actions form-actions">
+    <%= f.submit t(:save), :class => "btn" %>
+    <%= link_to t(:cancel), my_boxers_path, :class => "btn" %>
   </div>
 <% end %>

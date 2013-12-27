@@ -1,7 +1,7 @@
 <h2>Meine <%= t(:boxer) %></h2>
 
 <% if can? :create, Boxer %>
-  <%= link_to "Boxer hinzufügen", new_boxer_path %>
+  <%= link_to "Boxer hinzufügen", new_boxer_path, :class => "btn" %>
 <% end %>
 
 <div>

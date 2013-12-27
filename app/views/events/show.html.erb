@@ -4,11 +4,11 @@
 <h3><%= @event.title %></h3>
 
 <% if can? :update, @event %>
-<%= link_to t(:edit), edit_event_path(@event) %>
+<%= link_to t(:edit), edit_event_path(@event), :class => "btn" %>
 <% end %>
 
 <% if can? :destroy, @event %>
-  <%= link_to t(:destroy), @event, method: :delete, data: { confirm: t(:confirm_delete) } %>
+  <%= link_to t(:destroy), @event, method: :delete, data: { confirm: t(:confirm_delete) }, :class => "btn" %>
 <% end %>
 <br>
 
@@ -23,7 +23,9 @@
 
 <p>
   <strong><%= t(:address) %>:</strong>
-  <%= @event.address %>
+  <address>
+    <%= @event.address %>
+  </address>
 </p>
 
 <div style='width: 800px;'>
@@ -72,7 +74,7 @@
   <% if @event.contact_mail_public %>
   <p>
     <strong><%= t(:mail) %>:</strong>
-    <%= @event.contact_mail %>
+    <a href="mailto:<%= @event.contact_mail %>"><%= @event.contact_mail %></a>
   </p>
   <% end %>
 </div>
@@ -147,19 +149,15 @@
 <% end %>
 
 <% if can? :manage, @event and !@event.approved then %>
-<div class="approve-buttons">
+<div class="approve-buttons form-actions">
   <%= form_for(@event, :remote => true, :class => "approve_form", :html => {:onsubmit => "approve_event()"}) do |f| %>
     <%= f.hidden_field :approved, value: true %>
-    <div class="actions">
-      <%= f.submit t(:approve) %>
-    </div>
+    <%= f.submit t(:approve), :class => "btn" %>
   <% end %>
 
   <%= form_for(@event, :remote => true, :class => "approve_form", :html => {:onsubmit => "decline_event()"}) do |f| %>
     <%= f.hidden_field :approved, value: false %>
-    <div class="actions">
-      <%= f.submit t(:decline) %>
-    </div>
+    <%= f.submit t(:decline), :class => "btn" %>
   <% end %>
 </div>
 <% end %>

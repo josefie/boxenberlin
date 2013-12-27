@@ -1,15 +1,15 @@
-<%= form_tag login_path do %>
+<%= form_tag login_path, :class => "form-horizontal" do %>
   
   <div class="field">
-  <%= t(:mail) %><br>
+    <label><%= t(:mail) %></label>
     <%= text_field_tag :email, params[:email] %>
   </div>
   <div class="field">
-  <%= t(:password) %><br>
+    <label><%= t(:password) %><label>
     <%= password_field_tag :password %>
   </div>
   <div class="actions">
-    <%= submit_tag t(:login) %>
+    <%= submit_tag t(:login), :class => "btn" %>
   </div>
   
 <% end %>

@@ -1,10 +1,10 @@
 <h2><%= @club.name %></h2>
 
 <% if can? :update, @club %>
-  <%= link_to "#{t(:profile)} bearbeiten", edit_club_path(@club) %>
+  <%= link_to "#{t(:profile)} bearbeiten", edit_club_path(@club), :class => "btn" %>
 <% end %>
 <% if can? :destroy, @club %>
-  | <%= link_to "#{t(:profile)} löschen", @club, method: :delete, data: { confirm: t(:confirm_delete_profile) } %>
+  <%= link_to "#{t(:profile)} löschen", @club, method: :delete, data: { confirm: t(:confirm_delete_profile) }, :class => "btn"  %>
 <% end %>
 
 <div>
@@ -12,13 +12,12 @@
   <%= @club.website %>
 </div>
 
-<div>
-  <strong><%= t(:address)%>:</strong></br>
+<address>
   <%= @club.street %>
   <%= @club.street_no %></br>
   <%= @club.zip %>
   <%= @club.city %>
-</div>
+</address>
 
 <div>
   <%#= image_tag "Map" %>
@@ -52,7 +51,7 @@
   <span><%= t(:phone)%>:</span>
   <%= @club.contact_phone %></br>
   <span><%= t(:mail)%>:</span>
-  <%= @club.contact_mail %>
+  <a href="mailto:<%= @club.contact_mail %>"><%= @club.contact_mail %></a>
 </div>
 
 <div>
