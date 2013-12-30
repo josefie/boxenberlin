@@ -73,7 +73,7 @@ class ClubsController < ApplicationController
     if current_user then
       @club = current_user and return
     else
-      redirect_to new_session_path
+      redirect_to login_path
     end
   end
   
@@ -81,7 +81,7 @@ class ClubsController < ApplicationController
     if current_user then
       @messages = current_user.get_messages
     else
-      redirect_to new_session_path
+      redirect_to login_path
     end
   end
   
@@ -96,7 +96,8 @@ class ClubsController < ApplicationController
       params.require(:club).permit(:name, :street, :street_no, :zip, :city, :website, :contact_name, :contact_phone,
       :contact_mail, :password, :password_confirmation,
       coaches_attributes: [:id, :first_name, :last_name, :club_id, :_destroy],
-      trainings_attributes: [:id, :weekday_id, :time_start, :time_end, :description, :club_id, :_destroy]
+      trainings_attributes: [:id, :weekday_id, :time_start, :time_end, :description, :club_id, :_destroy],
+      location_attributes: [:id, :street, :zip, :city, :country, :club_id, :event_id]
       )
     end
     

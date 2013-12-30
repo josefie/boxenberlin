@@ -4,10 +4,9 @@ Boxenberlin::Application.routes.draw do
   post 'login' => 'sessions#create'
   delete 'logout/:id' => 'sessions#destroy', as: :logout
 
-  resources :clubs, :except => [:new, :create]
+  resources :clubs, :except => :new
   
   get 'signup' => 'clubs#new'
-  post 'signup' => 'clubs#create'
 
   resources :events, :except => :index
   
