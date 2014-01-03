@@ -1,31 +1,33 @@
+@import "variables";
+
 body {
-  background-color: #fff;
-  color: #333;
-  font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 13px;
+  background-color: $background;
+  color: #222;
+  font-family: $app-fonts;
+  font-size: 14px;
   line-height: 18px;
+  font-weight: bold;
 }
 
 p, ol, ul, td {
-  font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 13px;
+  font-family: sawasdee, verdana, arial, helvetica, sans-serif;
+  font-size: 14px;
   line-height: 18px;
 }
 
 pre {
   background-color: #eee;
   padding: 10px;
-  font-size: 11px;
+  font-size: 13px;
 }
 
 a {
-  color: #000;
+  color: #222;
   &:visited {
-    color: #666;
+    color: #222;
   }
   &:hover {
-    color: #fff;
-    background-color: #000;
+    color: #d00;
   }
 }
 
@@ -63,7 +65,7 @@ div {
     color: #fff;
   }
   ul li {
-    font-size: 12px;
+    font-size: 14px;
     list-style: square;
   }
 }

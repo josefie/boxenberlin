@@ -1,3 +1,11 @@
+<h2 class="page-title"><%= t(:requests) %></h2>
+
+<ul class="nav nav-tabs">
+  <li><%= link_to t(:events_open), manage_path("open") %></li>
+  <li><%= link_to t(:events_approved), manage_path("approved") %></li>
+  <li><%= link_to t(:events_declined), manage_path("declined") %></li>
+</ul>
+
 <% if params[:status] == "open" %>
 <h3>Offene 
 <% elsif params[:status] == "approved" %>

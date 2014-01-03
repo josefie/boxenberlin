@@ -1,0 +1,22 @@
+<div class="fields nested-form">
+    
+  <div class="form-group">
+    <%= f.label :street %>
+    <%= f.text_field :street, :class => "form-controls" %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :zip %>
+    <%= f.text_field :zip, :class => "form-controls" %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :city %>
+    <%= f.text_field :city, :class => "form-controls", :value => "Berlin" %>
+  </div>
+  
+  <div class="form-group">
+    <%= link_to_remove_fields(t(:remove), f) %>
+  </div>
+  
+</div>

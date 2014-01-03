@@ -1,6 +1,7 @@
 class Event < ActiveRecord::Base
   geocoded_by :address
-  after_validation :geocode, :if => :address_changed?
+  #after_validation :geocode, :if => :address_changed?
+  after_validation :geocode, if: ->(obj){ obj.address.present? and obj.address_changed? and !Rails.env.test? }
   
   validates :title, presence: true
   validates :address, presence: true
@@ -15,6 +16,7 @@ class Event < ActiveRecord::Base
   has_many :schedule_items
   has_many :participations
   has_many :boxers, -> { distinct }, through: :participations
+  has_one :location
   
   accepts_nested_attributes_for :schedule_items, allow_destroy: true, reject_if: proc { |a| a['label'].blank? }
   

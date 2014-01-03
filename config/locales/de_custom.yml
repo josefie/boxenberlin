@@ -35,6 +35,7 @@ de:
   show: "Anzeigen"
   apply: "Boxer anmelden"
   undo_application: "Abmelden"
+  cancel: "Abbrechen"
   
   approve: "Bestätigen"
   decline: "Ablehnen"
@@ -68,7 +69,7 @@ de:
     one: "Gewichtsklasse"
     other: "Gewichtsklassen"
   street: "Straße"
-  street_no: "Hausnr."
+  street_no: "Nr."
   zip: "PLZ"
   city: "Ort"
   coach: "Trainer"
@@ -111,6 +112,10 @@ de:
   dashboard: "Mein Konto"
   profile: "Profil"
   host: "Veranstalter"
+  news: "Neuigkeiten"
+  requests: "Anträge"
+  participant: "Teilnehmer"
+  past: "Vergangene"
 
   # Wochentage
   mon: "Montag"

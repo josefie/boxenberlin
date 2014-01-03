@@ -44,6 +44,7 @@ group :test do
   gem 'factory_girl_rails', "~> 4.2.1"
   gem 'guard-rspec'
   gem "database_cleaner", "~> 1.2.0"
+  gem "capybara-webkit"
 end
 
 gem "bcrypt-ruby", "~> 3.0.1"

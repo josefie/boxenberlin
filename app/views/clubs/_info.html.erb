@@ -1,68 +1,97 @@
-<h2><%= @club.name %></h2>
+<h2 class="page-title"><%= @club.name %></h2>
 
-<% if can? :update, @club %>
-  <%= link_to "#{t(:profile)} bearbeiten", edit_club_path(@club), :class => "btn" %>
-<% end %>
-<% if can? :destroy, @club %>
-  <%= link_to "#{t(:profile)} löschen", @club, method: :delete, data: { confirm: t(:confirm_delete_profile) }, :class => "btn"  %>
-<% end %>
-
-<div>
-  <strong><%= t(:website) %>:</strong>
-  <%= @club.website %>
+<div class="buttons">
+  <% if can? :update, @club %>
+    <%= link_to t('edit'), edit_club_path(@club), :class => "btn" %>
+  <% end %>
+  <% if can? :destroy, @club %>
+    <%= link_to t('destroy'), @club, method: :delete, data: { confirm: t(:confirm_delete_profile) }, :class => "btn delete"  %>
+  <% end %>
 </div>
+  
+<% unless @club.website.blank? %>
+  <div>
+    <%= link_to @club.website, @club.website %>
+  </div>
+<% end %>
 
-<address>
-  <%= @club.street %>
-  <%= @club.street_no %></br>
-  <%= @club.zip %>
-  <%= @club.city %>
-</address>
+<% unless @club.locations.empty? %>
+  <address>
+    <ul>
+      <% @club.locations.each do |l| %>
+        <li>
+          <%= l.street %><br>
+          <%= l.zip %>
+          <%= l.city %>
+        </li>
+      <% end %>
+    </ul>
+  </address>
+<% end %>
 
 <div>
   <%#= image_tag "Map" %>
 </div>
 
-<div>
-  <strong><%= t(:coach)%>:</strong></br>
-  <% @club.coaches.each do |e| %>
-    <%= "#{e.first_name} #{e.last_name}" %></br>
+<div class="infobox">
+  <label><%= t(:coach)%></label>
+  <% unless @club.coaches.empty? %>
+    <ul>
+      <% @club.coaches.each do |c| %>
+        <li><%= "#{c.first_name} #{c.last_name}" %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    Keine Angabe.
+  <% end %>
+
+  <label><%= t(:training)%></label>
+  <% unless @club.trainings.empty? %>
+    <ul>
+    <% @club.trainings.each do |t| %>
+      <li>
+        <%= t.weekday.name %>
+        <%= format_time(t.time_start) %> bis 
+        <%= format_time(t.time_end) %>
+        <% unless t.description.blank? %>
+          <%= "(#{t.description})" %>
+        <% end%>
+      </li>
+    <% end %>
+    </ul>
+  <% else %>
+    Keine Angabe.
   <% end %>
 </div>
 
-<div>
-  <strong><%= t(:training)%>:</strong></br>
-  <% @club.trainings.each do |t| %>
-    <p>
-    <%#= weekdays.key(t.weekday) %>
-    <%= t.weekday.name %>
-    <%= format_time(t.time_start) %> bis 
-    <%= format_time(t.time_end) %>
-    <% unless t.description.blank? %>
-      <%= "(#{t.description})" %>
-    <% end%>
-    </p>
+  
+<div class="infobox">
+  <label><%= t(:contact)%></label>
+  <% unless @club.contact_name.blank? then %>
+    <%= @club.contact_name %></br>
+  <% end %>
+  <% unless @club.contact_phone.blank? then %>
+    <span><%= t(:phone)%>:</span>
+    <%= @club.contact_phone %></br>
+  <% end %>
+  <% unless @club.contact_mail.blank? then %>
+    <span><%= t(:mail)%>:</span>
+    <a href="mailto:<%= @club.contact_mail %>"><%= @club.contact_mail %></a>
   <% end %>
 </div>
 
-<div>
-  <strong><%= t(:contact)%>:</strong></br>
-  <%= @club.contact_name %></br>
-  <span><%= t(:phone)%>:</span>
-  <%= @club.contact_phone %></br>
-  <span><%= t(:mail)%>:</span>
-  <a href="mailto:<%= @club.contact_mail %>"><%= @club.contact_mail %></a>
-</div>
-
-<div>
-  <strong>Anstehende <%= t(:event, count: 2) %>:</strong></br>
-  <% if @club.events.empty? %>
+<div class="infobox">
+  <label>Anstehende <%= t(:event, count: 2) %></label>
+  <% if @club.events.empty? then %>
     Keine Veranstaltungen in nächster Zeit.
   <% else %>
-  <% @club.events.each do |e| %>
-    <% if e.approved %>
-      <%= link_to e.title, event_path(e.id) %></br>
+    <ul>
+    <% @club.events.each do |e| %>
+      <% if e.approved %>
+        <li><%= link_to e.title, event_path(e.id) %></li>
+      <% end %>
     <% end %>
-  <% end %>
+    </ul>
   <% end %>
 </div>
+

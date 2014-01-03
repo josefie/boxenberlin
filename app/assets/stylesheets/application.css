@@ -12,7 +12,3 @@
  *= require_tree .
  *= require bootstrap_and_overrides
  */
-
-#flash {
-  color: #00aa00;
-}

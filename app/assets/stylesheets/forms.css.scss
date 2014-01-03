@@ -1,0 +1,105 @@
+@import "variables";
+
+form.form-horizontal .controls {
+  margin-left: 20px;
+}
+
+div.nested-fields {  
+  margin-bottom: 10px;
+}
+
+div.nested-form {
+  border-top: $border;
+  border-bottom: $border;
+  background: #FFF;
+  padding: 5px 20px;
+  margin: -1px -20px 0 -20px;
+  
+  .form-group {
+    display: inline-block;
+    margin: 0 10px 0 0;
+  }
+}
+
+legend.section-title {
+  color: $secondary-color;
+  margin-bottom: 0;
+  border: none;
+}
+
+div.form-section {
+  border: $border;
+  padding: 20px;
+}
+
+.actions.form-actions {
+  padding: 0;
+  background: none;
+  border: none;
+}
+
+.inline-fields {
+  .form-group {
+    display: inline-block;
+  }
+  
+  select.form-controls,
+  input[type=text].form-controls,
+  textarea.form-controls {
+    width: 15em;
+  }
+}
+
+input[type=text].form-controls,
+input[type=url].form-controls,
+input[type=password].form-controls,
+input[type=date].form-controls,
+select.form-controls,
+textarea.form-controls {
+  border: $border;
+  border-radius: 0;
+  webkit-border-radius: 0;
+  moz-border-radius: 0;
+  box-shadow: none;
+  width: 90%;
+  max-width: 100%;
+  font-size: 1.1em;
+/*  padding: 10px;*/
+  
+  &:focus {
+    border: 1px $secondary-color solid;
+    box-shadow: 0px 0px 5px rgba(34, 34, 255, 1);
+  }
+}
+
+#search {
+  @extend input[type=text].form-controls;
+  width: 250px;
+}
+
+.form-group {
+  textarea {
+    max-width: 100%;
+  }
+}
+
+#approve-buttons form {
+  display: inline;
+}
+
+.form-group.check {
+  margin-bottom: 10px;
+  
+  .form-controls {
+    margin: 0;
+  }
+
+  label {
+    display: inline;
+  }
+}
+
+#boxer-info-title,
+#boxer-info-section {
+  display: none;
+}

@@ -1,16 +1,31 @@
-<div class="fields">
+<div class="fields nested-form inline-fields">
   
-  <div class="field">
-  <%= f.label t(:label) %>
-    <%= f.text_field :label, value: t(:start) %>
-  </div>
-  <div class="field">
-    <%= f.label t(:time) %>
-    <%= f.time_select :time %>
-  </div>
-  <div class="field">
-    <%= f.hidden_field :event_id, :value => @event.id %>
+  <div class="form-group">
+    <%= f.label :label %>
+    <%= f.text_field :label, value: f.object.label || t(:start), :class => "form-controls" %>
   </div>
   
-  <%= link_to_remove_fields(t(:remove), f) %>
+  <div class="form-group">
+    <%= f.label :time %>    
+    <%= f.time_select :time,
+      {
+      :combined => true,
+      :default => Time.now,
+      :minute_interval => 15,
+      :time_separator => "",
+      :start_hour => 0,
+      :start_minute => 0,
+      :end_hour => 23,
+      :end_minute => 45
+      },
+      {:class => "form-controls"}
+    %>
+  </div>
+  
+  <%#= f.hidden_field :event_id, :value => @event.id %>
+  
+  <div class="form-group">
+    <%= link_to_remove_fields(t(:remove), f) %>
+  </div>
+
 </div>

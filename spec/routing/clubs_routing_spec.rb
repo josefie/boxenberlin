@@ -12,7 +12,7 @@ describe ClubsController do
     end
     
     it "routes to #create" do
-      post("/signup").should route_to("clubs#create")
+      post("/clubs").should route_to("clubs#create")
     end
 
     it "routes to #show" do

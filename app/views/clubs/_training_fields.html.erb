@@ -1,22 +1,51 @@
-<div class="fields">
-  
-  <div class="field">
-  <%= f.label t(:weekday) %><br>
-    <%#= f.select :weekday, options_for_select(weekdays) %>
-    <%= f.select :weekday_id, options_from_collection_for_select(Weekday.all, :id, :name) %>
-  </div>
-  <div class="field">
-  <%= f.label t(:start) %><br>
-    <%= f.time_select :time_start %>
-  </div>
-  <div class="field">
-  <%= f.label t(:end) %><br>
-    <%= f.time_select :time_end %>
-  </div>
-  <div class="field">
-  <%= f.label t(:description) %><br>
-    <%= f.text_area :description %>
+<div class="fields nested-form">
+    
+  <div class="form-group">
+    <label><%= f.label :weekday %></label>
+    <%= f.select :weekday_id, options_from_collection_for_select(Weekday.all, :id, :name), {}, {:class => "form-controls"} %>
   </div>
   
-  <%= link_to_remove_fields(t(:remove), f) %>
+  <div class="form-group">
+    <label><%= f.label :time_start %></label>
+    <%= f.time_select :time_start,
+      {
+      :combined => true,
+      :default => Time.now,
+      :minute_interval => 15,
+      :time_separator => "",
+      :start_hour => 0,
+      :start_minute => 0,
+      :end_hour => 23,
+      :end_minute => 45
+      },
+      {:class => "form-controls"}
+    %>
+  </div>
+  
+  <div class="form-group">
+    <label><%= f.label :time_end %></label>
+    <%= f.time_select :time_end,
+      {
+      :combined => true,
+      :default => Time.now,
+      :minute_interval => 15,
+      :time_separator => "",
+      :start_hour => 0,
+      :start_minute => 0,
+      :end_hour => 23,
+      :end_minute => 45
+      },
+      {:class => "form-controls"}
+    %>
+  </div>
+  
+  <div class="form-group">
+    <%= link_to_remove_fields(t(:remove), f) %>
+  </div>
+
+  <div class="form-group">
+    <label><%= f.label :description %></label>
+    <%= f.text_area :description, :class => "form-controls" %>
+  </div>
+
 </div>

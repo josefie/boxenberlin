@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy, :apply, :send_application, :participations]
-  #load_and_authorize_resource
+  before_action :parse_time, only: [:update, :create]
   
   Inf = 1.0 / 0.0
   
@@ -195,6 +195,14 @@ class EventsController < ApplicationController
       :approved, 
       schedule_items_attributes: [:id, :label, :time, :event_id, :_destroy]
       )
+    end
+    
+    def parse_time
+      if params[:event] and params[:event][:schedule_items_attributes] then
+        params[:event][:schedule_items_attributes].values.each do |schedule_item|
+          schedule_item.parse_time_select! :time
+        end
+      end
     end
     
 end

@@ -1,7 +1,6 @@
 class ClubsController < ApplicationController
   before_action :set_club, only: [:show, :edit, :update, :destroy]
-  #load_and_authorize_resource :except => [:create, :my_profile]
-  #force_ssl
+  before_action :parse_time, only: :update
   
   # GET /clubs
   # GET /clubs.json
@@ -48,7 +47,7 @@ class ClubsController < ApplicationController
     authorize! :update, @club
     respond_to do |format|
       if @club.update(club_params)
-        format.html { redirect_to my_profile_path(@club), notice: "#{I18n.t(:club, count: 1)} #{I18n.t(:update_successful)}" }
+        format.html { redirect_to my_profile_path, notice: "#{I18n.t(:club, count: 1)} #{I18n.t(:update_successful)}" }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -77,14 +76,6 @@ class ClubsController < ApplicationController
     end
   end
   
-  def messages
-    if current_user then
-      @messages = current_user.get_messages
-    else
-      redirect_to login_path
-    end
-  end
-  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_club
@@ -97,8 +88,17 @@ class ClubsController < ApplicationController
       :contact_mail, :password, :password_confirmation,
       coaches_attributes: [:id, :first_name, :last_name, :club_id, :_destroy],
       trainings_attributes: [:id, :weekday_id, :time_start, :time_end, :description, :club_id, :_destroy],
-      location_attributes: [:id, :street, :zip, :city, :country, :club_id, :event_id]
+      location_attributes: [:id, :street, :zip, :city, :country, :club_id, :event_id, :_destroy]
       )
+    end
+    
+    def parse_time
+      if params[:club] and params[:club][:trainings_attributes] then
+        params[:club][:trainings_attributes].values.each do |training|
+          training.parse_time_select! :time_start
+          training.parse_time_select! :time_end
+        end
+      end
     end
     
 end

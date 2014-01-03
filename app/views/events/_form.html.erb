@@ -11,96 +11,130 @@
     </div>
   <% end %>
 
-  <h3>Infos für die Beantragung beim Verband (Pflichtfelder)</h3>
+  <legend class="section-title">Infos für die Beantragung beim Verband (Pflichtfelder)</legend>
 
-  <div class="field">
-  <%= f.label t(:address) %><br>
-    <%= f.text_field :address, :id=>'gmaps-input-address' %>
-    <%= f.hidden_field :latitude, :id=>'gmaps-output-latitude' %>
-    <%= f.hidden_field :longitude, :id=>'gmaps-output-longitude' %>
-  </div>
-
-  <div class="field">
-    <%= label_tag 'Datum' %><br>
-    <%= f.date_field :date, "value" => @event.date || Time.now.to_date.to_s %>
-  </div>
-  
-  <div class="field">
-  <%= f.label t(:schedule) %><br>
-    <%= link_to_add_fields("#{t(:item)} hinzufügen", f, :schedule_items) %>
-    <%= f.fields_for :schedule_items do |builder| %>
-      <%= render "schedule_item_fields", :f => builder %>
-    <% end %>
-  </div>
-  
-  <div class="field">
-    <%= f.label t(:contact) %><br>
+  <div class="form-section">
     
-    <%= f.label t(:name) %><br>
-    <%= f.text_field :contact_name %>
-    <%= f.check_box :contact_name_public %>
-    <%= f.label t(:public) %>?<br>
+    <div class="form-group">
+      <%= f.label :title %>
+      <%= f.text_field :title, :class => "form-controls" %>
+    </div>
 
-    <%= f.label t(:phone) %><br>
-    <%= f.text_field :contact_phone %>
-    <%= f.check_box :contact_phone_public %>
-    <%= f.label t(:public) %>?<br>
+    <div class="form-group">
+      <%= f.label :address %>
+      <%= f.text_field :address, :id => 'gmaps-input-address', :class => "form-controls" %>
+      <%= f.hidden_field :latitude, :id => 'gmaps-output-latitude' %>
+      <%= f.hidden_field :longitude, :id => 'gmaps-output-longitude' %>
+    </div>
 
-    <%= f.label t(:mail) %><br>
-    <%= f.text_field :contact_mail, :value => @event.contact_mail || current_user.contact_mail %>
-    <%= f.check_box :contact_mail_public %>
-    <%= f.label t(:public) %>?
-  </div>
+    <div class="form-group">
+      <%= f.label :date %>
+      <%= f.date_field :date, "value" => @event.date || Time.now.to_date.to_s, :class => "form-controls"  %>
+    </div>
   
-  <div>
-    Todo: Landesverband, Kampfgericht
-  </div>
+    <div class="form-group">
+      <%= f.label :schedule, :class => "subtitle" %>
+      <%= link_to_add_fields("#{t(:item)} hinzufügen", f, :schedule_items) %>
+      <%= f.fields_for :schedule_items do |builder| %>
+        <%= render "schedule_item_fields", :f => builder %>
+      <% end %>
+    </div>
   
-  <h3>Infos für Teilnehmer</h3>
-  
-  <div class="field">
-    <%= f.label t(:title) %><br>
-    <%= f.text_field :title %>
-  </div>
-  
-  <div class="field">
-    <%= f.label t(:description) %><br>
-    <%= f.text_area :additional_info %>
-  </div>
-  
-  <div class="field">
-    <%= f.label t(:fee) %>
-    <%= f.text_field :fee %>
-  </div>
+    <div>
+      
+      <label class="subtitle"><%= t(:contact) %></label>
     
-  <div class="field checkboxes">
-    <%= f.label t(:performance_class, count: 2) %><br>
-    <%= f.collection_check_boxes :performance_class_ids, PerformanceClass.all, :id, :title %>
+      <div class="inline-fields">
+        <div class="form-group">
+          <%= f.label :contact_name %>
+          <%= f.text_field :contact_name, :class => "form-controls" %>
+        </div>
+      
+        <div class="form-group check">
+          <%= f.check_box :contact_name_public, :class => "form-controls" %>
+          <%= f.label t(:public) %>?
+        </div>
+      </div>
+    
+      <div class="inline-fields">
+        <div class="form-group">
+          <%= f.label :contact_phone %>
+          <%= f.text_field :contact_phone, :class => "form-controls" %>
+        </div>
+        
+        <div class="form-group check">
+          <%= f.check_box :contact_phone_public, :class => "form-controls" %>
+          <%= f.label t(:public) %>?
+        </div>
+      </div>
+      
+      <div class="inline-fields">
+        <div class="form-group">
+          <%= f.label :contact_mail %>
+          <%= f.text_field :contact_mail, :value => @event.contact_mail || current_user.contact_mail, :class => "form-controls" %>
+        </div>
+        
+        <div class="form-group check">
+          <%= f.check_box :contact_mail_public, :class => "form-controls" %>
+          <%= f.label t(:public) %>?
+        </div>
+      </div>
+    
+    </div>
+  
+    <div class="form-group">
+      Todo: Landesverband, Kampfgericht
+    </div>
+    
   </div>
   
-  <div class="field">
-    <%= t(:available) %>:<br>
-    <%= f.label t(:gloves) %>?
-    <%= f.check_box :gloves_available %><br>
+  <legend class="section-title">Infos für Teilnehmer</legend>
+  
+  <div class="form-section">
+    
+    <div class="form-group">
+      <%= f.label :additional_info %>
+      <%= f.text_area :additional_info, :rows => "5", :class => "form-controls" %>
+    </div>
+  
+    <div class="form-group">
+      <%= f.label :fee %>
+      <%= f.text_field :fee, :class => "form-controls" %>
+    </div>
+    
+    <div class="form-group check">
+      <%= f.label t(:performance_class, count: 2) %><br>
+      <%= f.collection_check_boxes :performance_class_ids, PerformanceClass.all, :id, :title, :class => "form-controls"  %>
+    </div>
+  
+    <div class="form-group">
+      <label class="subtitle"><%= t(:available) %></label>
+      
+      <%= f.label :gloves_available %>?
+      <%= f.check_box :gloves_available, :class => "form-controls" %>
 
-    <%= f.label t(:catering) %>?
-    <%= f.check_box :catering_available %>
-  </div>
+      <%= f.label :catering_available %>?
+      <%= f.check_box :catering_available, :class => "form-controls" %>
+    </div>
   
-  <div class="field">
-    <%= f.label t(:admission) %><br>
-    <%= f.label t(:default) %>
-    <%= f.text_field :admission %><br>
-    <%= f.label t(:discounted) %>
-    <%= f.text_field :admission_discounted %>
-  </div>
+    <div class="form-group">
+      <%= f.label :admission, :class => "subtitle" %>
+      
+      <%= f.label t(:default) %>
+      <%= f.text_field :admission, :class => "form-controls" %>
+      
+      <%= f.label t(:discounted) %>
+      <%= f.text_field :admission_discounted, :class => "form-controls" %>
+    </div>
   
-  <div class="field">
-    <%= f.hidden_field :club_id, :value => current_user.id %>
+    <div class="form-group">
+      <%= f.hidden_field :club_id, :value => current_user.id %>
+    </div>
+    
   </div>
   
   <div class="actions form-actions">
     <%= f.submit t(:request), :class => "btn" %>
-    <%= link_to t(:cancel), my_events_path, :class => "btn" %>
+    <%= link_to t(:cancel), my_events_path, :class => "btn delete" %>
   </div>
 <% end %>

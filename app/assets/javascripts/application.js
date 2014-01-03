@@ -50,4 +50,11 @@
     alert("Veranstaltung abgelehnt!");
   }
   
+  $("tr[data-link]").click(function() {
+    window.location = this.dataset.link;
+  })
+
+  function toggle_info(element) {
+    $(element).toggle();
+  }
   

@@ -1,11 +1,13 @@
-<h2><%= @boxer.first_name %> <%= @boxer.last_name %></h2>
+<h2 class="page-title"><%= @boxer.first_name %> <%= @boxer.last_name %></h2>
 
+<div class="buttons">
 <% if can? :update, @boxer %>
   <%= link_to t('edit'), edit_boxer_path(@boxer), :class => "btn" %>
 <% end %>
 <% if can? :destroy, @boxer %>
-  <%= link_to t('destroy'), @boxer, method: :delete, data: { confirm: t(:confirm_delete) }, :class => "btn" %>
+  <%= link_to t('destroy'), @boxer, method: :delete, data: { confirm: t(:confirm_delete) }, :class => "btn delete" %>
 <% end %>
+</div>
 
 <p>
   <strong><%= t(:date_of_birth) %>:</strong>
@@ -60,4 +62,4 @@
   <%= @boxer.club.name %>
 </p>
 
-<%= link_to t(:back), :back %>
+<%= link_to t(:back), :back, :class => "btn" %>

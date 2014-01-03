@@ -1,4 +1,4 @@
-<%= form_for @club, :html => {:class => 'form-horizontal'} do |f| %>
+<%= form_for @club, :class => 'form-horizontal' do |f| %>
   <% if @club.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@club.errors.count, "error") %> prohibited this club from being saved:</h2>
@@ -11,21 +11,21 @@
     </div>
   <% end %>
 
-  <div class="field control-group">
-    <%= f.label t(:name), :class => "control-label" %>
-    <%= f.text_field :name, :class => "controls" %>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, :class => "form-controls" %>
   </div>
-  <div class="field">
-    <%= f.label t(:mail), :class => "control-label" %>
-    <%= f.text_field :contact_mail, :class => "controls" %>
+  <div class="form-group">
+    <%= f.label :contact_mail %>
+    <%= f.text_field :contact_mail, :class => "form-controls" %>
   </div>
-  <div class="field">
-    <%= f.label t(:password), :class => "control-label" %>
-    <%= f.password_field :password, :class => "controls" %>
+  <div class="form-group">
+    <%= f.label :password %>
+    <%= f.password_field :password, :class => "form-controls" %>
   </div>
-  <div class="field">
-    <%= f.label t(:password_confirmation), :class => "control-label" %>
-    <%= f.password_field :password_confirmation, :class => "controls" %>
+  <div class="form-group">
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation, :class => "form-controls" %>
   </div>
   <div class="actions form-actions">
     <%= f.submit t(:sign_up), :class => "btn" %>

@@ -1,3 +1,57 @@
 // Place all the styles related to the Events controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "variables";
+
+#calendar {
+  border-collapse:separate;
+  border-spacing:00px 10px;
+  
+  thead {
+    display: none;
+  }
+  
+  .event-day {
+    font-size: 5em;
+    font-weight: normal;
+  }
+
+  .calendar-row {
+    height: 80px;
+    background: #fff;
+    cursor: pointer;
+  
+    &:hover {
+      background: $main-color;
+    }
+    
+    td {
+      vertical-align: middle;
+      border-top: $border;
+      border-bottom: $border;
+      
+      &:first-child {
+        border-left: $border;
+      }
+      
+      &:last-child {
+        border-right: $border;
+      }
+    }     
+      
+    a:hover {
+      color: #222;
+      text-decoration: none;
+    }
+  }
+}
+
+span#calendar-label {
+  font-size: 1.8em;
+  vertical-align: middle;
+}
+
+#map {
+  margin-bottom: 20px;
+}

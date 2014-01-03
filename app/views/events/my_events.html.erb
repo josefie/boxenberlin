@@ -1,8 +1,14 @@
-<h2>Meine <%= t(:event, count: 2) %></h2>
+<h2 class="page-title">Meine <%= t(:event, count: 2) %></h2>
 
 <% if can? :create, Event %>
   <%= link_to "#{t(:event, count: 1)} hinzufügen", new_event_path, :class => "btn"  %>
 <% end %>
+
+<ul class="nav nav-tabs">
+  <li><%= link_to t(:host), my_events_path %></li>
+  <li><%= link_to t(:participant), my_events_path %></li>
+  <li><%= link_to t(:past), my_events_path %></li>
+</ul>
 
 <h3>Veranstalter</h3>
 

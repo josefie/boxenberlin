@@ -11,50 +11,90 @@
     </div>
   <% end %>
 
-  <div class="field required">
-    <%= f.label t(:first_name) %><br>
-    <%= f.text_field :first_name %>
+
+    
+  <div class="form-group">
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name, :class => "form-controls" %>
   </div>
-  <div class="field required">
-  <%= f.label t(:last_name) %><br>
-    <%= f.text_field :last_name %>
+  
+  <div class="form-group">
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name, :class => "form-controls" %>
   </div>
-  <div class="field required">
-  <%= f.label t(:date_of_birth) %><br>
+  
+  <div class="form-group inline-fields">
+    <%= f.label :date_of_birth %>
     <%= f.date_select :date_of_birth,
-    :start_year => Date.current.year - 37,
+    {:start_year => Date.current.year - 37,
     :end_year => Date.current.year - 6,
-    :order => [:day, :month, :year] %>
+    :order => [:day, :month, :year]},
+    {:class => "form-controls"} %>
   </div>
-  <div class="field required">
-  <%= f.label t(:weight) %><br>
-    <%= f.text_field :weight %>
+  
+
+    
+  <div class="form-group check">
+    <%= f.label :active, :class => "subtitle" %>?
+    <%= f.check_box :active, :class => "form-controls", :onclick => "toggle_info('#boxer-info-section'); toggle_info('#boxer-info-title');" %>
   </div>
-  <div class="field">
-  <%= f.label t(:fights, count: 2) %><br>
-  <%= f.label t(:won) %>
-    <%= f.text_field :fights_won, :value => 0 %></br>
-    <%= f.label t(:lost) %>
-    <%= f.text_field :fights_lost, :value => 0 %></br>
-    <%= f.label t(:drawn) %>
-    <%= f.text_field :fights_drawn, :value => 0 %>
+  
+  <legend class="section-title" id="boxer-info-title">Kämpferinformationen</legend>
+  
+  <div class="form-section" id="boxer-info-section">
+    
+  <div class="inline-fields">
+    
+  <div class="form-group">
+  <%= f.label t(:weight), :class => "subtitle" %>
+    <%= f.text_field :weight, :class => "form-controls" %>
   </div>
-  <div class="field required">
-  <%= f.label t(:gender) %><br>
-    <%= f.radio_button :gender, true %>
-    <%= f.label t("female"), :class => :gender %>
-    <%= f.radio_button :gender, false %>
-    <%= f.label t("male"), :class => :gender %>
+  
   </div>
-  <div class="field">
-  <%= f.label t(:active) %>?<br>
-    <%= f.check_box :active %>
+  
+  <div class="inline-fields">
+    
+    <label class="subtitle">Kämpfe</label>
+    
+    <div class="form-group">
+      <%= f.label t(:won) %>
+      <%= f.text_field :fights_won, :value => 0, :class => "form-controls" %>
+    </div>
+    
+    <div class="form-group">
+      <%= f.label t(:lost) %>
+      <%= f.text_field :fights_lost, :value => 0, :class => "form-controls" %>
+    </div>
+    
+    <div class="form-group">
+      <%= f.label t(:drawn) %>
+      <%= f.text_field :fights_drawn, :value => 0, :class => "form-controls" %>
+    </div>
+    
   </div>
-  <div class="field">
-    <%= f.hidden_field :club_id, :value => current_user.id %>
+  
+  <div class="">
+    
+    <label class="subtitle">Geschlecht</label>
+    
+    <div class="form-group check">
+      <%= f.radio_button :gender, true, :class => "form-controls" %>
+      <%= f.label t("female"), :class => :gender %>
+    </div>
+    
+    <div class="form-group check">
+      <%= f.radio_button :gender, false, :class => "form-controls" %>
+      <%= f.label t("male"), :class => :gender %>
+    </div>
+    
   </div>
+  
+  </div>
+  
+  <%= f.hidden_field :club_id, :value => current_user.id %>
+  
   <div class="actions form-actions">
     <%= f.submit t(:save), :class => "btn" %>
-    <%= link_to t(:cancel), my_boxers_path, :class => "btn" %>
+    <%= link_to t(:cancel), :back, :class => "btn delete" %>
   </div>
 <% end %>

@@ -1,19 +1,17 @@
-<%= form_tag login_path, :class => "form-horizontal" do %>
+<%= form_tag login_path do %>
   
-  <div class="field control-group">
-    <label class="control-label"><%= t(:mail) %></label>
-    <%= text_field_tag :email, params[:email], :class => "controls" %>
+  <div class="form-group">
+    <label><%= t(:mail) %></label>
+    <%= text_field_tag :email, params[:email], :class => "form-controls" %>
   </div>
-  <div class="field control-group">
-    <label class="control-label"><%= t(:password) %></label>
-    <%= password_field_tag :password, nil, :class => "controls" %>
+  <div class="form-group">
+    <label><%= t(:password) %></label>
+    <%= password_field_tag :password, nil, :class => "form-controls" %>
   </div>
   <div class="actions form-actions">
     <%= submit_tag t(:login), :class => "btn" %>
   </div>
   
-  <div>
-    <%= link_to "Noch kein Vereinskonto?", signup_path %>
-  </div>
+  <%= link_to "Noch kein Vereinskonto?", signup_path %>
   
 <% end %>

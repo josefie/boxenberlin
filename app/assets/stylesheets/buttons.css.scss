@@ -1,0 +1,34 @@
+@import "variables";
+
+.btn-group {
+  margin-bottom: 20px;
+}
+
+.buttons.btn-group a.btn, .btn {
+  color: $secondary-color;
+  border-radius: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border: $border;
+  background: transparent;
+  margin-bottom: 20px;
+  font-family: sawasdee;
+  font-weight: bold;
+  
+  &:visited {
+    color: $secondary-color;
+  }
+  
+  &:hover {
+    background: $secondary-color;
+    color: #fff;
+  }
+  
+  &.delete:hover {
+    background: $main-color;
+  }
+}
+
+.btn.remove-element-btn {
+  margin-top: 10px;
+}

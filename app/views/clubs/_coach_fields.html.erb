@@ -1,8 +1,17 @@
-<div class="fields">
-<%= f.label t(:first_name) %>
-  <%= f.text_field :first_name %>
-  <%= f.label t(:last_name) %>
-  <%= f.text_field :last_name %>
+<div class="fields nested-form">
   
-  <%= link_to_remove_fields(t(:remove), f) %>
+  <div class="form-group">
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name, :class => "form-controls" %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name, :class => "form-controls" %>
+  </div>
+  
+  <div class="form-group">
+    <%= link_to_remove_fields(t(:remove), f) %>
+  </div>
+  
 </div>

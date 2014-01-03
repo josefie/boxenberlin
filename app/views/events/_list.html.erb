@@ -1,9 +1,9 @@
-<table class="table table-hover">
+<table class="table table-hover" id="calendar">
   <thead>
     <tr>
-    <th><%= label_tag :title %></th>
-    <th><%= label_tag :address %></th>
       <th></th>
+      <th><%= label_tag :title %></th>
+      <th><%= label_tag :address %></th>
       <th><%= label_tag :date %></th>
       <th><%= label_tag :host %></th>
     </tr>
@@ -11,13 +11,13 @@
 
   <tbody>
     <% @events.each do |event| %>
-      <tr>
-        <td><%= link_to event.title, event %></td>
-        <td><%= event.address %></td>
-        <td><%= image_tag "http://maps.google.com/maps/api/staticmap?size=80x80&sensor=false&zoom=11&markers=#{event.latitude}%2C#{event.longitude}" %></td>
-        <td><%= event.date %></td>
-        <td><%= unless event.club.nil? then event.club.name end %></td>
-      </tr>
+    <tr class="calendar-row" onclick="window.location.href = '<%= event_path(event) %>'">
+      <td class="event-day"><%= event.date.day %></td>
+      <td><%= link_to event.title, event, :class => "hide-link" %></td>
+      <td><%= event.address %></td>
+      <td><%= format_date(event.date) %></td>
+      <td><%= unless event.club.nil? then event.club.name end %></td>
+    </tr>
     <% end %>
   </tbody>
 </table>

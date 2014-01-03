@@ -1,14 +1,16 @@
-<h2><%= t(:apply) %></h2>
+<h2 class="page-title"><%= t(:apply) %></h2>
 
 <p>Sie möchten zu der folgenden Veranstaltung Boxer anmelden:</p>
 
 <%= render 'list' %>
 
-<p>Aktive Boxer (bitte auswählen):</p>
+<div class="infobox">
+  
+<label class="subtitle">Aktive Boxer (bitte auswählen):</label>
 
 <%= form_tag send_application_path, method: :post do %>
   
-<ul class="field checkboxes">
+<ul>
   
   <% @boxers.each do |b| %>
     <li>
@@ -22,10 +24,12 @@
     
 </ul>
 
-<%= link_to "Neuen Boxer hinzufügen", new_boxer_path %>
-
-<div class="actions">
-  <%= submit_tag t(:apply) %>
+<div class="actions form-actions">
+  <%= submit_tag t(:apply), :class => "btn" %>
 </div>
   
 <% end %>
+
+</div>
+
+<%= link_to "Neuen Boxer hinzufügen?", new_boxer_path %>
