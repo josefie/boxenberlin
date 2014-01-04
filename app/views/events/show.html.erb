@@ -33,12 +33,15 @@
 </p>
 <% end %>
 
-<% unless @event.address.nil? %>
+<% unless @event.location.nil? %>
 
 <p>
   <label class="subtitle">Veranstaltungsort:</label>
   <address>
-    <%= @event.address %>
+    <%= @event.location.street %>
+    <%= @event.location.number %><br>
+    <%= @event.location.zip %>
+    <%= @event.location.city %>
   </address>
 </p>
 

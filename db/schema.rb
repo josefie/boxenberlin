@@ -31,10 +31,6 @@ ActiveRecord::Schema.define(version: 20131229203147) do
 
   create_table "clubs", force: true do |t|
     t.string   "name"
-    t.string   "street"
-    t.string   "street_no"
-    t.string   "zip"
-    t.string   "city"
     t.string   "website"
     t.string   "contact_name"
     t.string   "contact_phone"
@@ -76,7 +72,6 @@ ActiveRecord::Schema.define(version: 20131229203147) do
     t.boolean  "contact_name_public"
     t.boolean  "contact_phone_public"
     t.boolean  "contact_mail_public"
-    t.string   "address"
     t.float    "latitude"
     t.float    "longitude"
     t.integer  "club_id"
@@ -94,6 +89,7 @@ ActiveRecord::Schema.define(version: 20131229203147) do
 
   create_table "locations", force: true do |t|
     t.string   "street"
+    t.string   "number"
     t.string   "zip"
     t.string   "city"
     t.string   "country"

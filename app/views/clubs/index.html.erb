@@ -4,8 +4,7 @@
   <thead>
     <tr>
       <th><%= t(:name) %></th>
-      <th><%= t(:zip) %></th>
-      <th><%= t(:city) %></th>
+      <th><%= t(:address) %></th>
     </tr>
   </thead>
 
@@ -13,8 +12,7 @@
     <% @clubs.each do |club| %>
       <tr>
         <td><%= link_to club.name, club %></td>
-        <td><%= club.zip %></td>
-        <td><%= club.city %></td>
+        <td><%= club.loc %></td>
       </tr>
     <% end %>
   </tbody>

@@ -1,10 +1,9 @@
 class Event < ActiveRecord::Base
-  geocoded_by :address
-  #after_validation :geocode, :if => :address_changed?
-  after_validation :geocode, if: ->(obj){ obj.address.present? and obj.address_changed? and !Rails.env.test? }
+  geocoded_by :loc
+  after_validation :geocode, if: ->(obj){ location_change(obj) and !Rails.env.test? }
   
   validates :title, presence: true
-  validates :address, presence: true
+  #validates :address, presence: true
   validates :date, presence: true
   #validate :at_least_one_schedule_item
   validates :contact_name, presence: true
@@ -16,9 +15,10 @@ class Event < ActiveRecord::Base
   has_many :schedule_items
   has_many :participations
   has_many :boxers, -> { distinct }, through: :participations
-  has_one :location
+  has_one :location, :dependent => :destroy
   
   accepts_nested_attributes_for :schedule_items, allow_destroy: true, reject_if: proc { |a| a['label'].blank? }
+  accepts_nested_attributes_for :location, allow_destroy: true#, reject_if: proc { |a| a['city'].blank? }
   
   def at_least_one_schedule_item
     if self.schedule_items.empty?
@@ -52,6 +52,18 @@ class Event < ActiveRecord::Base
   def self.by_date(date)
     #find(:all, :conditions => ["strftime('%m', date) + 0 = ? AND strftime('%Y', date) + 0 = ?", date.month, date.year])
     Event.where("strftime('%m', date) + 0 = ? AND strftime('%Y', date) + 0 = ?", date.month, date.year)
+  end
+  
+  def loc
+    [self.location.street, self.location.number, self.location.zip, self.location.city, self.location.country].compact.join(' ')
+  end
+  
+  def location_change(obj)
+    if obj.location.nil?
+      return false
+    else
+      ( obj.location.street.present? or obj.location.number.present? or obj.location.zip.present? or obj.location.city.present? ) and ( obj.location.street_changed? or obj.location.number_changed? or obj.location.zip_changed? or obj.location.city_changed? )
+    end
   end
   
 end

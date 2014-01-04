@@ -20,7 +20,8 @@
     <ul>
       <% @club.locations.each do |l| %>
         <li>
-          <%= l.street %><br>
+          <%= l.street %>
+          <%= l.number %><br>
           <%= l.zip %>
           <%= l.city %>
         </li>

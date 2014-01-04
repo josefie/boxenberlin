@@ -14,7 +14,11 @@
     <tr class="calendar-row" onclick="window.location.href = '<%= event_path(event) %>'">
       <td class="event-day"><%= event.date.day %></td>
       <td><%= link_to event.title, event, :class => "hide-link" %></td>
-      <td><%= event.address %></td>
+      <td>
+        <% unless event.location.nil? %>
+          <%= event.loc %>
+        <% end %>
+      </td>
       <td><%= format_date(event.date) %></td>
       <td><%= unless event.club.nil? then event.club.name end %></td>
     </tr>

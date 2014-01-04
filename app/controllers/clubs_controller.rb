@@ -5,7 +5,7 @@ class ClubsController < ApplicationController
   # GET /clubs
   # GET /clubs.json
   def index
-    @clubs = Club.all.order("zip")
+    @clubs = Club.all
   end
 
   # GET /clubs/1
@@ -84,11 +84,11 @@ class ClubsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.    
     def club_params
-      params.require(:club).permit(:name, :street, :street_no, :zip, :city, :website, :contact_name, :contact_phone,
+      params.require(:club).permit(:name, :website, :contact_name, :contact_phone,
       :contact_mail, :password, :password_confirmation,
       coaches_attributes: [:id, :first_name, :last_name, :club_id, :_destroy],
       trainings_attributes: [:id, :weekday_id, :time_start, :time_end, :description, :club_id, :_destroy],
-      location_attributes: [:id, :street, :zip, :city, :country, :club_id, :event_id, :_destroy]
+      locations_attributes: [:id, :street, :number, :zip, :city, :country, :club_id, :event_id, :_destroy]
       )
     end
     

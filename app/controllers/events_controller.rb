@@ -31,7 +31,7 @@ class EventsController < ApplicationController
     @hash = Gmaps4rails.build_markers(@event) do |event, marker|
       marker.lat event.latitude
       marker.lng event.longitude
-      marker.infowindow "<strong>#{event.title}</strong></br>#{event.address}"
+      marker.infowindow "<strong>#{event.title}</strong>"
     end
     
     @gmaps_options = {
@@ -50,12 +50,14 @@ class EventsController < ApplicationController
   # GET /events/new
   def new
     @event = Event.new
+    @event.create_location
     authorize! :create, @event
   end
 
   # GET /events/1/edit
   def edit
     authorize! :update, @event
+    @location = @event.location || @event.create_location
   end
 
   # POST /events
@@ -187,13 +189,13 @@ class EventsController < ApplicationController
       :admission, 
       :admission_discounted, 
       :fee,
-      :address, 
       :latitude, 
       :longitude, 
       :club_id,
       {:performance_class_ids => []}, 
       :approved, 
-      schedule_items_attributes: [:id, :label, :time, :event_id, :_destroy]
+      schedule_items_attributes: [:id, :label, :time, :event_id, :_destroy],
+      location_attributes: [:id, :street, :number, :zip, :city, :country, :club_id, :event_id, :_destroy]
       )
     end
     

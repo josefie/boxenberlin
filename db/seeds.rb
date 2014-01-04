@@ -31,11 +31,11 @@ schedule_items = ScheduleItem.create!([
 events = Event.create!([
   
   # Beispielveranstaltungen
-  { title: 'Boxevent Neukölln', address: 'Berlin Neukölln', date: Date.parse("2013-12-10"), contact_name: "A", contact_mail: "info@nsf.de", club_id: 1, approved: false }, 
-  { title: 'Juliusturmpokalturnier', address: 'Berlin Spandau', date: Date.parse("2014-02-01"), contact_name: "B", contact_mail: "info@sbc.de", club_id: 3, approved: true }, 
-  { title: 'Berliner Meisterschaft', address: 'Berlin Spandau', date: Date.parse("2013-12-15"), contact_name: "B", contact_mail: "info@sbc.de", club_id: 3, approved: true }, 
-  { title: 'Johann Trollmann Boxturnier', address: 'Berlin Kreuzberg', date: Date.today, contact_name: "C", contact_mail: "info@sw.de", club_id: 5, approved: true },
-  { title: 'Neujahrsboxen', address: 'Berlin Kreuzberg', date: Date.parse("2014-01-01"), contact_name: "C", contact_mail: "info@sw.de", club_id: 5 }
+  { title: 'Boxevent Neukölln', date: Date.parse("2013-12-10"), contact_name: "A", contact_mail: "info@nsf.de", club_id: 1, approved: false }, 
+  { title: 'Juliusturmpokalturnier', date: Date.parse("2014-02-01"), contact_name: "B", contact_mail: "info@sbc.de", club_id: 3, approved: true }, 
+  { title: 'Berliner Meisterschaft', date: Date.parse("2013-12-15"), contact_name: "B", contact_mail: "info@sbc.de", club_id: 3, approved: true }, 
+  { title: 'Johann Trollmann Boxturnier', date: Date.today, contact_name: "C", contact_mail: "info@sw.de", club_id: 5, approved: true },
+  { title: 'Neujahrsboxen', date: Date.parse("2014-01-01"), contact_name: "C", contact_mail: "info@sw.de", club_id: 5 }
   
   ])
 
