@@ -12,7 +12,14 @@
     <% @clubs.each do |club| %>
       <tr>
         <td><%= link_to club.name, club %></td>
-        <td><%= club.loc %></td>
+        <td>
+        <% unless club.locations.empty? %>
+          <%= club.locations.first.street %>
+          <%= club.locations.first.number %>,
+          <%= club.locations.first.zip %>
+          <%= club.locations.first.city %>
+        <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>

@@ -159,7 +159,11 @@
   <label class="subtitle">Meine Teilnehmer</label>
   <div class="apply buttons">
   <% if can? :create, Boxer %>
-    <%= link_to t(:apply), application_path(@event.id), :class => "btn btn-primary" %>
+    <% if @event.upcoming? %>
+      <%= link_to t(:apply), application_path(@event.id), :class => "btn btn-primary" %>
+    <% else %>
+      <p>Anmeldefrist abgelaufen.</p>
+    <% end %>
   <% end %>
   </div>
   

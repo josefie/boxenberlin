@@ -20,15 +20,6 @@
       <%= f.text_field :name, :class => "form-controls" %>
     </div>
     
-    <label class="subtitle">Trainingsort</label>
-    
-    <div class="nested-fields inline-fields">
-      <%= link_to_add_fields("Ort hinzufügen", f, :locations) %>
-      <%= f.fields_for :locations do |builder| %>
-        <%= render "location_fields", :f => builder %>
-      <% end %>
-    </div>
-    
     <label class="subtitle">Kontaktdaten</label>
     
     <div class="form-group">
@@ -56,7 +47,7 @@
   <legend class="section-title">Training</legend>
   
   <div class="form-section">
-
+    
     <label class="subtitle">Trainer</label>
   
     <div class="nested-fields inline-fields">
@@ -65,11 +56,20 @@
         <%= render "coach_fields", :f => builder %>
       <% end %>
     </div>
+
+    <label class="subtitle">Trainingsorte</label>
+    
+    <div class="nested-fields inline-fields">
+      <%= link_to_add_fields("Ort hinzufügen", f, :locations) %>
+      <%= f.fields_for :locations do |builder| %>
+        <%= render "location_fields", :f => builder %>
+      <% end %>
+    </div>
   
     <label class="subtitle">Trainingszeiten</label>
     
     <div class="nested-fields inline-fields">
-      <%= link_to_add_fields("Training hinzufügen", f, :trainings) %>
+      <%= link_to_add_fields("Zeit hinzufügen", f, :trainings) %>
       <%= f.fields_for :trainings do |builder| %>
         <%= render "training_fields", :f => builder %>
       <% end %>

@@ -49,15 +49,15 @@ class EventsController < ApplicationController
 
   # GET /events/new
   def new
-    @event = Event.new
-    @event.create_location
     authorize! :create, @event
+    @event = Event.new
+    @event.build_location(:event_id => @event.id)
   end
 
   # GET /events/1/edit
   def edit
     authorize! :update, @event
-    @location = @event.location || @event.create_location
+    @event.location ||= @event.build_location(:event_id => @event.id)
   end
 
   # POST /events
@@ -78,7 +78,7 @@ class EventsController < ApplicationController
 
   # PATCH/PUT /events/1
   # PATCH/PUT /events/1.json
-  def update    
+  def update
     authorize! :update, @event
     respond_to do |format|
       if @event.update(event_params)

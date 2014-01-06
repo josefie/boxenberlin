@@ -3,7 +3,7 @@ class Event < ActiveRecord::Base
   after_validation :geocode, if: ->(obj){ location_change(obj) and !Rails.env.test? }
   
   validates :title, presence: true
-  #validates :address, presence: true
+  #validates :location, presence: true
   validates :date, presence: true
   #validate :at_least_one_schedule_item
   validates :contact_name, presence: true
@@ -52,6 +52,10 @@ class Event < ActiveRecord::Base
   def self.by_date(date)
     #find(:all, :conditions => ["strftime('%m', date) + 0 = ? AND strftime('%Y', date) + 0 = ?", date.month, date.year])
     Event.where("strftime('%m', date) + 0 = ? AND strftime('%Y', date) + 0 = ?", date.month, date.year)
+  end
+  
+  def upcoming?
+    self.date >= Date.today #and self.deadline >= Date.today
   end
   
   def loc

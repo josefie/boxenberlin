@@ -16,11 +16,11 @@
   <div class="form-section">
     
     <div class="form-group">
-      <%= f.label :title %>
+      <%= f.label :title, :class => "subtitle" %>
       <%= f.text_field :title, :class => "form-controls" %>
     </div>
       
-    <div class="form-group">
+    <div class="form-group inline-fields">
       
       <label class="subtitle">Adresse</label>
       
@@ -33,21 +33,20 @@
         
         <div class="form-group">
           <label><%= l.label :number %></label>
-          <%= l.text_field :number, :class => "form-controls" %>
+          <%= l.text_field :number, :class => "form-controls x-small-field" %>
         </div>
         
         <div class="form-group">
           <label><%= l.label :zip %></label>
-          <%= l.text_field :zip, :class => "form-controls" %>
+          <%= l.text_field :zip, :class => "form-controls small-field" %>
         </div>
         
         <div class="form-group">
           <label><%= l.label :city %></label>
-          <%= l.text_field :city, :class => "form-controls", :value => "Berlin" %>
+          <%= l.text_field :city, :class => "form-controls small-field", :value => "Berlin" %>
         </div>
       
         <%= l.hidden_field :country, :value => "DE" %>
-        <%= l.hidden_field :event_id, :value => @event.id %>
         <%= f.hidden_field :latitude, :id => 'gmaps-output-latitude' %>
         <%= f.hidden_field :longitude, :id => 'gmaps-output-longitude' %>
         
@@ -55,8 +54,8 @@
     </div>
 
     <div class="form-group">
-      <%= f.label :date %>
-      <%= f.date_field :date, "value" => @event.date || Time.now.to_date.to_s, :class => "form-controls"  %>
+      <%= f.label :date, :class => "subtitle" %>
+      <%= f.date_field :date, "value" => @event.date || Time.now.to_date.to_s, :class => "form-controls small-field"  %>
     </div>
   
     <div class="form-group">
@@ -115,43 +114,52 @@
     
   </div>
   
-  <legend class="section-title">Infos für Teilnehmer</legend>
+  <legend class="section-title">Infos für Teilnehmer und Besucher</legend>
   
   <div class="form-section">
     
     <div class="form-group">
-      <%= f.label :additional_info %>
-      <%= f.text_area :additional_info, :rows => "5", :class => "form-controls" %>
-    </div>
-  
-    <div class="form-group">
-      <%= f.label :fee %>
-      <%= f.text_field :fee, :class => "form-controls" %>
+      <%= f.label :additional_info, :class => "subtitle" %>
+      <%= f.text_area :additional_info, :rows => "5", :class => "form-controls large-field" %>
     </div>
     
-    <div class="form-group check">
-      <%= f.label t(:performance_class, count: 2) %><br>
-      <%= f.collection_check_boxes :performance_class_ids, PerformanceClass.all, :id, :title, :class => "form-controls"  %>
+    <div class="form-group">
+      <%= f.label :admission, :class => "subtitle" %>
+      
+      <div class="input-append">
+        <%= f.label t(:default) %>
+        <%= f.text_field :admission, :class => "form-controls small-field" %>
+        <label class="add-on">€</label>
+      </div>
+      <div class="input-append">
+        <%= f.label t(:discounted) %>
+        <%= f.text_field :admission_discounted, :class => "form-controls small-field" %>
+        <label class="add-on">€</label>
+      </div>
+    </div>
+  
+    <div class="form-group input-append">
+      <%= f.label :fee, :class => "subtitle" %>
+      <%= f.text_field :fee, :class => "form-controls small-field" %>
+      <label class="add-on">€</label>
+    </div>
+    
+    <div class="form-group">
+      <label class="subtitle">Zugelassene Leistungsklassen</label>
+      <%= f.collection_select :performance_class_ids, PerformanceClass.all, :id, :title, {}, {:class => "form-controls", :multiple => true} %>
     </div>
   
     <div class="form-group">
       <label class="subtitle"><%= t(:available) %></label>
       
-      <%= f.label :gloves_available %>?
-      <%= f.check_box :gloves_available, :class => "form-controls" %>
-
-      <%= f.label :catering_available %>?
-      <%= f.check_box :catering_available, :class => "form-controls" %>
-    </div>
-  
-    <div class="form-group">
-      <%= f.label :admission, :class => "subtitle" %>
-      
-      <%= f.label t(:default) %>
-      <%= f.text_field :admission, :class => "form-controls" %>
-      
-      <%= f.label t(:discounted) %>
-      <%= f.text_field :admission_discounted, :class => "form-controls" %>
+      <div class="form-group check">
+        <%= f.check_box :gloves_available, :class => "form-controls" %>
+        <%= f.label :gloves_available %>?
+      </div>
+      <div class="form-group check">
+        <%= f.check_box :catering_available, :class => "form-controls" %>
+        <%= f.label :catering_available %>?
+      </div>
     </div>
   
     <div class="form-group">

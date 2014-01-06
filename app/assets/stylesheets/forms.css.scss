@@ -1,5 +1,21 @@
 @import "variables";
 
+@mixin form-input {
+  border: $border;
+  border-radius: 0;
+  webkit-border-radius: 0;
+  moz-border-radius: 0;
+  box-shadow: none;
+  webkit-box-shadow: none;
+  moz-box-shadow: none;
+  max-width: 100%;
+  
+  &:focus {
+    border: 1px $secondary-color solid;
+    box-shadow: 0px 0px 5px rgba(34, 34, 255, 1);
+  }
+}
+
 form.form-horizontal .controls {
   margin-left: 20px;
 }
@@ -42,44 +58,38 @@ div.form-section {
   .form-group {
     display: inline-block;
   }
-  
-  select.form-controls,
+}
+
+.form-group {  
+  textarea.form-controls,
   input[type=text].form-controls,
-  textarea.form-controls {
-    width: 15em;
-  }
-}
+  input[type=url].form-controls,
+  input[type=password].form-controls,
+  input[type=date].form-controls,
+  select.form-controls,
+  #search {
+    @include form-input;
+    width: 300px;
 
-input[type=text].form-controls,
-input[type=url].form-controls,
-input[type=password].form-controls,
-input[type=date].form-controls,
-select.form-controls,
-textarea.form-controls {
-  border: $border;
-  border-radius: 0;
-  webkit-border-radius: 0;
-  moz-border-radius: 0;
-  box-shadow: none;
-  width: 90%;
-  max-width: 100%;
-  font-size: 1.1em;
-/*  padding: 10px;*/
+    &.medium-field {
+      width: 300px;
+    }
   
-  &:focus {
-    border: 1px $secondary-color solid;
-    box-shadow: 0px 0px 5px rgba(34, 34, 255, 1);
+    &.large-field {
+      width: 95%;
+    }
+  
+    &.small-field {
+      width: 150px;
+    }
+    
+    &.x-small-field {
+      width: 50px;
+    }
   }
-}
-
-#search {
-  @extend input[type=text].form-controls;
-  width: 250px;
-}
-
-.form-group {
-  textarea {
-    max-width: 100%;
+  
+  label.add-on:last-child {
+    @include form-input;
   }
 }
 
@@ -102,4 +112,5 @@ textarea.form-controls {
 #boxer-info-title,
 #boxer-info-section {
   display: none;
+
 }

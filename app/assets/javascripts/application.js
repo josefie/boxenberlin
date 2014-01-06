@@ -18,6 +18,7 @@
 //= require underscore
 //= require gmaps/google
   
+  
   function myFunction() {
     alert("Hi");
   }
@@ -54,7 +55,20 @@
     window.location = this.dataset.link;
   })
 
-  function toggle_info(element) {
+  /*function toggle_info(element) {
     $(element).toggle();
+  }*/
+  
+  $(document).ready(function() {
+    $('#boxer-info-section').hide();
+    $('#boxer-info-title').hide();
+  });
+
+  function toggle_info(check, element) {
+    if ($(check).prop("checked")) {
+      $(element).css("display", "block");
+    } else {
+      $(element).css("display", "none");
+    }
   }
   

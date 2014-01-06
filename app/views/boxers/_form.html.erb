@@ -12,7 +12,9 @@
   <% end %>
 
 
-    
+  <label class="subtitle">Name</label>
+  
+  <div class="inline-fields">
   <div class="form-group">
     <%= f.label :first_name %>
     <%= f.text_field :first_name, :class => "form-controls" %>
@@ -22,21 +24,20 @@
     <%= f.label :last_name %>
     <%= f.text_field :last_name, :class => "form-controls" %>
   </div>
+  </div>
   
   <div class="form-group inline-fields">
-    <%= f.label :date_of_birth %>
+    <%= f.label :date_of_birth, :class => "subtitle" %>
     <%= f.date_select :date_of_birth,
     {:start_year => Date.current.year - 37,
     :end_year => Date.current.year - 6,
     :order => [:day, :month, :year]},
-    {:class => "form-controls"} %>
+    {:class => "form-controls small-field"} %>
   </div>
-  
-
     
   <div class="form-group check">
-    <%= f.label :active, :class => "subtitle" %>?
-    <%= f.check_box :active, :class => "form-controls", :onclick => "toggle_info('#boxer-info-section'); toggle_info('#boxer-info-title');" %>
+    <%= f.check_box :active, :class => "form-controls", :onclick => "toggle_info(this, '#boxer-info-section'); toggle_info(this, '#boxer-info-title');" %>
+    <%= f.label :active %>?
   </div>
   
   <legend class="section-title" id="boxer-info-title">Kämpferinformationen</legend>
@@ -45,9 +46,10 @@
     
   <div class="inline-fields">
     
-  <div class="form-group">
-  <%= f.label t(:weight), :class => "subtitle" %>
-    <%= f.text_field :weight, :class => "form-controls" %>
+  <div class="form-group input-append">
+    <%= f.label t(:weight), :class => "subtitle" %>
+    <%= f.text_field :weight, :class => "form-controls small-field" %>
+    <label class="add-on">kg</label>
   </div>
   
   </div>
@@ -58,17 +60,17 @@
     
     <div class="form-group">
       <%= f.label t(:won) %>
-      <%= f.text_field :fights_won, :value => 0, :class => "form-controls" %>
+      <%= f.text_field :fights_won, :value => @boxer.fights_won || 0, :class => "form-controls small-field" %>
     </div>
     
     <div class="form-group">
       <%= f.label t(:lost) %>
-      <%= f.text_field :fights_lost, :value => 0, :class => "form-controls" %>
+      <%= f.text_field :fights_lost, :value => @boxer.fights_lost || 0, :class => "form-controls small-field" %>
     </div>
     
     <div class="form-group">
       <%= f.label t(:drawn) %>
-      <%= f.text_field :fights_drawn, :value => 0, :class => "form-controls" %>
+      <%= f.text_field :fights_drawn, :value => @boxer.fights_drawn || 0, :class => "form-controls small-field" %>
     </div>
     
   </div>

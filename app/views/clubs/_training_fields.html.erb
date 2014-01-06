@@ -2,7 +2,7 @@
     
   <div class="form-group">
     <label><%= f.label :weekday %></label>
-    <%= f.select :weekday_id, options_from_collection_for_select(Weekday.all, :id, :name), {}, {:class => "form-controls"} %>
+    <%= f.select :weekday_id, options_from_collection_for_select(Weekday.all, :id, :name), {}, {:class => "form-controls small-field"} %>
   </div>
   
   <div class="form-group">
@@ -18,7 +18,7 @@
       :end_hour => 23,
       :end_minute => 45
       },
-      {:class => "form-controls"}
+      {:class => "form-controls small-field"}
     %>
   </div>
   
@@ -35,17 +35,17 @@
       :end_hour => 23,
       :end_minute => 45
       },
-      {:class => "form-controls"}
+      {:class => "form-controls small-field"}
     %>
   </div>
   
   <div class="form-group">
-    <%= link_to_remove_fields(t(:remove), f) %>
-  </div>
-
-  <div class="form-group">
     <label><%= f.label :description %></label>
     <%= f.text_area :description, :class => "form-controls" %>
+  </div>
+  
+  <div class="form-group">
+    <%= link_to_remove_fields(t(:remove), f) %>
   </div>
 
 </div>
