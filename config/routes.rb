@@ -31,9 +31,10 @@ Boxenberlin::Application.routes.draw do
   constraints: { date: /\d{4}-\d{2}-\d{2}/ }
   
   get 'profile' => 'clubs#my_profile', as: :my_profile
-  get 'events' => 'events#my_events', as: :my_events
+  #get 'events' => 'events#my_events', as: :my_events
   get 'boxers' => 'boxers#my_boxers', as: :my_boxers
   
+  get 'myevents/:role' => 'events#my_events', as: :my_events
   get 'manage/(:status)' => 'events#manage', as: :manage
   
   get 'events/:id/apply' => 'events#apply', as: :application

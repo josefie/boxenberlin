@@ -49,8 +49,8 @@ class EventsController < ApplicationController
 
   # GET /events/new
   def new
-    authorize! :create, @event
     @event = Event.new
+    authorize! :create, @event
     @event.build_location(:event_id => @event.id)
   end
 
@@ -105,10 +105,14 @@ class EventsController < ApplicationController
   def my_events
     if current_user then
       @club = current_user
-      @events = current_user.get_events
-      @host = "Veranstalter"
-      @participate = "Teilnehmer"
-      @past = "Vergangene"
+      if params[:role] == "host" then
+        @events = @club.get_hosting_events.order("approved").reverse_order
+      elsif params[:role] == "participate" then
+        @events = @club.get_participating_events
+      elsif params[:role] == "archive" then
+        @events = @club.get_past_events
+      end
+      
       return
     else
       redirect_to login_path
@@ -116,11 +120,6 @@ class EventsController < ApplicationController
   end
   
   def participations
-    #participations = @event.participations
-    #@boxers = Array.new
-    #participations.each do |participation|
-      #@boxers << Boxer.find(participation.boxer_id)
-    #end
     @boxers = @event.boxers
   end
   
@@ -142,7 +141,6 @@ class EventsController < ApplicationController
     if current_user then
       authorize! :create, Boxer
       @events = [@event]
-      #@boxers = current_user.boxers
       @boxers = Array.new
       current_user.boxers.each do |b|
         if b.participations.find_by_event_id(@event.id).nil? then

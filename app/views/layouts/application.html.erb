@@ -50,7 +50,7 @@
             <li class="dropdown"><%= link_to t(:dashboard), "#", :'data-toggle' => 'dropdown', :class => "dropdown-toggle" %>
               <ul class="dropdown-menu">
                 <li class="dropdown-link"><%= link_to t(:profile), my_profile_path %></li>
-                <li class="dropdown-link"><%= link_to t(:event, count: 2), my_events_path %></li>
+                <li class="dropdown-link"><%= link_to t(:event, count: 2), my_events_path("host") %></li>
                 <li class="dropdown-link"><%= link_to t(:boxer), my_boxers_path %></li>
                 <% if current_user.admin? %>
                   <li class="dropdown-link"><%= link_to t(:requests), manage_path("open") %></li>

@@ -13,9 +13,9 @@
   <tbody>
     <% @boxers.each do |boxer| %>
       <% if boxer.active then %>
-        <tr class="active">
+        <tr class="active boxer-row" onclick="window.location.href = '<%= boxer_path(boxer) %>'">
       <% else %>
-        <tr class="inactive">
+        <tr class="inactive boxer-row" onclick="window.location.href = '<%= boxer_path(boxer) %>'">
       <% end %>
       
       <td><%= link_to "#{boxer.first_name} #{boxer.last_name}", boxer %></td>

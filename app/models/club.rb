@@ -24,12 +24,21 @@ class Club < ActiveRecord::Base
     end
   end
   
-  def get_events
-    Event.find(:all, :conditions => ['club_id == ?', self.id]) # or boxers participating the event
+  def get_hosting_events
+    today = Date.today
+    Event.where('club_id == ? AND date >= ?', self.id, today)
+  end
+  
+  def get_participating_events
+    Event.joins(:participations).where(participations: { boxer_id: [self.boxers.ids] }).group(:date)
+  end
+  
+  def get_past_events
+    Event.find_past.where(:club_id => self.id)
   end
   
   def get_boxers
-    Boxer.find(:all, :conditions => ['club_id == ?', self.id])
+    #Boxer.find(:all, :conditions => ['club_id == ?', self.id])
   end
   
 end

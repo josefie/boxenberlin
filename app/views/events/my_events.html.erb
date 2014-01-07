@@ -5,12 +5,18 @@
 <% end %>
 
 <ul class="nav nav-tabs">
-  <li><%= link_to t(:host), my_events_path %></li>
-  <li><%= link_to t(:participant), my_events_path %></li>
-  <li><%= link_to t(:past), my_events_path %></li>
+  <li><%= link_to t(:host), my_events_path("host") %></li>
+  <li><%= link_to t(:participant), my_events_path("participate") %></li>
+  <li><%= link_to t(:archive), my_events_path("archive") %></li>
 </ul>
 
-<h3>Veranstalter</h3>
+<% if params[:role] == "host" %>
+<h3>Veranstalter</h3> 
+<% elsif params[:role] == "participate" %>
+<h3>Teilnehmer</h3> 
+<% elsif params[:role] == "archive" %>
+<h3>Archiv</h3>
+<% end %>
 
 <div>
 <%= render 'events/list' %>

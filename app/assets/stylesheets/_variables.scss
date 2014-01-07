@@ -1,5 +1,25 @@
 $main-color: #D00;
 $secondary-color: #22F;
+$dark-color: #222;
 $background: #fffeea; /*#f4e9d3;*/
 $border: 1px #999 solid;
 $app-fonts: sawasdee, verdana, arial, helvetica, sans-serif;
+
+@mixin table-row {
+  cursor: pointer;
+  a:hover {
+    text-decoration: none;
+    color: $dark-color;
+  }
+  
+  &:hover > td {
+    /*background: $dark-color;*/
+    /*color: #fff;*/
+    a {
+      /*color: #fff;*/
+      &:hover {
+        /*color: #fff;*/
+      }
+    }
+  }
+}

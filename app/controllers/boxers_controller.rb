@@ -71,7 +71,7 @@ class BoxersController < ApplicationController
   def my_boxers
     if current_user then
       @club = current_user
-      @boxers = current_user.get_boxers
+      @boxers = current_user.boxers
       return
     else
       redirect_to login_path

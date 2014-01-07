@@ -10,7 +10,7 @@
 
   <tbody>
     <% @clubs.each do |club| %>
-      <tr>
+      <tr class="club-row" onclick="window.location.href = '<%= club_path(club) %>'">
         <td><%= link_to club.name, club %></td>
         <td>
         <% unless club.locations.empty? %>

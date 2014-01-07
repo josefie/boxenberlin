@@ -33,24 +33,20 @@ class Event < ActiveRecord::Base
       club_id = club.take.id
     end
     
-    #find(:all, :conditions => ['title LIKE ? OR contact_name LIKE ? OR club_id = ?', "%#{search}%", "%#{search}%", club_id])
     Event.where('title LIKE ? OR contact_name LIKE ? OR club_id = ?', "%#{search}%", "%#{search}%", club_id)
   end
   
   def self.find_upcoming
     today = Date.today
-    #find(:all, :conditions => ['date >= ?', today])
     Event.where('date >= ?', today)
   end
   
   def self.find_past
     today = Date.today
-    #find(:all, :conditions => ['date < ?', today])
     Event.where('date < ?', today)
   end
   
   def self.by_date(date)
-    #find(:all, :conditions => ["strftime('%m', date) + 0 = ? AND strftime('%Y', date) + 0 = ?", date.month, date.year])
     Event.where("strftime('%m', date) + 0 = ? AND strftime('%Y', date) + 0 = ?", date.month, date.year)
   end
   

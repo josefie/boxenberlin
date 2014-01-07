@@ -1,26 +1,44 @@
 <table class="table table-hover" id="calendar">
   <thead>
     <tr>
-      <th></th>
-      <th><%= label_tag :title %></th>
-      <th><%= label_tag :address %></th>
-      <th><%= label_tag :date %></th>
-      <th><%= label_tag :host %></th>
+      <th><%= label_tag "Tag" %></th>
+      <th><%= label_tag "Titel" %></th>
+      <th><%= label_tag "Datum und Adresse" %></th>
+      <th><%= label_tag "Teilnehmer und Anmeldefrist" %></th>
+      <th><%= label_tag "Veranstalter" %></th>
+      <th><%= label_tag "genehmigt" %></th>
     </tr>
   </thead>
 
   <tbody>
     <% @events.each do |event| %>
+    <% if event.approved %>
     <tr class="calendar-row" onclick="window.location.href = '<%= event_path(event) %>'">
+    <% else %>
+    <tr class="calendar-row pending" onclick="window.location.href = '<%= event_path(event) %>'">
+    <% end %>
       <td class="event-day"><%= event.date.day %></td>
-      <td><%= link_to event.title, event, :class => "hide-link" %></td>
+      <td class="event-title"><%= link_to event.title, event, :class => "hide-link" %></td>
       <td>
+        <%= format_date(event.date) %><br>
         <% unless event.location.nil? %>
-          <%= event.loc %>
+        <%= event.location.city %>
         <% end %>
       </td>
-      <td><%= format_date(event.date) %></td>
+      <td class="event-participations">
+        <%= event.participations.count %> Teilnehmer<br>
+        Anmeldungen bis Datum<%#= format_date(event.deadline) %>
+      </td>
       <td><%= unless event.club.nil? then event.club.name end %></td>
+      <td>
+        <% if event.approved %>
+          <%= image_tag "approved.png", :width => 40, :class => "icon" %>
+        <% elsif event.approved == false %>
+          <%= image_tag "declined.png", :width => 40, :class => "icon" %>
+        <% else %>
+          <%= image_tag "pending.png", :width => 40, :class => "icon" %>
+        <% end %>
+      </td>
     </tr>
     <% end %>
   </tbody>

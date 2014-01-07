@@ -160,6 +160,7 @@
   <div class="apply buttons">
   <% if can? :create, Boxer %>
     <% if @event.upcoming? %>
+      <p>Anmeldungen bis Datum<%#= format_date(event.deadline) %></p>
       <%= link_to t(:apply), application_path(@event.id), :class => "btn btn-primary" %>
     <% else %>
       <p>Anmeldefrist abgelaufen.</p>

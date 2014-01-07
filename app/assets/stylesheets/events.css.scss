@@ -6,7 +6,7 @@
 
 #calendar {
   border-collapse:separate;
-  border-spacing:00px 10px;
+  border-spacing: 0px 10px;
   
   thead {
     display: none;
@@ -16,15 +16,17 @@
     font-size: 5em;
     font-weight: normal;
   }
+  .event-title {
+    font-size: 1.5em;
+  }
+  .event-participations {
+    
+  }
 
   .calendar-row {
+    @include table-row;
     height: 80px;
     background: #fff;
-    cursor: pointer;
-  
-    &:hover {
-      background: $main-color;
-    }
     
     td {
       vertical-align: middle;
@@ -38,11 +40,6 @@
       &:last-child {
         border-right: $border;
       }
-    }     
-      
-    a:hover {
-      color: #222;
-      text-decoration: none;
     }
   }
 }
