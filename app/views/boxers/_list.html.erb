@@ -2,7 +2,7 @@
   <thead>
     <tr>
       <th><%= t(:name) %></th>
-      <th><%= t(:performance_class, count: 1) %></th>
+      <th><%= t(:age_class, count: 1) %></th>
       <th><%= t(:weight) %></th>
       <th><%= "#{t(:fights, count: 2)} (S/N/U)" %></th>
       <th></th>
@@ -20,11 +20,7 @@
       
       <td><%= link_to "#{boxer.first_name} #{boxer.last_name}", boxer %></td>
       <td>
-        <% unless boxer.performance_class.nil? then %>
-        <%= boxer.performance_class.title %>
-        <% else %>
-        Nicht klassifiziert
-        <% end %>
+        <%= boxer.classify_age %>
       </td>
       <td><%= boxer.weight.to_i %> kg</td>
       <td><%= "#{boxer.fights_won}/#{boxer.fights_lost}/#{boxer.fights_drawn}" %></td>

@@ -91,6 +91,10 @@ div.form-section {
   label.add-on:last-child {
     @include form-input;
   }
+  
+  #event_performance_class_ids {
+    height: 300px;
+  }
 }
 
 #approve-buttons form {
@@ -109,8 +113,4 @@ div.form-section {
   }
 }
 
-#boxer-info-title,
-#boxer-info-section {
-/*  display: none;*/
 
-}

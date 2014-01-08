@@ -1,6 +1,5 @@
 class Boxer < ActiveRecord::Base
   belongs_to :club, :foreign_key => 'club_id'
-  belongs_to :performance_class, :foreign_key => 'performance_class_id'
   
   has_many :participations
   has_many :events, -> { distinct }, through: :participations
@@ -17,15 +16,28 @@ class Boxer < ActiveRecord::Base
     end
   end
 
-  def classify
+  def classify_age
     age = (Date.today.to_s.to_i - self.date_of_birth.to_s.to_i)
-    weight = self.weight
     gender = self.gender
-    
-    self.performance_class = PerformanceClass.where(
-      'age_min <= ? AND age_max >= ? AND gender = ?', age, age, gender).first
 
-    # self.performance_class = PerformanceClass.where('age_min <= ? AND age_max >= ? AND gender = ? AND weight_min <= ? AND weight_max >= ?', age, age, gender, weight, weight).first
+    ac = PerformanceClass.where('age_min <= ? AND age_max >= ? AND gender = ?', age, age, gender).first
+    unless ac.nil? then
+      ac.title
+    else 
+      "Nicht klassifiziert"
+    end
+  end
+  
+  def classify_performance
+    fights_won = self.fights_won
+    age = (Date.today.to_s.to_i - self.date_of_birth.to_s.to_i)
+    
+    pc = PerformanceClass.where('win_min <= ? AND win_max >= ? AND age_min <= ? AND age_max >= ?', fights_won, fights_won, age, age).first
+    unless pc.nil? then
+      pc.title
+    else 
+      "Nicht klassifiziert"
+    end
   end
   
 end

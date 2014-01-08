@@ -29,7 +29,6 @@ class BoxersController < ApplicationController
   def create
     @boxer = Boxer.new(boxer_params)
     authorize! :create, @boxer
-    @boxer.classify
     respond_to do |format|
       if @boxer.save
         format.html { redirect_to @boxer, notice: "#{I18n.t(:boxer)} #{I18n.t(:creation_successful)}" }
@@ -45,7 +44,6 @@ class BoxersController < ApplicationController
   # PATCH/PUT /boxers/1.json
   def update
     authorize! :update, @boxer
-    @boxer.classify
     respond_to do |format|
       if @boxer.update(boxer_params)
         format.html { redirect_to @boxer, notice: "#{I18n.t(:boxer)} #{I18n.t(:update_successful)}" }

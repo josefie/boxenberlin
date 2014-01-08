@@ -26,7 +26,6 @@ ActiveRecord::Schema.define(version: 20131229203147) do
     t.integer  "club_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "performance_class_id"
   end
 
   create_table "clubs", force: true do |t|
@@ -111,8 +110,8 @@ ActiveRecord::Schema.define(version: 20131229203147) do
     t.string   "title"
     t.integer  "age_min"
     t.integer  "age_max"
-    t.integer  "weight_min"
-    t.integer  "weight_max"
+    t.integer  "win_min"
+    t.integer  "win_max"
     t.boolean  "gender"
     t.datetime "created_at"
     t.datetime "updated_at"

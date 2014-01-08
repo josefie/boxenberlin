@@ -9,7 +9,12 @@
 <% end %>
 </div>
 
-<div class="infobox">
+<div class="row">
+  
+<div class="infobox span5">
+  
+<label class="subtitle">Allgemein</label>
+
 <p>
   <strong><%= t(:date_of_birth) %>:</strong>
   <%= format_date(@boxer.date_of_birth) %>
@@ -26,11 +31,7 @@
 
 <p>
   <strong><%= t(:age_class, count: 1) %>:</strong>
-  <% unless @boxer.performance_class.nil? %>
-    <%= @boxer.performance_class.title %>
-  <% else %>
-    Nicht klassifiziert
-  <% end %>
+  <%= @boxer.classify_age %>
 </p>
 
 <p>
@@ -43,8 +44,12 @@
   <%= @boxer.club.name %>
 </p>
 
+</div>
+
 <% if @boxer.active %>
 
+<div class="infobox span4">
+  
 <p>
   <label class="subtitle"><%= t(:fights, count: 2) %></label>
   <%= t(:fights_won, scope: [:activerecord, :attributes, :boxers]) %>:
@@ -57,9 +62,11 @@
 
 <p>
   <strong><%= t(:performance_class, count: 1)%>:</strong>
-  Todo
+  <%= @boxer.classify_performance %>
 </p>
 
+</div>
+  
 <% end %>
 
 </div>

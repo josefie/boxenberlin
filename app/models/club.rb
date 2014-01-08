@@ -37,8 +37,4 @@ class Club < ActiveRecord::Base
     Event.find_past.where(:club_id => self.id)
   end
   
-  def get_boxers
-    #Boxer.find(:all, :conditions => ['club_id == ?', self.id])
-  end
-  
 end

@@ -15,7 +15,7 @@ class Event < ActiveRecord::Base
   has_many :schedule_items
   has_many :participations
   has_many :boxers, -> { distinct }, through: :participations
-  has_one :location, :dependent => :destroy
+  has_one :location, :dependent => :nullify
   
   accepts_nested_attributes_for :schedule_items, allow_destroy: true, reject_if: proc { |a| a['label'].blank? }
   accepts_nested_attributes_for :location, allow_destroy: true#, reject_if: proc { |a| a['city'].blank? }
