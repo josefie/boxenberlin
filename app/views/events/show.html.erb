@@ -7,216 +7,227 @@
   
   <div class="span6">
     
-<div class="buttons">
-<% if can? :destroy, @event %>
-  <%= link_to "Teilnehmer (#{@event.boxers.count})", participations_path(@event.id), :class => "btn" %>
-<% end %>
-  
-<% if can? :update, @event %>
-  <%= link_to t(:edit), edit_event_path(@event), :class => "btn" %>
-<% end %>
-
-<% if can? :destroy, @event %>
-  <%= link_to t(:destroy), @event, method: :delete, data: { confirm: t(:confirm_delete) }, :class => "btn delete" %>
-<% end %>
-</div>
-
-<p>
-  <label class="subtitle"><%= t(:host) %>:</label>
-  <%= link_to @event.club.name, club_path(@event.club.id) %>
-</p>
-
-<% unless @event.date.nil? %>
-<p>
-  <label class="subtitle">Datum:</label>
-  <%= format_date(@event.date) %>
-</p>
-<% end %>
-
-<% unless @event.location.nil? %>
-
-<p>
-  <label class="subtitle">Veranstaltungsort:</label>
-  <address>
-    <%= @event.location.street %>
-    <%= @event.location.number %><br>
-    <%= @event.location.zip %>
-    <%= @event.location.city %>
-  </address>
-</p>
-
-<div style='width: 100%;'>
-  <div id="map" style='width: 100%; height: 250px;'></div>
-</div>
-
-<script type="text/javascript">
-  handler = Gmaps.build('Google');
-  handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-    markers = handler.addMarkers(<%= raw @hash.to_json %>);
-    handler.bounds.extendWith(markers);
-    handler.fitMapToBounds();
-    handler.getMap().setZoom(15);
-  });
-</script>
-
-<% end %>
-
-<% unless @event.schedule_items.empty? %>
-<p>
-  <label class="subtitle"><%= t(:schedule) %></label>
-  <% @event.schedule_items.each do |si| %>
-    <%= si.label %>:
-    <%= format_time(si.time) %></br>
-  <% end %>
-</p>
-<% end %>
-
-<% unless @event.additional_info.blank? %>
-<div class="infobox">
-<p>
-  <%= @event.additional_info %>
-</p>
-</div>
-<% end %>
-
-<% unless @event.fee.blank? %>
-<p>
-  <label><%= t(:fee) %>:</label>
-  <%= @event.fee %> €
-</p>
-<% end %>
-
-<p>
-  <label class="subtitle"><%= t(:available) %>:</label>
-  <ul>
-    <li>
-    <%= t(:gloves) %>:
-    <% if @event.gloves_available then %>ja<% else %>nein<% end %>
-    </li>
-    <li>
-    <%= t(:catering) %>:
-    <% if @event.catering_available then %>ja<% else %>nein<% end %>
-    </li>
-  </ul>
-</p>
-
-<% unless @event.admission.blank? %>
-<p>
-  <label><%= t(:admission) %>
-  <% unless @event.admission_discounted.blank? %>
-    (<%= t(:discounted) %>)
-  <% end %>
-  :</label>
-  <%= @event.admission %> €
-  <% unless @event.admission_discounted.blank? %>
-  (<%= @event.admission_discounted %> €)
-  <% end %>
-</p>
-<% end %>
-
-<p>
-  <label class="subtitle">Zugelassene <%= t(:performance_class, count: 2) %>:</label>
-  <% unless @event.performance_classes.empty? then %>
-    <ul>
-      <% @event.performance_classes.each do |pc| %>
-        <li><%= pc.title %></li>
+    <div class="buttons">
+      <% if can? :destroy, @event %>
+        <%= link_to "Teilnehmer (#{@event.boxers.count})", participations_path(@event.id), :class => "btn" %>
       <% end %>
-    </ul>
-  <% else %>alle<% end %>
-</p>
-
-</div>
-
-<div class="span4">
   
-<div class="infobox">
-  <label class="subtitle"><%= t(:contact) %></label>
-  <% if @event.contact_name &&  @event.contact_name_public %>
-  <p>
-    <strong><%= t(:name) %>:</strong>
-    <%= @event.contact_name %>
-  </p>
-  <% end %>
+      <% if can? :update, @event %>
+        <%= link_to t(:edit), edit_event_path(@event), :class => "btn" %>
+      <% end %>
 
-  <% if @event.contact_phone && @event.contact_phone_public %>
-  <p>
-    <strong><%= t(:phone) %>:</strong>
-    <%= @event.contact_phone %>
-  </p>
-  <% end %>
+      <% if can? :destroy, @event %>
+        <%= link_to t(:destroy), @event, method: :delete, data: { confirm: t(:confirm_delete) }, :class => "btn delete" %>
+      <% end %>
+    </div>
 
-  <% if @event.contact_mail && @event.contact_mail_public %>
-  <p>
-    <strong><%= t(:mail) %>:</strong>
-    <a href="mailto:<%= @event.contact_mail %>"><%= @event.contact_mail %></a>
-  </p>
-  <% end %>
-</div>
+    <p>
+      <label class="subtitle"><%= t(:host) %>:</label>
+      <%= link_to @event.club.name, club_path(@event.club.id) %>
+    </p>
 
-<% if current_user && @event.approved then %>
-
-<div class="participations infobox">
-  <label class="subtitle">Meine Teilnehmer</label>
-  <div class="apply buttons">
-  <% if can? :create, Boxer %>
-    <% if @event.upcoming? %>
-      <p>Anmeldungen bis Datum<%#= format_date(event.deadline) %></p>
-      <%= link_to t(:apply), application_path(@event.id), :class => "btn btn-primary" %>
-    <% else %>
-      <p>Anmeldefrist abgelaufen.</p>
+    <% unless @event.date.nil? %>
+      <p>
+        <label class="subtitle">Datum:</label>
+        <%= format_date(@event.date) %>
+      </p>
     <% end %>
-  <% end %>
-  </div>
+
+    <% unless @event.location.nil? %>
+      <p>
+        <label class="subtitle">Veranstaltungsort:</label>
+        <address>
+          <%= @event.location.street %>
+          <%= @event.location.number %><br>
+          <%= @event.location.zip %>
+          <%= @event.location.city %>
+        </address>
+      </p>
+
+      <div style='width: 100%;'>
+        <div id="map" style='width: 100%; height: 250px;'></div>
+      </div>
+
+      <script type="text/javascript">
+        handler = Gmaps.build('Google');
+        handler.buildMap({ provider: {}, internal: {id: 'map'}}, function() {
+          markers = handler.addMarkers(<%= raw @hash.to_json %>);
+          handler.bounds.extendWith(markers);
+          handler.fitMapToBounds();
+          handler.getMap().setZoom(15);
+        });
+      </script>
+    <% end %>
+
+    <% unless @event.schedule_items.empty? %>
+      <p>
+        <label class="subtitle"><%= t(:schedule) %></label>
+        <% @event.schedule_items.each do |si| %>
+          <%= si.label %>:
+          <%= format_time(si.time) %></br>
+        <% end %>
+      </p>
+    <% end %>
+
+    <% unless @event.additional_info.blank? %>
+      <div class="infobox">
+        <p>
+          <%= @event.additional_info %>
+        </p>
+      </div>
+    <% end %>
+
+    <% unless @event.admission.blank? %>
+      <p>
+        <label><%= t(:admission) %>
+        <% unless @event.admission_discounted.blank? %>
+          (<%= t(:discounted) %>)
+        <% end %>
+        :</label>
+        <%= @event.admission %> €
+        <% unless @event.admission_discounted.blank? %>
+          (<%= @event.admission_discounted %> €)
+        <% end %>
+      </p>
+    <% end %>
+
+    <% unless @event.fee.blank? %>
+      <p>
+        <label><%= t(:fee) %>:</label>
+        <%= @event.fee %> €
+      </p>
+    <% end %>
+
+    <p>
+      <label class="subtitle"><%= t(:available) %>:</label>
+        <ul>
+          <li>
+            <% if @event.gloves_available then %>
+              <%= image_tag "approved.png", :alt => "ja", :width => 20 %>
+            <% else %>
+              <%= image_tag "declined.png", :alt => "nein", :width => 20 %>
+            <% end %>
+            <%= t(:gloves) %>
+          </li>
+          <li>
+            <% if @event.catering_available then %>
+              <%= image_tag "approved.png", :alt => "ja", :width => 20 %>
+            <% else %>
+              <%= image_tag "declined.png", :alt => "nein", :width => 20 %>
+            <% end %>
+            <%= t(:catering) %>
+          </li>
+        </ul>
+      </p>
+
+      <p>
+        <label class="subtitle">Zugelassene <%= t(:performance_class, count: 2) %>:</label>
+        <% unless @event.performance_classes.empty? then %>
+          <ul>
+            <% @event.performance_classes.each do |pc| %>
+              <li><%= pc.title %></li>
+            <% end %>
+          </ul>
+        <% else %>alle<% end %>
+      </p>
+
+    </div>
+
+    <div class="span4">
   
-  <% unless @boxers_applied.empty? then %>
-    <p>Folgende Boxer sind angemeldet:</p>
-    <ul>
-      <% @boxers_applied.each do |b| %>
-        <li>
-        <%= b.first_name %> <%= b.last_name %> ->
-        <%= link_to t(:undo_application), participation_path(b.participations.find_by_event_id(@event.id).id), method: :delete, data: { confirm: t(:confirm_delete) } %>
-        </li>
+      <div class="infobox">
+        <label class="subtitle"><%= t(:contact) %></label>
+        <% if @event.contact_name &&  @event.contact_name_public %>
+          <p>
+            <strong><%= t(:name) %>:</strong>
+            <%= @event.contact_name %>
+          </p>
+        <% end %>
+
+        <% if @event.contact_phone && @event.contact_phone_public %>
+          <p>
+            <strong><%= t(:phone) %>:</strong>
+            <%= @event.contact_phone %>
+          </p>
+        <% end %>
+
+        <% if @event.contact_mail && @event.contact_mail_public %>
+          <p>
+            <strong><%= t(:mail) %>:</strong>
+            <a href="mailto:<%= @event.contact_mail %>"><%= @event.contact_mail %></a>
+          </p>
+        <% end %>
+      </div>
+
+      <% if current_user && @event.approved then %>
+
+        <div class="participations infobox">
+          
+          <label class="subtitle">Meine Teilnehmer</label>
+          <div class="apply buttons">
+            <% if can? :create, Boxer %>
+              <% if @event.upcoming? %>
+                <p>Anmeldungen bis Datum<%#= format_date(event.deadline) %></p>
+                <%= link_to t(:apply), application_path(@event.id), :class => "btn btn-primary" %>
+              <% else %>
+                <p>Anmeldefrist abgelaufen.</p>
+              <% end %>
+            <% end %>
+          </div>
+  
+          <% unless @boxers_applied.empty? then %>
+            <p>Folgende Boxer sind angemeldet:</p>
+            <ul>
+              <% @boxers_applied.each do |b| %>
+                <li>
+                  <%= b.first_name %> <%= b.last_name %> ->
+                  <%= link_to t(:undo_application), participation_path(b.participations.find_by_event_id(@event.id).id), method: :delete, data: { confirm: t(:confirm_delete) } %>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
+
+        </div>
+
       <% end %>
-    </ul>
-    
-  <% end %>
-</div>
 
-<% end %>
+      <% if current_user && (current_user.admin? || @event.club_id == current_user.id) %>
 
-<% if can? :manage, @event and !@event.approved then %>
-
-<div id="approve-buttons" class="infobox form-actions">
+        <div class="approved infobox">
   
-<% if current_user && (current_user.admin? || @event.club_id == current_user.id) %>
-<p class="approved">
-  <label class="subtitle">Veranstaltung genehmigt?</label>
-  <% if @event.approved.nil? then %>
-    Offen
-  <% elsif @event.approved then %>
-    Ja
-  <% else %>
-    Nein
-  <% end %>
-</p>
-<% end %>
+          <label class="subtitle">Veranstaltung genehmigt?</label>
+          <% if @event.approved.nil? then %>
+            <%= image_tag "pending.png", :alt => "Offen", :width => 20 %> <span>Offen</span>
+          <% elsif @event.approved then %>
+            <%= image_tag "approved.png", :alt => "Ja", :width => 20 %> <span>Ja</span>
+          <% else %>
+            <%= image_tag "declined.png", :alt => "Nein", :width => 20 %> <span>Nein</span>
+          <% end %>
 
-  <%= form_for(@event, :remote => true, :class => "approve_form", :html => {:onsubmit => "approve_event()"}) do |f| %>
-    <%= f.hidden_field :approved, value: true %>
-    <%= f.submit t(:approve), :class => "btn" %>
-  <% end %>
+          <% if can? :manage, @event and !@event.approved then %>
 
-  <%= form_for(@event, :remote => true, :class => "approve_form", :html => {:onsubmit => "decline_event()"}) do |f| %>
-    <%= f.hidden_field :approved, value: false %>
-    <%= f.submit t(:decline), :class => "btn" %>
-  <% end %>
+            <div id="approve-buttons" class="actions form-actions">
   
-</div>
+              <%= form_for(@event, :remote => true, :class => "approve_form", :html => {:onsubmit => "approve_event()"}) do |f| %>
+                <%= f.hidden_field :approved, value: true %>
+                <%= f.submit t(:approve), :class => "btn" %>
+              <% end %>
 
-<% end %>
+              <%= form_for(@event, :remote => true, :class => "approve_form", :html => {:onsubmit => "decline_event()"}) do |f| %>
+                <%= f.hidden_field :approved, value: false %>
+                <%= f.submit t(:decline), :class => "btn" %>
+              <% end %>
+  
+            </div>
+            
+          <% end %>
+            
+        </div>
 
-</div>
+      <% end %>
 
-</div>
+    </div>
+
+  </div>
 
 <%= link_to "Zurück zum Kalender", calendar_path(@event.date), :class => "btn" %>
