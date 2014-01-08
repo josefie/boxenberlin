@@ -102,20 +102,20 @@
       <label class="subtitle"><%= t(:available) %>:</label>
         <ul>
           <li>
+            <%= t(:gloves) %>:
             <% if @event.gloves_available then %>
-              <%= image_tag "approved.png", :alt => "ja", :width => 20 %>
+              Ja
             <% else %>
-              <%= image_tag "declined.png", :alt => "nein", :width => 20 %>
+              Nein
             <% end %>
-            <%= t(:gloves) %>
           </li>
           <li>
+            <%= t(:catering) %>:
             <% if @event.catering_available then %>
-              <%= image_tag "approved.png", :alt => "ja", :width => 20 %>
+              Ja
             <% else %>
-              <%= image_tag "declined.png", :alt => "nein", :width => 20 %>
+              Nein
             <% end %>
-            <%= t(:catering) %>
           </li>
         </ul>
       </p>

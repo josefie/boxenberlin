@@ -42,10 +42,6 @@ Boxenberlin::Application.routes.draw do
   
   get 'events/:id/participation' => 'events#participations', as: :participations
   
-  #resources :clubs do
-    #resources :events
-    #resources :boxers
-  #end
   
   
   # Example of named route that can be invoked with purchase_url(id: product.id)

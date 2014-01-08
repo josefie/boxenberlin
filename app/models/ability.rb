@@ -12,8 +12,7 @@ class Ability
         end
         can :create, Event
         can [:update, :destroy], Event do |event|
-          event.club_id == user.id
-          event.date >= Date.today
+          event.club_id == user.id and event.date >= Date.today
         end
         can :create, Boxer
         can [:update, :destroy], Boxer do |boxer|
