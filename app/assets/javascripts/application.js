@@ -17,7 +17,9 @@
 //= require_tree .
 //= require underscore
 //= require gmaps/google
-  
+
+//= require jquery.turbolinks
+//= require turbolinks
   
   function myFunction() {
     alert("Hi");
@@ -37,31 +39,29 @@
   }
   
   function approve_event() {
-    event.preventDefault();
+/*    event.preventDefault();*/
+
     $("approve_form").submit();
-    $('.approve-buttons').hide();
+    $('#approve-buttons').hide();
     //$('#flash.notice').append("Approved!");
     alert("Veranstaltung genehmigt!");
   }
   
   function decline_event() {
-    event.preventDefault();
+/*    event.preventDefault();*/
+
     $("approve_form").submit();
-    $('.approve-buttons').hide();
+    $('#approve-buttons').hide();
     alert("Veranstaltung abgelehnt!");
   }
   
   $("tr[data-link]").click(function() {
     window.location = this.dataset.link;
   })
-
-  /*function toggle_info(element) {
-    $(element).toggle();
-  }*/
   
   $(document).ready(function() {
-    $('#boxer-info-section').hide();
-    $('#boxer-info-title').hide();
+    toggle_info('#boxer_active', '#boxer-info-section');
+    toggle_info('#boxer_active', '#boxer-info-title');
   });
 
   function toggle_info(check, element) {

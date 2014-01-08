@@ -9,34 +9,10 @@
 <% end %>
 </div>
 
+<div class="infobox">
 <p>
   <strong><%= t(:date_of_birth) %>:</strong>
   <%= format_date(@boxer.date_of_birth) %>
-</p>
-
-<p>
-  <strong><%= t(:age_class, count: 2) %>:</strong>
-  <%= unless @boxer.performance_class.nil? then @boxer.performance_class.title end %>
-</p>
-
-<p>
-  <strong><%= t(:weight) %>:</strong>
-  <%= @boxer.weight.to_i %> kg
-</p>
-
-<p>
-  <strong><%= t(:weight_class, count: 1)%>:</strong>
-  TODO
-</p>
-
-<p>
-  <strong><%= t(:fights, count: 2) %></strong></br>
-  <%= t(:fights_won, scope: [:activerecord, :attributes, :boxers]) %>:
-  <%= @boxer.fights_won %></br>
-  <%= t(:fights_lost, scope: [:activerecord, :attributes, :boxers]) %>:
-  <%= @boxer.fights_lost %></br>
-  <%= t(:fights_drawn, scope: [:activerecord, :attributes, :boxers]) %>:
-  <%= @boxer.fights_drawn %>
 </p>
 
 <p>
@@ -49,17 +25,43 @@
 </p>
 
 <p>
-  <strong><%= t(:active) %>:</strong>
-  <% if @boxer.active %>
-    Ja
+  <strong><%= t(:age_class, count: 1) %>:</strong>
+  <% unless @boxer.performance_class.nil? %>
+    <%= @boxer.performance_class.title %>
   <% else %>
-    Nein
+    Nicht klassifiziert
   <% end %>
+</p>
+
+<p>
+  <strong><%= t(:weight) %>:</strong>
+  <%= @boxer.weight.to_i %> kg
 </p>
 
 <p>
 <strong><%= t(:club, count: 1) %>:</strong>
   <%= @boxer.club.name %>
 </p>
+
+<% if @boxer.active %>
+
+<p>
+  <label class="subtitle"><%= t(:fights, count: 2) %></label>
+  <%= t(:fights_won, scope: [:activerecord, :attributes, :boxers]) %>:
+  <%= @boxer.fights_won %></br>
+  <%= t(:fights_lost, scope: [:activerecord, :attributes, :boxers]) %>:
+  <%= @boxer.fights_lost %></br>
+  <%= t(:fights_drawn, scope: [:activerecord, :attributes, :boxers]) %>:
+  <%= @boxer.fights_drawn %>
+</p>
+
+<p>
+  <strong><%= t(:performance_class, count: 1)%>:</strong>
+  Todo
+</p>
+
+<% end %>
+
+</div>
 
 <%= link_to "Alle Boxer", my_boxers_path, :class => "btn" %>
