@@ -1,19 +1,19 @@
-<h2 class="page-title"><%= t(:requests) %></h2>
+<h2 class="page-title"><%= t('nav.request', count: 2) %></h2>
 
 <ul class="nav nav-tabs">
-  <li><%= link_to t(:events_open), manage_path("open") %></li>
-  <li><%= link_to t(:events_approved), manage_path("approved") %></li>
-  <li><%= link_to t(:events_declined), manage_path("declined") %></li>
+  <li><%= link_to t('misc.open'), manage_path("open") %></li>
+  <li><%= link_to t('misc.approved'), manage_path("approved") %></li>
+  <li><%= link_to t('misc.declined'), manage_path("declined") %></li>
 </ul>
 
 <% if params[:status] == "open" %>
-<h3>Offene 
+<h3><%= t('misc.open') %>
 <% elsif params[:status] == "approved" %>
-<h3>Bestätigte 
+<h3><%= t('misc.approved') %>
 <% elsif params[:status] == "declined" %>
-  <h3>Abgelehnte 
+  <h3><%= t('misc.declined') %>
 <% end %>
-<%= t(:event, count: 2) %></h3>
+<%= Event.model_name.human(count: 2) %></h3>
 
 
 <% if can? :manage, Event %>

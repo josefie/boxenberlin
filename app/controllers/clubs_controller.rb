@@ -31,7 +31,7 @@ class ClubsController < ApplicationController
     authorize! :create, @club
     respond_to do |format|
       if @club.save
-        format.html { redirect_to edit_club_path(@club), notice: I18n.t(:signup_successful) }
+        format.html { redirect_to edit_club_path(@club), notice: I18n.t('messages.signup_successful') }
         session[:club_id] = @club.id #log in
         format.json { render action: 'show', status: :created, location: @club }
       else
@@ -47,7 +47,7 @@ class ClubsController < ApplicationController
     authorize! :update, @club
     respond_to do |format|
       if @club.update(club_params)
-        format.html { redirect_to my_profile_path, notice: "#{I18n.t(:club, count: 1)} #{I18n.t(:update_successful)}" }
+        format.html { redirect_to my_profile_path, notice: I18n.t('messages.update_successful', :model => Club.model_name.human) }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -63,7 +63,7 @@ class ClubsController < ApplicationController
     @club.destroy
     session[:club_id] = nil
     respond_to do |format|
-      format.html { redirect_to root_url, notice: "#{I18n.t(:profile)} #{I18n.t(:deletion_successful)}" }
+      format.html { redirect_to root_url, notice: I18n.t('messages.deletion_successful', :model => Club.model_name.human) }
       format.json { head :no_content }
     end
   end

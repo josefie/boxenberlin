@@ -31,7 +31,7 @@ class BoxersController < ApplicationController
     authorize! :create, @boxer
     respond_to do |format|
       if @boxer.save
-        format.html { redirect_to @boxer, notice: "#{I18n.t(:boxer)} #{I18n.t(:creation_successful)}" }
+        format.html { redirect_to @boxer, notice: I18n.t('messages.creation_successful', :model => Boxer.model_name.human) }
         format.json { render action: 'show', status: :created, location: @boxer }
       else
         format.html { render action: 'new' }
@@ -46,7 +46,7 @@ class BoxersController < ApplicationController
     authorize! :update, @boxer
     respond_to do |format|
       if @boxer.update(boxer_params)
-        format.html { redirect_to @boxer, notice: "#{I18n.t(:boxer)} #{I18n.t(:update_successful)}" }
+        format.html { redirect_to @boxer, notice: I18n.t('messages.update_successful', :model => Boxer.model_name.human) }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -61,7 +61,7 @@ class BoxersController < ApplicationController
     authorize! :destroy, @boxer
     @boxer.destroy
     respond_to do |format|
-      format.html { redirect_to boxers_url }
+      format.html { redirect_to boxers_url, notice: I18n.t('messages.deletion_successful', :model => Boxer.model_name.human) }
       format.json { head :no_content }
     end
   end

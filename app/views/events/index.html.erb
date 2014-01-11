@@ -1,9 +1,9 @@
-<h2 class="page-title"><%= t(:calendar) %></h2>
+<h2 class="page-title"><%= t('nav.calendar') %></h2>
 
 <%= form_tag calendar_path, :method => 'get' do %>
   <p class="input-append">
     <%= text_field_tag :search, params[:search] %>
-    <%= submit_tag t(:search), :name => nil, :class => "btn" %>
+    <%= submit_tag t('buttons.search'), :name => nil, :class => "btn" %>
   </p>
 <% end %>
 

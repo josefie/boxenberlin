@@ -10,33 +10,61 @@
 clubs = Club.create!([
   
   # Beispielvereine
-  { name: 'Neuköllner Sportfreunde', contact_mail: 'info@nsf.de', password: 'password1', password_confirmation: 'password1' }, 
-  { name: 'Sparta 58', contact_mail: 'info@sparta.de', password: 'password2', password_confirmation: 'password2' }, 
-  { name: 'Spandauer Boxclub', contact_mail: 'info@sbc.de', password: 'password3', password_confirmation: 'password3' }, 
-  { name: 'Berliner TSC', contact_mail: 'info@btsc.de', password: 'password4', password_confirmation: 'password4' }, 
-  { name: 'Seitenwechsel', contact_mail: 'info@sw.de', password: 'password5', password_confirmation: 'password5' }
+  { name: 'Berliner Boxverband', contact_mail: 'bbv@web.de', password: 'pw1', password_confirmation: 'pw1' },
+  { name: 'SV Blau-Gelb', contact_mail: 'a.freiwald@web.de', password: 'pw2', password_confirmation: 'pw2' }, 
+  { name: 'Spandauer BC 26', contact_mail: 'box_info.bbv@t-online.de', password: 'pw3', password_confirmation: 'pw3' }, 
+  { name: 'Boxring Hertha BSC', contact_mail: 'info@herthabsc.de', password: 'pw4', password_confirmation: 'pw4' }, 
+  { name: 'SV Astoria', contact_mail: 'Senol.Ercel@gmx.de', password: 'pw5', password_confirmation: 'pw5' }
   
   ])
 
+locations = Location.create!([
+  
+  { city: 'Berlin', event_id: 1 },
+  { city: 'Berlin', event_id: 2 },
+  { city: 'Berlin', event_id: 3 },
+  { city: 'Berlin', event_id: 4 },
+  { city: 'Berlin', event_id: 5 },
+  { city: 'Berlin', event_id: 6 },
+  { city: 'Berlin', event_id: 7 },
+  { city: 'Berlin', event_id: 8 },
+  { city: 'Berlin', event_id: 9 },
+  { city: 'Berlin', event_id: 10 },
+  { city: 'Berlin', event_id: 11 }
+  
+  ])
+  
 schedule_items = ScheduleItem.create!([
   
   { label: 'Beginn', time: Time.parse("10:00"), event_id: 1 },
   { label: 'Beginn', time: Time.parse("10:00"), event_id: 2 },
   { label: 'Beginn', time: Time.parse("10:00"), event_id: 3 },
   { label: 'Beginn', time: Time.parse("10:00"), event_id: 4 },
-  { label: 'Beginn', time: Time.parse("10:00"), event_id: 5 }
+  { label: 'Beginn', time: Time.parse("10:00"), event_id: 5 },
+  { label: 'Beginn', time: Time.parse("10:00"), event_id: 6 },
+  { label: 'Beginn', time: Time.parse("10:00"), event_id: 7 },
+  { label: 'Beginn', time: Time.parse("10:00"), event_id: 8 },
+  { label: 'Beginn', time: Time.parse("10:00"), event_id: 9 },
+  { label: 'Beginn', time: Time.parse("10:00"), event_id: 10 },
+  { label: 'Beginn', time: Time.parse("10:00"), event_id: 11 }
   
   ])
   
 events = Event.create!([
   
   # Beispielveranstaltungen
-  { title: 'Boxevent Neukölln', date: Date.parse("2014-01-10"), contact_name: "A", contact_mail: "info@nsf.de", club_id: 1, approved: false }, 
-  { title: 'Juliusturmpokalturnier', date: Date.parse("2014-02-01"), contact_name: "B", contact_mail: "info@sbc.de", club_id: 3, approved: true }, 
-  { title: 'Berliner Meisterschaft', date: Date.parse("2014-01-15"), contact_name: "B", contact_mail: "info@sbc.de", club_id: 3, approved: true }, 
-  { title: 'Johann Trollmann Boxturnier', date: Date.today, contact_name: "C", contact_mail: "info@sw.de", club_id: 5, approved: true },
-  { title: 'Neujahrsboxen', date: Date.parse("2014-01-01"), contact_name: "C", contact_mail: "info@sw.de", club_id: 5 }
-  
+  { title: 'Boxveranstaltung', date: Date.parse("2014-01-25"), club_id: 2, approved: true, contact_mail: clubs[1].contact_mail }, 
+  { title: 'Boxveranstaltung', date: Date.parse("2014-02-02"), club_id: 3, approved: true, contact_mail: clubs[2].contact_mail }, 
+  { title: 'BL in Herzberg', date: Date.parse("2014-02-14"), club_id: 4, approved: true, contact_mail: clubs[3].contact_mail }, 
+  { title: 'BL in Berlin', date: Date.parse("2014-02-22"), club_id: 4, approved: true, contact_mail: clubs[3].contact_mail }, 
+  { title: 'Gesundbrunnenturnier', date: Date.parse("2014-03-01"), club_id: 4, approved: true, contact_mail: clubs[3].contact_mail },
+  { title: 'Gesundbrunnenturnier', date: Date.parse("2014-03-02"), club_id: 4, approved: true, contact_mail: clubs[3].contact_mail },
+  { title: 'Gesundbrunnenturnier', date: Date.parse("2014-03-08"), club_id: 5, approved: true, contact_mail: clubs[4].contact_mail },
+  { title: 'Gesundbrunnenturnier', date: Date.parse("2014-03-09"), club_id: 5, approved: true, contact_mail: clubs[4].contact_mail },
+  { title: 'Landesmeisterschaft U17/U19', date: Date.parse("2014-03-21"), club_id: 1, approved: true, contact_mail: clubs[0].contact_mail },
+  { title: 'Boxen International', date: Date.parse("2014-04-08"), club_id: 1, approved: true, contact_mail: clubs[0].contact_mail },
+  { title: 'Landesmeisterschaft U13/U15', date: Date.parse("2014-04-11"), club_id: 1, approved: true, contact_mail: clubs[0].contact_mail }
+
   ])
 
   
@@ -96,13 +124,13 @@ performance_classes = PerformanceClass.create!([
 ### WEEKDAYS ###
 
 weekdays = Weekday.create!([
-  { name: I18n.t(:mon) },
-  { name: I18n.t(:tue) },
-  { name: I18n.t(:wed) },
-  { name: I18n.t(:thu) },
-  { name: I18n.t(:fri) },
-  { name: I18n.t(:sat) },
-  { name: I18n.t(:sun) }
+  { name: I18n.t('weekdays.mon') },
+  { name: I18n.t('weekdays.tue') },
+  { name: I18n.t('weekdays.wed') },
+  { name: I18n.t('weekdays.thu') },
+  { name: I18n.t('weekdays.fri') },
+  { name: I18n.t('weekdays.sat') },
+  { name: I18n.t('weekdays.sun') }
   ])
 
 ######

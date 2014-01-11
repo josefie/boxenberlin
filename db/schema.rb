@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131229203147) do
+ActiveRecord::Schema.define(version: 20140110233440) do
 
   create_table "boxers", force: true do |t|
     t.string   "first_name"
@@ -62,10 +62,10 @@ ActiveRecord::Schema.define(version: 20131229203147) do
     t.string   "contact_phone"
     t.string   "contact_mail"
     t.text     "additional_info"
-    t.boolean  "gloves_available"
-    t.boolean  "catering_available"
     t.decimal  "admission"
     t.decimal  "admission_discounted"
+    t.decimal  "fee"
+    t.boolean  "approved"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "contact_name_public"
@@ -74,8 +74,7 @@ ActiveRecord::Schema.define(version: 20131229203147) do
     t.float    "latitude"
     t.float    "longitude"
     t.integer  "club_id"
-    t.decimal  "fee"
-    t.boolean  "approved"
+    t.date     "deadline"
   end
 
   create_table "events_performance_classes", id: false, force: true do |t|

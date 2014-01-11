@@ -48,7 +48,7 @@
   
   <div class="form-section">
     
-    <label class="subtitle">Trainer</label>
+    <label class="subtitle"><%= Coach.model_name.human(:count => 2) %></label>
   
     <div class="nested-fields inline-fields">
       <%= link_to_add_fields("Trainer hinzufügen", f, :coaches) %>
@@ -57,7 +57,7 @@
       <% end %>
     </div>
 
-    <label class="subtitle">Trainingsorte</label>
+    <label class="subtitle"><%= Location.model_name.human(:count => 2) %></label>
     
     <div class="nested-fields inline-fields">
       <%= link_to_add_fields("Ort hinzufügen", f, :locations) %>
@@ -66,7 +66,7 @@
       <% end %>
     </div>
   
-    <label class="subtitle">Trainingszeiten</label>
+    <label class="subtitle"><%= Training.model_name.human(:count => 2) %></label>
     
     <div class="nested-fields inline-fields">
       <%= link_to_add_fields("Zeit hinzufügen", f, :trainings) %>
@@ -78,8 +78,8 @@
   </div>
   
   <div class="actions form-actions">
-    <%= f.submit t(:save), :class => "btn" %>
-    <%= link_to t(:cancel), my_profile_path, :class => "btn delete" %>
+    <%= f.submit t('buttons.save'), :class => "btn" %>
+    <%= link_to t('buttons.cancel'), my_profile_path, :class => "btn delete" %>
   </div>
   
 <% end %>

@@ -37,7 +37,8 @@
     
   <div class="form-group check">
     <%= f.check_box :active, :class => "form-controls", :onclick => "toggle_info(this, '#boxer-info-section'); toggle_info(this, '#boxer-info-title');" %>
-    <%= f.label :active %>?
+    <%#= f.label :active %>
+    <label>Der Boxer nimmt aktiv an Wettkämpfen teil</label>
   </div>
   
   <legend class="section-title" id="boxer-info-title">Kämpferinformationen</legend>
@@ -47,7 +48,7 @@
   <div class="inline-fields">
     
   <div class="form-group input-append">
-    <%= f.label t(:weight), :class => "subtitle" %>
+    <%= f.label :weight, :class => "subtitle" %>
     <%= f.text_field :weight, :class => "form-controls small-field" %>
     <label class="add-on">kg</label>
   </div>
@@ -56,20 +57,20 @@
   
   <div class="inline-fields">
     
-    <label class="subtitle">Kämpfe</label>
+    <label class="subtitle"><%= t('misc.fight', count: 2) %></label>
     
     <div class="form-group">
-      <%= f.label t(:won) %>
+      <%= f.label :fights_won %>
       <%= f.text_field :fights_won, :value => @boxer.fights_won || 0, :class => "form-controls small-field" %>
     </div>
     
     <div class="form-group">
-      <%= f.label t(:lost) %>
+      <%= f.label :fights_lost %>
       <%= f.text_field :fights_lost, :value => @boxer.fights_lost || 0, :class => "form-controls small-field" %>
     </div>
     
     <div class="form-group">
-      <%= f.label t(:drawn) %>
+      <%= f.label :fights_drawn %>
       <%= f.text_field :fights_drawn, :value => @boxer.fights_drawn || 0, :class => "form-controls small-field" %>
     </div>
     
@@ -81,12 +82,12 @@
     
     <div class="form-group check">
       <%= f.radio_button :gender, true, :class => "form-controls" %>
-      <%= f.label t("female"), :class => :gender %>
+      <%= f.label t("misc.female"), :class => :gender %>
     </div>
     
     <div class="form-group check">
       <%= f.radio_button :gender, false, :class => "form-controls" %>
-      <%= f.label t("male"), :class => :gender %>
+      <%= f.label t("misc.male"), :class => :gender %>
     </div>
     
   </div>
@@ -96,7 +97,7 @@
   <%= f.hidden_field :club_id, :value => current_user.id %>
   
   <div class="actions form-actions">
-    <%= f.submit t(:save), :class => "btn" %>
-    <%= link_to t(:cancel), :back, :class => "btn delete" %>
+    <%= f.submit t('buttons.save'), :class => "btn" %>
+    <%= link_to t('buttons.cancel'), :back, :class => "btn delete" %>
   </div>
 <% end %>

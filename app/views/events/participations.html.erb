@@ -1,5 +1,5 @@
-<h2 class="page-title"><%= @boxers.count %> Teilnehmer</h2>
+<h2 class="page-title"><%= @boxers.count %> <%= t('misc.participant') %></h2>
 
 <%= render 'boxers/list' %>
 
-<%= link_to t(:back), :back, :class => "btn" %>
+<%= link_to t('buttons.back'), :back, :class => "btn" %>

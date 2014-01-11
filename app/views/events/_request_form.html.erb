@@ -1,0 +1,160 @@
+<%= form_for(@event) do |f| %>
+  <% if @event.errors.any? %>
+    <div id="error_explanation">
+      <h2>Veranstaltung konnte nicht gespeichert werden:</h2>
+
+      <ul>
+      <% @event.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <legend class="section-title">Veranstaltungsmeldung</legend>
+  <label>Diese Informationen sind Pflichtfelder und können später nicht mehr bearbeitet werden</label>
+
+  <div class="form-section">
+    
+    <div class="form-group">
+      <%= f.label :title, :class => "subtitle" %>
+      <%= f.text_field :title, :class => "form-controls" %>
+    </div>
+      
+    <div class="form-group inline-fields">
+      
+      <label class="subtitle">Adresse</label>
+      
+      <%= f.fields_for :location do |l| %>
+      
+        <div class="form-group">
+          <label><%= l.label :street %></label>
+          <%= l.text_field :street, :class => "form-controls" %>
+        </div>
+        
+        <div class="form-group">
+          <label><%= l.label :number %></label>
+          <%= l.text_field :number, :class => "form-controls x-small-field" %>
+        </div>
+        
+        <div class="form-group">
+          <label><%= l.label :zip %></label>
+          <%= l.text_field :zip, :class => "form-controls small-field" %>
+        </div>
+        
+        <div class="form-group">
+          <label><%= l.label :city %></label>
+          <%= l.text_field :city, :class => "form-controls small-field", :value => "Berlin" %>
+        </div>
+      
+        <%= l.hidden_field :country, :value => "DE" %>
+        <%= f.hidden_field :latitude, :id => 'gmaps-output-latitude' %>
+        <%= f.hidden_field :longitude, :id => 'gmaps-output-longitude' %>
+        
+      <% end %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :date, :class => "subtitle" %>
+      <%= f.date_field :date, "value" => @event.date || Time.now.to_date.to_s, :class => "form-controls small-field"  %>
+    </div>
+  
+    <div class="form-group">
+      <%= f.label :schedule, :class => "subtitle" %>
+      <%= link_to_add_fields(t('buttons.add'), f, :schedule_items) %>
+      <%= f.fields_for :schedule_items do |builder| %>
+        <%= render "schedule_item_fields", :f => builder %>
+      <% end %>
+    </div>
+  
+    <div>
+      
+      <label class="subtitle"><%= t('misc.contact') %></label>
+    
+      <div class="inline-fields">
+        <div class="form-group">
+          <%= f.label :contact_name %>
+          <%= f.text_field :contact_name, :class => "form-controls" %>
+        </div>
+      
+        <div class="form-group check">
+          <%= f.check_box :contact_name_public, :class => "form-controls" %>
+          <%= f.label :contact_name_public %>
+        </div>
+      </div>
+    
+      <div class="inline-fields">
+        <div class="form-group">
+          <%= f.label :contact_phone %>
+          <%= f.text_field :contact_phone, :class => "form-controls" %>
+        </div>
+        
+        <div class="form-group check">
+          <%= f.check_box :contact_phone_public, :class => "form-controls" %>
+          <%= f.label :contact_phone_public %>
+        </div>
+      </div>
+      
+      <div class="inline-fields">
+        <div class="form-group">
+          <%= f.label :contact_mail %>
+          <%= f.text_field :contact_mail, :value => @event.contact_mail || current_user.contact_mail, :class => "form-controls" %>
+        </div>
+        
+        <div class="form-group check">
+          <%= f.check_box :contact_mail_public, :class => "form-controls" %>
+          <%= f.label :contact_mail_public %>
+        </div>
+      </div>
+    
+    </div>
+    
+  </div>
+  
+  <legend class="section-title">Weitere Informationen zur Veranstaltung</legend>
+  <label>Diese Informationen können auch später noch bearbeitet werden</label>
+  
+  <div class="form-section">
+    
+    <div class="form-group">
+      <%= f.label :additional_info, :class => "subtitle" %>
+      <%= f.text_area :additional_info, :rows => "5", :class => "form-controls large-field" %>
+    </div>
+    
+    <div class="form-group">
+      <%= f.label :admission, :class => "subtitle" %>
+      
+      <div class="input-append">
+        <%= f.label t('misc.default') %>
+        <%= f.text_field :admission, :class => "form-controls small-field" %>
+        <label class="add-on">€</label>
+      </div>
+      <div class="input-append">
+        <%= f.label t('misc.discounted') %>
+        <%= f.text_field :admission_discounted, :class => "form-controls small-field" %>
+        <label class="add-on">€</label>
+      </div>
+    </div>
+  
+    <div class="form-group input-append">
+      <%= f.label :fee, :class => "subtitle" %>
+      <%= f.text_field :fee, :class => "form-controls small-field" %>
+      <label class="add-on">€</label>
+    </div>
+    
+    <div class="form-group">
+      <label class="subtitle">Zugelassene Alters- und Leistungsklassen</label>
+      <%= f.collection_select :performance_class_ids, PerformanceClass.all, :id, :title, {}, {:class => "form-controls", :multiple => true} %>
+    </div>
+  
+    <div class="form-group">
+      <%= f.hidden_field :club_id, :value => @event.club_id || current_user.id %>
+    </div>
+    
+  </div>
+  
+  <div class="actions form-actions">
+    <%= f.submit t('buttons.request_event'), :class => "btn" %>
+    <%= link_to t('buttons.cancel'), my_events_path("host"), :class => "btn delete" %>
+  </div>
+<% end %>

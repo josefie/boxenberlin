@@ -1,10 +1,15 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <th><%= t(:name) %></th>
-      <th><%= t(:age_class, count: 1) %></th>
-      <th><%= t(:weight) %></th>
-      <th><%= "#{t(:fights, count: 2)} (S/N/U)" %></th>
+      <th><%= Boxer.human_attribute_name(:name) %></th>
+      <th><%= t('misc.age_class') %></th>
+      <th><%= Boxer.human_attribute_name(:weight) %></th>
+      <th>
+        <%= t('misc.fight', count: 2) %> 
+        (<%= Boxer.human_attribute_name(:fights_won) %>/
+        <%= Boxer.human_attribute_name(:fights_lost) %>/
+        <%= Boxer.human_attribute_name(:fights_drawn) %>)
+      </th>
       <th></th>
       <th></th>
     </tr>

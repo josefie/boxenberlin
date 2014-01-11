@@ -1,15 +1,15 @@
 <%= form_tag login_path do %>
   
   <div class="form-group">
-    <label><%= t(:mail) %></label>
+    <label><%= t('activerecord.attributes.club.contact_mail') %></label>
     <%= text_field_tag :email, params[:email], :class => "form-controls" %>
   </div>
   <div class="form-group">
-    <label><%= t(:password) %></label>
+    <label><%= t('activerecord.attributes.club.password') %></label>
     <%= password_field_tag :password, nil, :class => "form-controls" %>
   </div>
   <div class="actions form-actions">
-    <%= submit_tag t(:login), :class => "btn" %>
+    <%= submit_tag t('buttons.login'), :class => "btn" %>
   </div>
   
   <%= link_to "Noch kein Vereinskonto?", signup_path %>

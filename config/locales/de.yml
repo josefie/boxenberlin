@@ -100,7 +100,7 @@ de:
     messages:
       accepted: muss akzeptiert werden
       blank: muss ausgefüllt werden
-      confirmation: stimmt nicht mit der Bestätigung überein
+      confirmation: stimmt nicht mit der Eingabe überein
       empty: muss ausgefüllt werden
       equal_to: muss genau %{count} sein
       even: muss gerade sein
@@ -201,4 +201,168 @@ de:
   activerecord:
     errors:
       <<: *errors
-  
+    models:
+      boxer:
+        one: Boxer
+        other: Boxer
+      club:
+        one: Verein
+        other: Vereine
+      coach:
+        one: Trainer
+        other: Trainer
+      event:
+        one: Veranstaltung
+        other: Veranstaltungen
+      location:
+        one: Ort
+        other: Orte
+      participation:
+        one: Teilnahme
+        other: Teilnahmen
+      performance_class:
+        one: Leistungsklasse
+        other: Leistungsklassen
+      schedule_item:
+        one: Eintrag
+        other: Einträge
+      training:
+        one: Training
+        other: Trainings
+      weekday:
+        one: Wochentag
+        other: Wochentage
+    attributes:
+      boxer:
+        first_name: Vorname
+        last_name: Nachname
+        date_of_birth: Geburtsdatum
+        weight: Gewicht
+        fights_won: Siege
+        fights_lost: Niederlagen
+        fights_drawn: Unentschieden
+        gender: Geschlecht
+        active: aktiv
+        name: Name
+      club:
+        name: Name
+        website: Website
+        contact_name: Ansprechpartner
+        contact_phone: Telefon
+        contact_mail: E-Mail
+        password: Passwort
+        password_confirmation: Passwort Bestätigung
+      coach:
+        first_name: Vorname
+        last_name: Nachname
+      event:
+        title: Titel
+        date: Datum
+        contact_name: Ansprechpartner
+        contact_phone: Telefon
+        contact_mail: E-Mail
+        additional_info: Beschreibung der Veranstaltung
+        admission: Eintritt
+        admission_discounted: Ermäßigter Eintritt
+        contact_name_public: öffentlich?
+        contact_phone_public: öffentlich?
+        contact_mail_public: öffentlich?
+        latitude: Breitengrad
+        longitude: Längengrad
+        fee: Teilnehahmegebühr
+        approved: bestätigt
+        deadline: Anmeldefrist
+        schedule: Zeitplan
+        location: Veranstaltungsort
+      location:
+        street: Straße
+        number: Nr.
+        zip: PLZ
+        city: Ort
+        country: Land
+      participation:
+        status: Status
+      performance_class:
+        title: Titel
+        age_min: Mindestalter
+        age_max: Maximalalter
+        win_min: minimale Anzahl gewonnener Kämpfe
+        win_max: maximale Anzahl gewonnener Kämpfe
+        gender: Geschlecht
+      schedule_item:
+        label: Bezeichnung
+        time: Zeit
+      training:
+        weekday: Wochentag
+        time_start: Startzeit
+        time_end: Endzeit
+        description: Beschreibung
+      weekday:
+        name: Name
+  nav:
+    home: "Startseite"
+    calendar: "Kalender"
+    dashboard: "Mein Konto"
+    profile: "Profil"
+    news: Neuigkeiten
+    request:
+      one: Antrag
+      other: Anträge
+  buttons:
+    save: Speichern
+    login: Anmelden
+    logout: Abmelden
+    sign_up: Registrieren
+    back: Zurück
+    search: Suchen
+    add: Hinzufügen
+    edit: Bearbeiten
+    destroy: Löschen
+    remove: Entfernen
+    request_event: Veranstaltung beantragen
+    apply_boxer: Boxer anmelden
+    undo_application: Abmelden
+    cancel: Abbrechen
+    approve: Bestätigen
+    decline: Ablehnen
+  weekdays:
+    mon: Montag
+    tue: Dienstag
+    wed: Mittwoch
+    thu: Donnerstag
+    fri: Freitag
+    sat: Samstag
+    sun: Sonntag
+  misc:
+    default: Standard
+    discounted: ermäßigt
+    host: Veranstalter
+    participant: Teilnehmer
+    archive: Archiv
+    start: Beginn
+    contact: Kontaktdaten
+    open: Offene
+    approved: Bestätigte
+    declined: Abgelehnte
+    age_class: Altersklasse
+    fight:
+      one: Kampf
+      other: Kämpfe
+    male: männlich
+    female: weiblich
+  messages:
+    creation_successful: "%{model} wurde erfolgreich erstellt."
+    creation_failed: "%{model} konnte nicht erstellt werden."
+    update_successful: "%{model} wurde erfolgreich aktualisiert."
+    update_failed: "%{model} konnte nicht aktualisiert werden."
+    deletion_successful: "%{model} wurde gelöscht."
+    deletion_failed: "%{model} konnte nicht gelöscht werden."
+    confirm_delete: "Sind Sie sicher?"
+    confirm_delete_profile: "Sind Sie sicher, dass Sie das wollen? Ihr Vereinsprofil und all Ihre Daten werden gelöscht!"
+    signup_successful: "Registrierung erfolgreich."
+    signup_failed: "Registrierung fehlgeschlagen."
+    login_successful: "Anmeldung erfolgreich."
+    login_failed: "E-Mail oder Passwort ungültig."
+    logout_successful: "Abmeldung erfolgreich."
+    logout_failed: "Abmeldung fehlgeschlagen."
+    request_successful: "%{model} wurde erfolgreich beantragt."

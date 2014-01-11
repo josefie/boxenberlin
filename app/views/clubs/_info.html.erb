@@ -2,10 +2,10 @@
 
 <div class="buttons">
   <% if can? :update, @club %>
-    <%= link_to t('edit'), edit_club_path(@club), :class => "btn" %>
+    <%= link_to t('buttons.edit'), edit_club_path(@club), :class => "btn" %>
   <% end %>
   <% if can? :destroy, @club %>
-    <%= link_to t('destroy'), @club, method: :delete, data: { confirm: t(:confirm_delete_profile) }, :class => "btn delete"  %>
+    <%= link_to t('buttons.destroy'), @club, method: :delete, data: { confirm: t('messages.confirm_delete_profile') }, :class => "btn delete"  %>
   <% end %>
 </div>
   
@@ -35,7 +35,7 @@
 </div>
 
 <div class="infobox">
-  <label><%= t(:coach)%></label>
+  <label><%= Coach.model_name.human(:count => 2) %></label>
   <% unless @club.coaches.empty? %>
     <ul>
       <% @club.coaches.each do |c| %>
@@ -46,7 +46,7 @@
     Keine Angabe.
   <% end %>
 
-  <label><%= t(:training)%></label>
+  <label><%= Training.model_name.human(:count => 2) %></label>
   <% unless @club.trainings.empty? %>
     <ul>
     <% @club.trainings.each do |t| %>
@@ -67,22 +67,22 @@
 
   
 <div class="infobox">
-  <label><%= t(:contact)%></label>
+  <label><%= t('misc.contact') %></label>
   <% unless @club.contact_name.blank? then %>
     <%= @club.contact_name %></br>
   <% end %>
   <% unless @club.contact_phone.blank? then %>
-    <span><%= t(:phone)%>:</span>
+    <span><%=  Club.human_attribute_name(:contact_phone) %>:</span>
     <%= @club.contact_phone %></br>
   <% end %>
   <% unless @club.contact_mail.blank? then %>
-    <span><%= t(:mail)%>:</span>
+    <span><%=  Club.human_attribute_name(:contact_mail) %>:</span>
     <a href="mailto:<%= @club.contact_mail %>"><%= @club.contact_mail %></a>
   <% end %>
 </div>
 
 <div class="infobox">
-  <label>Anstehende <%= t(:event, count: 2) %></label>
+  <label>Anstehende <%= Event.model_name.human(:count => 2) %></label>
   <% if @club.events.empty? then %>
     Keine Veranstaltungen in nächster Zeit.
   <% else %>

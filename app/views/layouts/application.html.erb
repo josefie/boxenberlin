@@ -34,29 +34,29 @@
         <%= link_to image_tag("boxen-zeichnung.jpg"), root_path %>
         
         <ul id="main-nav" class="nav nav-list">
-          <li><%= link_to t(:home), root_path %></li>
-          <li><%= link_to t(:calendar), calendar_path %></li>
-          <li><%= link_to t(:club, count: 2), clubs_path %></li>
-          <li><%= link_to t(:news), root_path %></li>
+          <li><%= link_to t('nav.home'), root_path %></li>
+          <li><%= link_to t('nav.calendar'), calendar_path %></li>
+          <li><%= link_to Club.model_name.human(:count => 2), clubs_path %></li>
+          <li><%= link_to t('nav.news'), root_path %></li>
           
           <li class="divider"></li>
           <% if current_user.nil? %>
           
-            <li><%= link_to t(:login), login_path %></li>
-            <li><%= link_to t(:sign_up), signup_path %></li>
+            <li><%= link_to t('buttons.login'), login_path %></li>
+            <li><%= link_to t('buttons.sign_up'), signup_path %></li>
             
           <% else %>
           
-            <li class="dropdown"><%= link_to t(:dashboard), "#", :'data-toggle' => 'dropdown', :class => "dropdown-toggle" %>
+            <li class="dropdown"><%= link_to t('nav.dashboard'), "#", :'data-toggle' => 'dropdown', :class => "dropdown-toggle" %>
               <ul class="dropdown-menu">
-                <li class="dropdown-link"><%= link_to t(:profile), my_profile_path %></li>
-                <li class="dropdown-link"><%= link_to t(:event, count: 2), my_events_path("host") %></li>
-                <li class="dropdown-link"><%= link_to t(:boxer), my_boxers_path %></li>
+                <li class="dropdown-link"><%= link_to t('nav.profile'), my_profile_path %></li>
+                <li class="dropdown-link"><%= link_to Event.model_name.human(:count => 2), my_events_path("host") %></li>
+                <li class="dropdown-link"><%= link_to Boxer.model_name.human(:count => 2), my_boxers_path %></li>
                 <% if current_user.admin? %>
-                  <li class="dropdown-link"><%= link_to t(:requests), manage_path("open") %></li>
+                  <li class="dropdown-link"><%= link_to t('nav.request', count: 2), manage_path("open") %></li>
                 <% end %>
                 <li class="divider"></li>
-                <li><%= link_to t(:logout), logout_path(current_user), method: :delete, :id => "logout" %></li>
+                <li><%= link_to t('buttons.logout'), logout_path(current_user), method: :delete, :id => "logout" %></li>
               </ul>
             </li>
             

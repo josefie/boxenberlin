@@ -2,13 +2,12 @@ class Event < ActiveRecord::Base
   geocoded_by :loc
   after_validation :geocode, if: ->(obj){ location_change(obj) and !Rails.env.test? }
   
-  validates :title, presence: true
+  validates :club_id, presence: true
   #validates :location, presence: true
   validates :date, presence: true
+  validates :title, presence: true
   #validate :at_least_one_schedule_item
-  validates :contact_name, presence: true
-  validates :contact_mail, presence: true
-  validates :club_id, presence: true
+  validate :deadline_before_date
   
   belongs_to :club, :foreign_key => 'club_id'
   has_and_belongs_to_many :performance_classes
@@ -23,6 +22,14 @@ class Event < ActiveRecord::Base
   def at_least_one_schedule_item
     if self.schedule_items.empty?
       errors[:base] << ("Es muss mindestens ein Starttermin angegeben werden.")
+    end
+  end
+  
+  def deadline_before_date
+    unless self.deadline.nil?
+      if self.deadline > self.date
+        errors[:base] << ("Die Anmeldefrist darf nicht nach dem Veranstaltungstag (#{I18n.localize self.date}) liegen.")
+      end
     end
   end
   
@@ -51,7 +58,15 @@ class Event < ActiveRecord::Base
   end
   
   def upcoming?
-    self.date >= Date.today #and self.deadline >= Date.today
+    self.date >= Date.today
+  end
+  
+  def get_deadline
+    unless self.deadline.nil?
+      self.deadline
+    else
+      self.date - 1.day
+    end
   end
   
   def loc

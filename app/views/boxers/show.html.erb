@@ -2,10 +2,10 @@
 
 <div class="buttons">
 <% if can? :update, @boxer %>
-  <%= link_to t('edit'), edit_boxer_path(@boxer), :class => "btn" %>
+  <%= link_to t('buttons.edit'), edit_boxer_path(@boxer), :class => "btn" %>
 <% end %>
 <% if can? :destroy, @boxer %>
-  <%= link_to t('destroy'), @boxer, method: :delete, data: { confirm: t(:confirm_delete) }, :class => "btn delete" %>
+  <%= link_to t('buttons.destroy'), @boxer, method: :delete, data: { confirm: t('messages.confirm_delete') }, :class => "btn delete" %>
 <% end %>
 </div>
 
@@ -16,31 +16,31 @@
 <label class="subtitle">Allgemein</label>
 
 <p>
-  <strong><%= t(:date_of_birth) %>:</strong>
+  <strong><%= Boxer.human_attribute_name(:date_of_birth) %>:</strong>
   <%= format_date(@boxer.date_of_birth) %>
 </p>
 
 <p>
-  <strong><%= t(:gender) %>:</strong>
+  <strong><%= Boxer.human_attribute_name(:gender) %>:</strong>
   <% if @boxer.gender %>
-  <%= t(:female) %>
+  <%= t('misc.female') %>
   <% else %>
-  <%= t(:male) %>
+  <%= t('misc.male') %>
   <% end %>
 </p>
 
 <p>
-  <strong><%= t(:age_class, count: 1) %>:</strong>
+  <strong><%= t('misc.age_class') %>:</strong>
   <%= @boxer.classify_age %>
 </p>
 
 <p>
-  <strong><%= t(:weight) %>:</strong>
+  <strong><%= Boxer.human_attribute_name(:weight) %>:</strong>
   <%= @boxer.weight.to_i %> kg
 </p>
 
 <p>
-<strong><%= t(:club, count: 1) %>:</strong>
+<strong><%= Club.model_name.human %>:</strong>
   <%= @boxer.club.name %>
 </p>
 
@@ -51,17 +51,17 @@
 <div class="infobox span4">
   
 <p>
-  <label class="subtitle"><%= t(:fights, count: 2) %></label>
-  <%= t(:fights_won, scope: [:activerecord, :attributes, :boxers]) %>:
+  <label class="subtitle"><%= t('misc.fight', count: 2) %></label>
+  <%= Boxer.human_attribute_name(:fights_won) %>:
   <%= @boxer.fights_won %></br>
-  <%= t(:fights_lost, scope: [:activerecord, :attributes, :boxers]) %>:
+  <%= Boxer.human_attribute_name(:fights_lost) %>:
   <%= @boxer.fights_lost %></br>
-  <%= t(:fights_drawn, scope: [:activerecord, :attributes, :boxers]) %>:
+  <%= Boxer.human_attribute_name(:fights_drawn) %>:
   <%= @boxer.fights_drawn %>
 </p>
 
 <p>
-  <strong><%= t(:performance_class, count: 1)%>:</strong>
+  <strong><%= PerformanceClass.model_name.human(count: 1) %>:</strong>
   <%= @boxer.classify_performance %>
 </p>
 

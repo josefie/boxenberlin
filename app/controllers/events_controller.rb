@@ -67,7 +67,7 @@ class EventsController < ApplicationController
     authorize! :create, @event
     respond_to do |format|
       if @event.save
-        format.html { redirect_to @event, notice: "#{I18n.t(:event, count: 1)} #{I18n.t(:request_successful)}" }
+        format.html { redirect_to @event, notice: I18n.t('messages.request_successful', :model => Event.model_name.human) }
         format.json { render action: 'show', status: :created, location: @event }
       else
         format.html { render action: 'new' }
@@ -82,7 +82,7 @@ class EventsController < ApplicationController
     authorize! :update, @event
     respond_to do |format|
       if @event.update(event_params)
-        format.html { redirect_to @event, notice: "#{I18n.t(:event, count: 1)} #{I18n.t(:update_successful)}" }
+        format.html { redirect_to @event, notice: I18n.t('messages.update_successful', :model => Event.model_name.human) }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -97,7 +97,7 @@ class EventsController < ApplicationController
     authorize! :destroy, @event
     @event.destroy
     respond_to do |format|
-      format.html { redirect_to calendar_url(@event.date) }
+      format.html { redirect_to calendar_url(@event.date), notice: I18n.t('messages.deletion_successful', :model => Event.model_name.human) }
       format.json { head :no_content }
     end
   end
@@ -191,7 +191,8 @@ class EventsController < ApplicationController
       :longitude, 
       :club_id,
       {:performance_class_ids => []}, 
-      :approved, 
+      :approved,
+      :deadline,
       schedule_items_attributes: [:id, :label, :time, :event_id, :_destroy],
       location_attributes: [:id, :street, :number, :zip, :city, :country, :club_id, :event_id, :_destroy]
       )

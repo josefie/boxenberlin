@@ -1,4 +1,4 @@
-<h2 class="page-title">Meine <%= t(:boxer) %></h2>
+<h2 class="page-title">Meine <%= Boxer.model_name.human %></h2>
 
 <% if can? :create, Boxer %>
   <%= link_to "Boxer hinzufügen", new_boxer_path, :class => "btn" %>

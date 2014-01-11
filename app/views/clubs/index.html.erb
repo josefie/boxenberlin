@@ -1,10 +1,12 @@
-<h2 class="page-title"><%= t(:club, count: 2) %></h2>
+<h2 class="page-title"><%= Club.model_name.human(:count => 2) %></h2>
 
 <table class="table table-hover">
   <thead>
     <tr>
-      <th><%= t(:name) %></th>
-      <th><%= t(:address) %></th>
+      <th><%#= Club.human_attribute_name(:name) %></th>
+      <th><%#= Location.human_attribute_name(:city) %></th>
+      <th><%#= t('activerecord.attributes.club.name') %></th>
+      <th><%#= t('activerecord.models.location', count: 1) %></th>
     </tr>
   </thead>
 
