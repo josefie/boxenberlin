@@ -214,6 +214,9 @@ de:
       event:
         one: Veranstaltung
         other: Veranstaltungen
+      fight:
+        one: Kampf
+        other: Kämpfe
       location:
         one: Ort
         other: Orte
@@ -264,9 +267,9 @@ de:
         additional_info: Beschreibung der Veranstaltung
         admission: Eintritt
         admission_discounted: Ermäßigter Eintritt
-        contact_name_public: öffentlich?
-        contact_phone_public: öffentlich?
-        contact_mail_public: öffentlich?
+        contact_name_public: öffentlich sichtbar?
+        contact_phone_public: öffentlich sichtbar?
+        contact_mail_public: öffentlich sichtbar?
         latitude: Breitengrad
         longitude: Längengrad
         fee: Teilnehahmegebühr
@@ -315,12 +318,12 @@ de:
     sign_up: Registrieren
     back: Zurück
     search: Suchen
-    add: Hinzufügen
+    add: '%{item} hinzufügen'
     edit: Bearbeiten
     destroy: Löschen
     remove: Entfernen
-    request_event: Veranstaltung beantragen
-    apply_boxer: Boxer anmelden
+    request: '%{item} beantragen'
+    apply: '%{item} anmelden'
     undo_application: Abmelden
     cancel: Abbrechen
     approve: Bestätigen
@@ -350,6 +353,7 @@ de:
       other: Kämpfe
     male: männlich
     female: weiblich
+    general: Allgemein
   messages:
     creation_successful: "%{model} wurde erfolgreich erstellt."
     creation_failed: "%{model} konnte nicht erstellt werden."

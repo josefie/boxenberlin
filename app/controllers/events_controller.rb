@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show, :edit, :update, :destroy, :apply, :send_application, :participations]
+  before_action :set_event, only: [:show, :edit, :update, :destroy, :apply, :send_application, :participants, :undo_application, :fights]
   before_action :parse_time, only: [:update, :create]
   
   Inf = 1.0 / 0.0
@@ -119,7 +119,7 @@ class EventsController < ApplicationController
     end
   end
   
-  def participations
+  def participants
     @boxers = @event.boxers
   end
   
@@ -133,20 +133,20 @@ class EventsController < ApplicationController
       elsif params[:status] == "open" then
         @events = Event.where(:approved => nil)
       end
-      
     end
   end
   
   def apply
     if current_user then
-      authorize! :create, Boxer
+      authorize! :apply, @event
       @events = [@event]
       @boxers = Array.new
       current_user.boxers.each do |b|
-        if b.participations.find_by_event_id(@event.id).nil? then
+        unless b.events.include?(@event)
           @boxers << b
         end
       end
+      session[:return_to] = application_path(@event)
     else
       redirect_to login_path
     end
@@ -155,13 +155,22 @@ class EventsController < ApplicationController
   def send_application
     unless params[:boxer_ids].nil? then
       params[:boxer_ids].each do |id|
-        @event.participations.build(:boxer_id => id)
+        @event.boxers << Boxer.find_by_id(id)
       end
     end
     @event.save
     redirect_to @event
   end
-
+  
+  def undo_application
+    boxer = Boxer.find_by_id(params[:boxer_id])
+    authorize! :destroy, boxer
+    @event.boxers.delete(boxer)
+    respond_to do |format|
+      format.html { redirect_to @event, notice: I18n.t('messages.deletion_successful', :model => "Anmeldung") }
+      format.json { head :no_content }
+    end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

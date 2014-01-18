@@ -13,8 +13,9 @@ class Event < ActiveRecord::Base
   has_and_belongs_to_many :performance_classes
   has_many :schedule_items
   has_many :participations
-  has_many :boxers, -> { distinct }, through: :participations
+  has_and_belongs_to_many :boxers
   has_one :location, :dependent => :nullify
+  has_many :fights
   
   accepts_nested_attributes_for :schedule_items, allow_destroy: true, reject_if: proc { |a| a['label'].blank? }
   accepts_nested_attributes_for :location, allow_destroy: true#, reject_if: proc { |a| a['city'].blank? }
@@ -79,6 +80,20 @@ class Event < ActiveRecord::Base
     else
       ( obj.location.street.present? or obj.location.number.present? or obj.location.zip.present? or obj.location.city.present? ) and ( obj.location.street_changed? or obj.location.number_changed? or obj.location.zip_changed? or obj.location.city_changed? )
     end
+  end
+  
+  def generate_fights
+    fight_list = Array.new
+    participants = Array.new(self.boxers)
+    participants.each do |boxer|
+      b1 = participants.pop
+      b2 = participants.pop
+      fight = self.fights.build(:opponent_red => b1, :opponent_blue => b2, :event_id => self.id, :approved => false)
+      unless fight.nil?
+        fight_list << fight
+      end
+    end
+    fight_list
   end
   
 end

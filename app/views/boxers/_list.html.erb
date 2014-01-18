@@ -25,7 +25,11 @@
       
       <td><%= link_to "#{boxer.first_name} #{boxer.last_name}", boxer %></td>
       <td>
-        <%= boxer.classify_age %>
+      <% unless boxer.get_age_class.nil? %>
+        <%= boxer.get_age_class.title %> 
+      <% else %>
+        Nicht klassifiziert
+      <% end %>
       </td>
       <td><%= boxer.weight.to_i %> kg</td>
       <td><%= "#{boxer.fights_won}/#{boxer.fights_lost}/#{boxer.fights_drawn}" %></td>

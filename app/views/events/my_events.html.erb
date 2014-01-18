@@ -1,7 +1,7 @@
 <h2 class="page-title">Meine <%= Event.model_name.human(:count => 2) %></h2>
 
 <% if can? :create, Event %>
-  <%= link_to t('buttons.request_event'), new_event_path, :class => "btn"  %>
+  <%= link_to t('buttons.request', :item => Event.model_name.human), new_event_path, :class => "btn"  %>
 <% end %>
 
 <ul class="nav nav-tabs">

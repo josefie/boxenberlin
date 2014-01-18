@@ -20,13 +20,14 @@ describe "Club", :type => :feature do
     expect(page).to have_css('input#club_contact_name')
   end
   
-  it "can add a location" do
+  it "can add multiple locations" do
     visit edit_club_path(@club)
-    fill_in 'club_locations_street', :with => "street 1"
-    fill_in 'club_locations_zip', :with => "12345"
+    click_link 'Ort hinzufügen'
+    expect(page).to have_content("Straße Nr. PLZ Ort")
+    #fill_in 'club_locations_street', :with => "street 1"
+    #fill_in 'club_locations_zip', :with => "12345"
     click_button 'Speichern'
-    expect(page).to have_content("street 1")
-    expect(page).to have_content("12345 Berlin")
+    expect(page).to have_content("Berlin")
   end
   
   it "can add coaches and trainings to profile", :js => true do

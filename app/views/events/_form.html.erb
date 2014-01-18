@@ -12,6 +12,7 @@
   <% end %>
   
   <legend class="section-title">Weitere Informationen zur Veranstaltung</legend>
+  <label>Diese Informationen können auch später noch bearbeitet werden</label>
   
   <div class="form-section">
     
@@ -43,6 +44,8 @@
     
     <div class="form-group">
       <label class="subtitle">Zugelassene Alters- und Leistungsklassen</label>
+      <%= check_box_tag "all_performance_classes", "", true, :onclick => "toggle_info(this, '#event_performance_class_ids';" %><label>Alle</label>
+
       <%= f.collection_select :performance_class_ids, PerformanceClass.all, :id, :title, {}, {:class => "form-controls", :multiple => true} %>
     </div>
     

@@ -31,7 +31,7 @@ class BoxersController < ApplicationController
     authorize! :create, @boxer
     respond_to do |format|
       if @boxer.save
-        format.html { redirect_to @boxer, notice: I18n.t('messages.creation_successful', :model => Boxer.model_name.human) }
+        format.html { redirect_to session[:return_to], notice: I18n.t('messages.creation_successful', :model => Boxer.model_name.human) }
         format.json { render action: 'show', status: :created, location: @boxer }
       else
         format.html { render action: 'new' }
@@ -70,6 +70,7 @@ class BoxersController < ApplicationController
     if current_user then
       @club = current_user
       @boxers = current_user.boxers
+      session[:return_to] = my_boxers_path
       return
     else
       redirect_to login_path

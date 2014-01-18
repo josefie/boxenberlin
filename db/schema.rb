@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140110233440) do
+ActiveRecord::Schema.define(version: 20140112201250) do
 
   create_table "boxers", force: true do |t|
     t.string   "first_name"
@@ -27,6 +27,14 @@ ActiveRecord::Schema.define(version: 20140110233440) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "boxers_events", id: false, force: true do |t|
+    t.integer "event_id", null: false
+    t.integer "boxer_id", null: false
+  end
+
+  add_index "boxers_events", ["boxer_id"], name: "index_boxers_events_on_boxer_id"
+  add_index "boxers_events", ["event_id"], name: "index_boxers_events_on_event_id"
 
   create_table "clubs", force: true do |t|
     t.string   "name"
@@ -85,6 +93,15 @@ ActiveRecord::Schema.define(version: 20140110233440) do
   add_index "events_performance_classes", ["event_id"], name: "index_events_performance_classes_on_event_id"
   add_index "events_performance_classes", ["performance_class_id"], name: "index_events_performance_classes_on_performance_class_id"
 
+  create_table "fights", force: true do |t|
+    t.boolean  "approved"
+    t.integer  "event_id"
+    t.integer  "opponent_red"
+    t.integer  "opponent_blue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "locations", force: true do |t|
     t.string   "street"
     t.string   "number"
@@ -93,14 +110,6 @@ ActiveRecord::Schema.define(version: 20140110233440) do
     t.string   "country"
     t.integer  "club_id"
     t.integer  "event_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "participations", force: true do |t|
-    t.integer  "event_id"
-    t.integer  "boxer_id"
-    t.boolean  "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

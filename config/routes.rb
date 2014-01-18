@@ -1,5 +1,7 @@
 Boxenberlin::Application.routes.draw do
   
+  #resources :fights
+
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
   delete 'logout/:id' => 'sessions#destroy', as: :logout
@@ -12,11 +14,13 @@ Boxenberlin::Application.routes.draw do
 
   get 'signup' => 'clubs#new'
   
-  resources :events, :except => :index
+  resources :events, :except => :index do
+    resources :fights, :only => [:index, :create, :update, :destroy]
+  end
   
   resources :boxers, :except => :index
 
-  resources :participations, :only => :destroy
+  #resources :participations, :only => :destroy
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -31,17 +35,17 @@ Boxenberlin::Application.routes.draw do
   constraints: { date: /\d{4}-\d{2}-\d{2}/ }
   
   get 'profile' => 'clubs#my_profile', as: :my_profile
-  #get 'events' => 'events#my_events', as: :my_events
+  get 'events/role/:role' => 'events#my_events', as: :my_events
   get 'boxers' => 'boxers#my_boxers', as: :my_boxers
-  
-  get 'myevents/:role' => 'events#my_events', as: :my_events
   get 'manage/(:status)' => 'events#manage', as: :manage
   
   get 'events/:id/apply' => 'events#apply', as: :application
-  post 'events/:id/apply' => 'events#send_application', as: :send_application
-  
-  get 'events/:id/participation' => 'events#participations', as: :participations
-  
+  post 'events/:id/apply' => 'events#send_application', as: :send_application  
+  get 'events/:id/participants' => 'events#participants', as: :participants
+  delete 'events/:id/participants/:boxer_id' => 'events#undo_application', as: :undo_application
+
+  #get 'events/:id/participations' => 'events#participations', as: :participations
+  #get 'events/:id/participations/fights' => 'events#fights', as: :fight_list
   
   
   # Example of named route that can be invoked with purchase_url(id: product.id)

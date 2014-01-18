@@ -1,4 +1,4 @@
-<h2 class="page-title"><%= t('buttons.apply_boxer') %></h2>
+<h2 class="page-title"><%= t('buttons.apply', :item => Boxer.model_name.human) %></h2>
 
 <p>Sie möchten zu der folgenden Veranstaltung Teilnehmer anmelden:</p>
 
@@ -6,31 +6,42 @@
 
 <div class="infobox">
   
+<% unless @boxers.empty? %>
+
 <label class="subtitle">Bitte wählen Sie Ihre Boxer aus der Liste:</label>
 
 <%= form_tag send_application_path, method: :post do %>
-  
-<% unless @boxers.empty? %>
-<ul>
-  <% @boxers.each do |b| %>
-    <li>
-      <%= check_box_tag "boxer_ids[]", b.id %>
-      <%= b.first_name %> <%= b.last_name %>
-    </li>
-  <% end %>
-  <% unless @boxers.empty? %>
-  <li><%= link_to "alle", "#" %></li>
-  <% end %>
-</ul>
-<% else %>
-  <p>Sie haben noch keine Boxer zum anmelden!</p>
-  <%= link_to "Neuen Boxer hinzufügen?", new_boxer_path, :class => "btn" %>
-<% end %>
-  
+
+<table class="table table-hover">
+  <tbody>
+    <% unless @boxers.empty? %>
+      <tr>
+        <td><%= check_box_tag "check-all", :onclick => "selectAll();" %></td>
+        <td>Alle</td>
+      </tr>
+    <% end %>
+    <% @boxers.each do |b| %>
+      <tr>
+        <td><%= check_box_tag "boxer_ids[]", b.id %></td>
+        <td><%= b.get_name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "Weiteren Boxer erfassen?", new_boxer_path, :class => "link" %>
+
 <div class="actions form-actions">
-  <%= submit_tag t('buttons.apply_boxer'), :class => "btn" %>
+  <%= submit_tag t('buttons.apply', :item => "Jetzt"), :class => "btn" %>
 </div>
-  
+
+<% end %>
+
+<% else %>
+
+  <label class="subtitle">Sie haben noch keine Boxer in Ihrer Liste.</label>
+  <%= link_to "Neuen Boxer hinzufügen", new_boxer_path, :class => "btn" %>
+
 <% end %>
 
 </div>

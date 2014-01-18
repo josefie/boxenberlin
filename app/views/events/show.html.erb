@@ -9,7 +9,7 @@
     
     <div class="buttons">      
       <% if can? :destroy, @event and @event.approved %>
-        <%= link_to "#{t('misc.participant')} (#{@event.boxers.count})", participations_path(@event.id), :class => "btn" %>
+        <%= link_to "#{t('misc.participant')} (#{@event.boxers.count})", participants_path(@event), :class => "btn" %>
       <% end %>
       
       <% if can? :update, @event %>
@@ -60,26 +60,26 @@
           
           <label class="subtitle">Meine <%= t('misc.participant') %></label>
           <div class="apply buttons">
-            <% if can? :create, Boxer %>
-              <% if @event.get_deadline >= Date.today %>
+            <% if can? :apply, @event %>
                 <p>Anmeldungen bis <%= format_date(@event.get_deadline) %></p>
-                <%= link_to t('buttons.apply_boxer'), application_path(@event.id), :class => "btn btn-primary" %>
-              <% else %>
+                <%= link_to t('buttons.apply', :item => Boxer.model_name.human), application_path(@event.id), :class => "btn btn-primary" %>
+            <% else %>
                 <p>Anmeldefrist abgelaufen.</p>
-              <% end %>
             <% end %>
           </div>
   
           <% unless @boxers_applied.empty? then %>
             <p>Folgende Boxer sind angemeldet:</p>
-            <ul>
-              <% @boxers_applied.each do |b| %>
-                <li>
-                  <%= b.first_name %> <%= b.last_name %> ->
-                  <%= link_to t('buttons.undo_application'), participation_path(b.participations.find_by_event_id(@event.id).id), method: :delete, data: { confirm: t('messages.confirm_delete') } %>
-                </li>
-              <% end %>
-            </ul>
+            <table class="table table-hover">
+              <tbody>
+                <% @boxers_applied.each do |b| %>
+                <tr>
+                  <td><%= b.get_name %></td>
+                  <td><%= link_to t('buttons.undo_application'), undo_application_path(@event.id, b.id), method: :delete, data: { confirm: t('messages.confirm_delete') }, :class => "link" %></td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
           <% end %>
 
         </div>
@@ -121,6 +121,7 @@
 
       <% end %>
 
+      <%= link_to "Zurück zum Kalender", calendar_path(@event.date), :class => "btn" %>
     </div>
 
     <div class="span4">
@@ -208,9 +209,7 @@
       </p>
 
     </div>
-
-    </div>
-
+    
   </div>
 
-<%= link_to "Zurück zum Kalender", calendar_path(@event.date), :class => "btn" %>
+</div>

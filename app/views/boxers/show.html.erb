@@ -31,7 +31,11 @@
 
 <p>
   <strong><%= t('misc.age_class') %>:</strong>
-  <%= @boxer.classify_age %>
+  <% unless @boxer.get_age_class.nil? %>
+    <%= @boxer.get_age_class.title %>
+  <% else %>
+    Nicht klassifiziert
+  <% end %>
 </p>
 
 <p>
@@ -62,7 +66,11 @@
 
 <p>
   <strong><%= PerformanceClass.model_name.human(count: 1) %>:</strong>
-  <%= @boxer.classify_performance %>
+  <% unless @boxer.get_performance_class.nil? %>
+    <%= @boxer.get_performance_class.title %> 
+  <% else %>
+    Nicht klassifiziert
+  <% end %>
 </p>
 
 </div>

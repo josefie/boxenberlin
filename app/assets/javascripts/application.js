@@ -72,3 +72,11 @@
     }
   }
   
+  function selectAll() {
+    alert("test select all");
+    $("#check-all").click(function() {
+      $("#boxer_ids[]").each(function() {
+        $(this).prop("checked");
+      });
+    });
+  }

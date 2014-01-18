@@ -1,0 +1,35 @@
+<h2 class="page-title"><%= Fight.model_name.human(count: 2) %></h2>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Altersklasse</th>
+      <th>Rote Ecke</th>
+      <th>Blaue Ecke</th>
+      <th>bestätigt?</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @fights.each do |fight| %>
+      <tr>
+        <td>
+          <% unless Boxer.find(fight.opponent_red).get_age_class.nil? %>
+            <%= Boxer.find(fight.opponent_red).get_age_class.title %>
+          <% end %>
+        </td>
+        <td>
+          <%= Boxer.find(fight.opponent_red).get_name %>
+        </td>
+        <td>
+          <%= Boxer.find(fight.opponent_blue).get_name %>
+        </td>
+        <td>
+          <%= fight.approved %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to t('buttons.back'), participants_path(@event), :class => "btn" %>

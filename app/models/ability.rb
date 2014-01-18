@@ -4,6 +4,7 @@ class Ability
   def initialize(user) #user == club
     if user && user.admin? #admin
       can :manage, :all
+      can :approve, Event
     else
       if user #logged in
         can :read, :all
@@ -17,6 +18,9 @@ class Ability
         can :create, Boxer
         can [:update, :destroy], Boxer do |boxer|
           boxer.club_id == user.id
+        end
+        can :apply, Event do |event|
+          event.get_deadline >= Date.today
         end
       else #guest
         can :read, Event

@@ -1,5 +1,11 @@
 @import "variables";
 
+.container {
+  background-color: $background;
+  box-shadow: #999 0px 2px 20px;
+  padding: 0 10px 10px 10px;
+}
+
 #flash {
   color: #00aa00;
 }
@@ -10,6 +16,9 @@
   font-size: 1.5em;
   text-align: center;
   text-transform: uppercase;
+  margin-top: 0;
+  margin-left: -10px;
+  margin-right: -10px;
 }
 
 h1, h2, h3, .nav a {
@@ -57,4 +66,8 @@ body {
 ul.nav li.dropdown:hover ul.dropdown-menu {
   /*display: block;
   margin-top:0px;*/
+}
+
+a.link {
+  text-decoration: underline;
 }
