@@ -30,7 +30,7 @@ class Club < ActiveRecord::Base
   end
   
   def get_participating_events
-    Event.joins(:participations).where(participations: { boxer_id: [self.boxers.ids] }).group(:date)
+    Event.joins(:boxers).where(boxers: { id: [self.boxers.ids] }).group(:date)
   end
   
   def get_past_events

@@ -18,6 +18,51 @@ clubs = Club.create!([
   
   ])
 
+  boxers_1 = Array.new
+  30.times do |n|
+    boxers_1 << Boxer.create!({
+      first_name: 'Boxer',
+      last_name: n+1,
+      date_of_birth: rand((Date.today-37.year)..(Date.today-10.year)),
+      weight: rand(30..100),
+      gender: [true, false].sample,
+      fights_won: rand(0..15),
+      fights_lost: rand(0..10),
+      fights_drawn: rand(0..5),
+      club_id: rand(1..5)
+    })
+  end
+  
+  boxers_2 = Array.new
+  30.times do |n|
+    boxers_2 << Boxer.create!({
+      first_name: 'Boxer',
+      last_name: n+1,
+      date_of_birth: rand((Date.today-37.year)..(Date.today-10.year)),
+      weight: rand(30..100),
+      gender: [true, false].sample,
+      fights_won: rand(0..15),
+      fights_lost: rand(0..10),
+      fights_drawn: rand(0..5),
+      club_id: rand(1..5)
+    })
+  end
+  
+  boxers_3 = Array.new
+  30.times do |n|
+    boxers_3 << Boxer.create!({
+      first_name: 'Boxer',
+      last_name: n+1,
+      date_of_birth: rand((Date.today-25.year)..(Date.today-10.year)),
+      weight: rand(30..100),
+      gender: [true, false].sample,
+      fights_won: rand(0..30),
+      fights_lost: rand(0..20),
+      fights_drawn: rand(0..10),
+      club_id: rand(1..5)
+    })
+  end
+
 locations = Location.create!([
   
   { city: 'Berlin', event_id: 1 },
@@ -53,9 +98,9 @@ schedule_items = ScheduleItem.create!([
 events = Event.create!([
   
   # Beispielveranstaltungen
-  { title: 'Boxveranstaltung', date: Date.parse("2014-01-25"), club_id: 2, approved: true, contact_mail: clubs[1].contact_mail }, 
-  { title: 'Boxveranstaltung', date: Date.parse("2014-02-02"), club_id: 3, approved: true, contact_mail: clubs[2].contact_mail }, 
-  { title: 'BL in Herzberg', date: Date.parse("2014-02-14"), club_id: 4, approved: true, contact_mail: clubs[3].contact_mail }, 
+  { title: 'Boxveranstaltung', date: Date.parse("2014-01-25"), club_id: 2, approved: true, contact_mail: clubs[1].contact_mail, :boxers => boxers_1 },
+  { title: 'Boxveranstaltung', date: Date.parse("2014-02-02"), club_id: 3, approved: true, contact_mail: clubs[2].contact_mail, :boxers => boxers_2 }, 
+  { title: 'BL in Herzberg', date: Date.parse("2014-02-14"), club_id: 4, approved: true, contact_mail: clubs[3].contact_mail, :boxers => boxers_3 }, 
   { title: 'BL in Berlin', date: Date.parse("2014-02-22"), club_id: 4, approved: true, contact_mail: clubs[3].contact_mail }, 
   { title: 'Gesundbrunnenturnier', date: Date.parse("2014-03-01"), club_id: 4, approved: true, contact_mail: clubs[3].contact_mail },
   { title: 'Gesundbrunnenturnier', date: Date.parse("2014-03-02"), club_id: 4, approved: true, contact_mail: clubs[3].contact_mail },
@@ -72,29 +117,25 @@ events = Event.create!([
 
 age_classes_1 = PerformanceClass.create!([
   # Schüler und Kadetten
-  schueler_c = { title: 'Schüler C', age_min: 6, age_max: 7, gender: false }, 
-  schueler_b = { title: 'Schüler B', age_min: 8, age_max: 9, gender: false }, 
-  schueler_a = { title: 'Schüler A', age_min: 10, age_max: 11, gender: false }, 
-  kadetten = { title: 'Kadetten (U15)', age_min: 12, age_max: 14, gender: false }
+  { title: 'Schüler', age_min: 10, age_max: 12, gender: false }, 
+  { title: 'Kadetten (U15)', age_min: 13, age_max: 14, gender: false }
   ])
 
 age_classes_2 = PerformanceClass.create!([
   # Junioren
-  junioren = { title: 'Junioren (U17)', age_min: 15, age_max: 16, gender: false }
+  { title: 'Junioren (U17)', age_min: 15, age_max: 16, gender: false }
   ])
   
 age_classes_3 = PerformanceClass.create!([
   # männliche Jugend und Männer
-  m_jugend = { title: 'männliche Jugend (U19)', age_min: 17, age_max: 18, gender: false }, 
-  maenner = { title: 'Männer', age_min: 19, age_max: 37, gender: false }
+  { title: 'männliche Jugend (U19)', age_min: 17, age_max: 18, gender: false }, 
+  { title: 'Männer', age_min: 19, age_max: 37, gender: false }
   ])
   
 age_classes_4 = PerformanceClass.create!([
   # Schülerinnen und Kadettinnen
-  { title: 'Schülerinnen C', age_min: 6, age_max: 7, gender: true }, 
-  { title: 'Schülerinnen B', age_min: 8, age_max: 9, gender: true }, 
-  { title: 'Schülerinnen A', age_min: 10, age_max: 11, gender: true }, 
-  { title: 'Kadettinnen (U15)', age_min: 12, age_max: 14, gender: true }, 
+  { title: 'Schülerinnen', age_min: 10, age_max: 12, gender: true }, 
+  { title: 'Kadettinnen (U15)', age_min: 13, age_max: 14, gender: true }, 
   ])
   
 age_classes_5 = PerformanceClass.create!([
@@ -103,8 +144,8 @@ age_classes_5 = PerformanceClass.create!([
   ])
   
 age_classes_6 = PerformanceClass.create!([
-  # weibliche Jugend und Frauen 
-  { title: 'weibliche Jugend (U19)', age_min: 17, age_max: 18, gender: true }, 
+  # weibliche Jugend und Frauen
+  { title: 'weibliche Jugend (U19)', age_min: 17, age_max: 18, gender: true },
   { title: 'Frauen', age_min: 19, age_max: 37, gender: true }
   ])
   
@@ -113,9 +154,9 @@ age_classes_6 = PerformanceClass.create!([
 ### LEISTUNGSKLASSEN ###
 
 performance_classes = PerformanceClass.create!([
-  lk_c = { title: 'Leistungsklasse C', age_min: 6, age_max: 37, win_min: 0, win_max: 6 }, 
-  lk_b = { title: 'Leistungsklasse B', age_min: 6, age_max: 37, win_min: 7, win_max: 14 }, 
-  lk_a = { title: 'Leistungsklasse A', age_min: 6, age_max: 17, win_min: 15, win_max: 1000 }, 
+  lk_c = { title: 'Leistungsklasse C', age_min: 10, age_max: 37, win_min: 0, win_max: 6 }, 
+  lk_b = { title: 'Leistungsklasse B', age_min: 10, age_max: 37, win_min: 7, win_max: 14 }, 
+  lk_a = { title: 'Leistungsklasse A', age_min: 10, age_max: 37, win_min: 15, win_max: 1000 },
   elite = { title: 'Elite', age_min: 18, age_max: 37, win_min: 26, win_max: 1000 }
 ])
 

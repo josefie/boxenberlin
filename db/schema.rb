@@ -98,6 +98,7 @@ ActiveRecord::Schema.define(version: 20140112201250) do
     t.integer  "event_id"
     t.integer  "opponent_red"
     t.integer  "opponent_blue"
+    t.integer  "priority"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

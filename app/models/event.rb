@@ -95,5 +95,59 @@ class Event < ActiveRecord::Base
     end
     fight_list
   end
+
+  def match(age_distance, weight_distance, same_club, algorithm)
+    participants = self.boxers
+    number_of_participants = participants.count
+    possible_fights = Array.new
+    # iterate through all edges/fights
+    n = 0
+    while(n < number_of_participants) do
+      m = n + 1
+      while(m < number_of_participants) do
+        red = participants[n]
+        blue = participants[m]
+        if(red.get_age >= 18 and blue.get_age >= 18) # only limit age distance for non-adults
+          age_dist = 20 
+        else
+          age_dist = age_distance
+        end
+        if(
+          red.gender == blue.gender and 
+          (red.get_age - blue.get_age).abs <= age_dist and
+          #red.get_age_class == blue.get_age_class and
+          (red.weight - blue.weight).abs <= weight_distance #and
+          #red.get_performance_class == blue.get_performance_class
+          )
+          value = (red.get_value - blue.get_value).abs
+          fight = Fight.new(:opponent_red => red, :opponent_blue => blue, :event_id => self.id, :approved => false, :priority => value)
+          unless fight.nil?
+            possible_fights << fight
+          end
+        end
+        m = m+1
+      end
+      n = n+1
+    end
+
+    if algorithm == 1 then
+      self.fights = possible_fights
+      maximal_matching(possible_fights)
+    elsif algorithm == 2 then
+      maximum_weight_matching(possible_fights)
+    else
+      return possible_fights
+    end
+  end
+
+  def maximal_matching(graph)
+    # greedy algorithmus
+    return graph
+  end
+
+  def maximum_weight_matching(graph)
+    # maximum weight alorithmus
+   return graph
+  end
   
 end

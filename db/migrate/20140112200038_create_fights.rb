@@ -5,6 +5,7 @@ class CreateFights < ActiveRecord::Migration
       t.integer :event_id
       t.integer :opponent_red
       t.integer :opponent_blue
+      t.integer :priority
 
       t.timestamps
     end

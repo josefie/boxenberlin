@@ -1,8 +1,9 @@
-<h2 class="page-title"><%= Fight.model_name.human(count: 2) %></h2>
+<h2 class="page-title"><%= Fight.model_name.human(count: 2) %> (<%= @fights.count %>)</h2>
 
 <table class="table table-hover">
   <thead>
     <tr>
+      <th>Priorität</th>
       <th>Altersklasse</th>
       <th>Rote Ecke</th>
       <th>Blaue Ecke</th>
@@ -13,16 +14,35 @@
   <tbody>
     <% @fights.each do |fight| %>
       <tr>
+        <td><%= fight.priority %></td>
         <td>
-          <% unless Boxer.find(fight.opponent_red).get_age_class.nil? %>
-            <%= Boxer.find(fight.opponent_red).get_age_class.title %>
+          <% unless fight.opponent_red.get_age_class.nil? %>
+            <%= fight.opponent_red.get_age_class.title %>
           <% end %>
         </td>
         <td>
-          <%= Boxer.find(fight.opponent_red).get_name %>
+          <%= fight.opponent_red.get_name %><br>
+          GESCHLECHT: <%= fight.opponent_red.gender %><br>
+          ALTER: <%= fight.opponent_red.get_age %><br>
+          GEWICHT: <%= fight.opponent_red.weight %><br>
+          LEISTUNGSKLASSE: <% unless fight.opponent_red.get_performance_class.nil? %>
+            <%= fight.opponent_red.get_performance_class.title %>
+            <% end %><br>
+          KÄMPFE: (<%= fight.opponent_red.fights_won %>/<%= fight.opponent_red.fights_lost %>/<%= fight.opponent_red.fights_drawn %>)<br>
+          VEREIN: <%= Club.find_by_id(fight.opponent_red.club_id).name %><br>
+          VALUE: <%= fight.opponent_red.get_value %><br>
         </td>
         <td>
-          <%= Boxer.find(fight.opponent_blue).get_name %>
+          <%= fight.opponent_blue.get_name %><br>
+          GESCHLECHT: <%= fight.opponent_blue.gender %><br>
+          ALTER: <%= fight.opponent_blue.get_age %><br>
+          GEWICHT: <%= fight.opponent_blue.weight %><br>
+          LEISTUNGSKLASSE: <% unless fight.opponent_blue.get_performance_class.nil? %>
+            <%= fight.opponent_blue.get_performance_class.title %>
+            <% end %><br>
+          KÄMPFE: (<%= fight.opponent_blue.fights_won %>/<%= fight.opponent_blue.fights_lost %>/<%= fight.opponent_blue.fights_drawn %>)<br>
+          VEREIN: <%= Club.find_by_id(fight.opponent_blue.club_id).name %><br>
+          VALUE: <%= fight.opponent_blue.get_value %><br>
         </td>
         <td>
           <%= fight.approved %>

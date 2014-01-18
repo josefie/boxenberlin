@@ -5,7 +5,7 @@ class FightsController < ApplicationController
   # GET /fights.json
   def index
     @event = Event.find(params[:event_id])
-    @fights = @event.generate_fights
+    @fights = @event.match(2, 2, false, 1).sort! { |a,b| a.priority <=> b.priority } #match(age_distance, weight_distance, same_club, algorithm)
   end
 
   # GET /fights/1
