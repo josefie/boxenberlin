@@ -39,7 +39,7 @@ class Boxer < ActiveRecord::Base
     PerformanceClass.where('age_min <= ? AND age_max >= ? AND gender = ?', age, age, gender).first
   end
   
-  def get_value
+  def get_performance_value
     (self.fights_won * 5) + (self.fights_lost * 1) + (self.fights_drawn * 2)
   end
   

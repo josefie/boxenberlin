@@ -1,4 +1,8 @@
 <h2 class="page-title"><%= Fight.model_name.human(count: 2) %> (<%= @fights.count %>)</h2>
+<div>
+<p>Matching Wert: <%= @matching_value %></p>
+<p>Anteil zusammengesetzer Boxer: <%= @percentage_matched %>%</p>
+</div>
 
 <table class="table table-hover">
   <thead>
@@ -24,25 +28,31 @@
           <%= fight.opponent_red.get_name %><br>
           GESCHLECHT: <%= fight.opponent_red.gender %><br>
           ALTER: <%= fight.opponent_red.get_age %><br>
+          ALTERSKLASSE: <% unless fight.opponent_red.get_age_class.nil? %>
+            <%= fight.opponent_red.get_age_class.title %>
+            <% end %><br>
           GEWICHT: <%= fight.opponent_red.weight %><br>
           LEISTUNGSKLASSE: <% unless fight.opponent_red.get_performance_class.nil? %>
             <%= fight.opponent_red.get_performance_class.title %>
             <% end %><br>
           KÄMPFE: (<%= fight.opponent_red.fights_won %>/<%= fight.opponent_red.fights_lost %>/<%= fight.opponent_red.fights_drawn %>)<br>
           VEREIN: <%= Club.find_by_id(fight.opponent_red.club_id).name %><br>
-          VALUE: <%= fight.opponent_red.get_value %><br>
+          LEISTUNGSNIVEAU: <%= fight.opponent_red.get_performance_value %><br>
         </td>
         <td>
           <%= fight.opponent_blue.get_name %><br>
           GESCHLECHT: <%= fight.opponent_blue.gender %><br>
           ALTER: <%= fight.opponent_blue.get_age %><br>
+          ALTERSKLASSE: <% unless fight.opponent_blue.get_age_class.nil? %>
+            <%= fight.opponent_blue.get_age_class.title %>
+            <% end %><br>
           GEWICHT: <%= fight.opponent_blue.weight %><br>
           LEISTUNGSKLASSE: <% unless fight.opponent_blue.get_performance_class.nil? %>
             <%= fight.opponent_blue.get_performance_class.title %>
             <% end %><br>
           KÄMPFE: (<%= fight.opponent_blue.fights_won %>/<%= fight.opponent_blue.fights_lost %>/<%= fight.opponent_blue.fights_drawn %>)<br>
           VEREIN: <%= Club.find_by_id(fight.opponent_blue.club_id).name %><br>
-          VALUE: <%= fight.opponent_blue.get_value %><br>
+          LEISTUNGSNIVEAU: <%= fight.opponent_blue.get_performance_value %><br>
         </td>
         <td>
           <%= fight.approved %>

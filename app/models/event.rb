@@ -16,6 +16,7 @@ class Event < ActiveRecord::Base
   has_and_belongs_to_many :boxers
   has_one :location, :dependent => :nullify
   has_many :fights
+  has_many :matching_stats, -> { distinct }
   
   accepts_nested_attributes_for :schedule_items, allow_destroy: true, reject_if: proc { |a| a['label'].blank? }
   accepts_nested_attributes_for :location, allow_destroy: true#, reject_if: proc { |a| a['city'].blank? }
@@ -81,22 +82,62 @@ class Event < ActiveRecord::Base
       ( obj.location.street.present? or obj.location.number.present? or obj.location.zip.present? or obj.location.city.present? ) and ( obj.location.street_changed? or obj.location.number_changed? or obj.location.zip_changed? or obj.location.city_changed? )
     end
   end
-  
-  def generate_fights
-    fight_list = Array.new
-    participants = Array.new(self.boxers)
-    participants.each do |boxer|
-      b1 = participants.pop
-      b2 = participants.pop
-      fight = self.fights.build(:opponent_red => b1, :opponent_blue => b2, :event_id => self.id, :approved => false)
-      unless fight.nil?
-        fight_list << fight
-      end
-    end
-    fight_list
-  end
 
-  def match(age_distance, weight_distance, same_club, algorithm)
+  def generate_fights(age_distance, weight_distance, same_club, championship, algorithm)
+    fights = Array.new
+    
+    # filtern nach kriterien
+    unless championship
+      fights = filter(age_distance, weight_distance, same_club)
+    else
+      fights = filter_cs
+    end
+
+    # matching
+    if algorithm == 1 then
+      fights = maximal_matching(fights)
+    elsif algorithm == 2 then
+      fights = maximum_weight_matching(fights)
+    else
+      return fights
+    end
+    
+    return fights
+  end
+  
+  def filter_cs
+    participants = self.boxers
+    number_of_participants = participants.count
+    possible_fights = Array.new
+    # iterate through all edges/fights
+    n = 0
+    while(n < number_of_participants) do
+      m = n + 1
+      while(m < number_of_participants) do
+        red = participants[n]
+        blue = participants[m]
+        if(
+          red.gender == blue.gender and 
+          red.get_age_class == blue.get_age_class and
+          #red.get_weight_class == blue.get_weight_class and
+          (red.weight - blue.weight).abs <= 2 and # todo: replace with weight class
+          red.get_performance_class == blue.get_performance_class and
+          red.club_id != blue.club.id
+          )
+          fight = Fight.new(:opponent_red => red, :opponent_blue => blue, :event_id => self.id, :approved => false)
+          unless fight.nil?
+            fight.prioritize
+            possible_fights << fight
+          end
+        end
+        m = m+1
+      end
+      n = n+1
+    end
+    return possible_fights
+  end
+  
+  def filter(age_distance, weight_distance, same_club)
     participants = self.boxers
     number_of_participants = participants.count
     possible_fights = Array.new
@@ -115,13 +156,17 @@ class Event < ActiveRecord::Base
         if(
           red.gender == blue.gender and 
           (red.get_age - blue.get_age).abs <= age_dist and
-          #red.get_age_class == blue.get_age_class and
-          (red.weight - blue.weight).abs <= weight_distance #and
-          #red.get_performance_class == blue.get_performance_class
+          (red.weight - blue.weight).abs <= weight_distance
           )
-          value = (red.get_value - blue.get_value).abs
-          fight = Fight.new(:opponent_red => red, :opponent_blue => blue, :event_id => self.id, :approved => false, :priority => value)
+          if same_club
+            fight = Fight.new(:opponent_red => red, :opponent_blue => blue, :event_id => self.id, :approved => false)
+          else
+            if(red.club_id != blue.club.id)
+              fight = Fight.new(:opponent_red => red, :opponent_blue => blue, :event_id => self.id, :approved => false)
+            end
+          end
           unless fight.nil?
+            fight.prioritize
             possible_fights << fight
           end
         end
@@ -129,24 +174,22 @@ class Event < ActiveRecord::Base
       end
       n = n+1
     end
-
-    if algorithm == 1 then
-      self.fights = possible_fights
-      maximal_matching(possible_fights)
-    elsif algorithm == 2 then
-      maximum_weight_matching(possible_fights)
-    else
-      return possible_fights
-    end
+    return possible_fights
   end
 
   def maximal_matching(graph)
     # greedy algorithmus
-    return graph
+    matching = Array.new
+    while !graph.empty? do
+      k = graph.shift
+      matching << k
+      graph.reject! {|fight| [fight.opponent_red, fight.opponent_blue].include?(k.opponent_red) || [fight.opponent_red, fight.opponent_blue].include?(k.opponent_blue) }
+    end
+    return matching
   end
 
   def maximum_weight_matching(graph)
-    # maximum weight alorithmus
+    # maximum weight algorithmus
    return graph
   end
   

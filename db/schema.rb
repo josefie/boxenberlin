@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140112201250) do
+ActiveRecord::Schema.define(version: 20140119181612) do
 
   create_table "boxers", force: true do |t|
     t.string   "first_name"
@@ -110,6 +110,14 @@ ActiveRecord::Schema.define(version: 20140112201250) do
     t.string   "city"
     t.string   "country"
     t.integer  "club_id"
+    t.integer  "event_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "matching_stats", force: true do |t|
+    t.integer  "matching_value"
+    t.integer  "percentage_matched"
     t.integer  "event_id"
     t.datetime "created_at"
     t.datetime "updated_at"

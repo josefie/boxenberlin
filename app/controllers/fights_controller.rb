@@ -5,7 +5,31 @@ class FightsController < ApplicationController
   # GET /fights.json
   def index
     @event = Event.find(params[:event_id])
-    @fights = @event.match(2, 2, false, 1).sort! { |a,b| a.priority <=> b.priority } #match(age_distance, weight_distance, same_club, algorithm)
+    #generate_fights(age_distance, weight_distance, same_club, championship, algorithm)
+    @fights = @event.generate_fights(2, 5, false, false, 1).sort! { |a,b| a.priority <=> b.priority }
+    @matching_value = 0
+    @percentage_matched = 0
+    matched_opponents = Array.new
+    
+    @fights.each do |f|
+      @matching_value += f.priority
+      b1 = f.opponent_red
+      b2 = f.opponent_blue
+      unless (matched_opponents.include?(b1)) then matched_opponents << b1 end
+      unless (matched_opponents.include?(b2)) then matched_opponents << b2 end
+    end
+    
+    unless @fights.empty?
+      @matching_value /= @fights.count
+      @percentage_matched = ((matched_opponents.count.to_f / @event.boxers.count.to_f) * 100).to_i
+      
+      # save matching statistics
+      stat = MatchingStat.new #MatchingStat.find_by_event_id(@event) || MatchingStat.new
+      stat.matching_value = @matching_value
+      stat.percentage_matched = @percentage_matched
+      stat.event_id = @event.id
+      stat.save
+    end
   end
 
   # GET /fights/1
