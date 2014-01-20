@@ -6,7 +6,7 @@ class FightsController < ApplicationController
   def index
     @event = Event.find(params[:event_id])
     #generate_fights(age_distance, weight_distance, same_club, championship, algorithm)
-    @fights = @event.generate_fights(2, 5, false, false, 1).sort! { |a,b| a.priority <=> b.priority }
+    @fights = @event.generate_fights(2, 2, false, false, 2).sort! { |a,b| a.priority <=> b.priority }
     @matching_value = 0
     @percentage_matched = 0
     matched_opponents = Array.new

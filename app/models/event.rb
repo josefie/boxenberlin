@@ -95,9 +95,11 @@ class Event < ActiveRecord::Base
 
     # matching
     if algorithm == 1 then
-      fights = maximal_matching(fights)
+      fights = maximal_inclusion_matching(fights)
     elsif algorithm == 2 then
       fights = maximum_weight_matching(fights)
+    elsif algorithm == 3 then
+      fights = maximum_cardinality_matching(fights)
     else
       return fights
     end
@@ -177,7 +179,7 @@ class Event < ActiveRecord::Base
     return possible_fights
   end
 
-  def maximal_matching(graph)
+  def maximal_inclusion_matching(graph)
     # greedy algorithmus
     matching = Array.new
     while !graph.empty? do
@@ -190,7 +192,13 @@ class Event < ActiveRecord::Base
 
   def maximum_weight_matching(graph)
     # maximum weight algorithmus
-   return graph
+    graph.sort! { |a,b| a.priority <=> b.priority }
+    return maximal_inclusion_matching(graph)
+  end
+  
+  def maximum_cardinality_matching(graph)
+    # maximum cardinality algorithmus
+    return graph
   end
   
 end
