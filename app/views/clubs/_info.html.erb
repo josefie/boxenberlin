@@ -1,17 +1,22 @@
 <h2 class="page-title"><%= @club.name %></h2>
-
+  
 <div class="buttons">
   <% if can? :update, @club %>
-    <%= link_to t('buttons.edit'), edit_club_path(@club), :class => "btn" %>
+    <%= link_to t('buttons.edit'), edit_profile_path, :class => "btn" %>
   <% end %>
   <% if can? :destroy, @club %>
-    <%= link_to t('buttons.destroy'), @club, method: :delete, data: { confirm: t('messages.confirm_delete_profile') }, :class => "btn delete"  %>
+    <%#= link_to t('buttons.destroy'), @club, method: :delete, data: { confirm: t('messages.confirm_delete_profile') }, :class => "btn delete"  %>
   <% end %>
 </div>
+
+<div class="row">
+<div class="span5">
   
+<legend>Vereinsinfo</legend>
+<div class="info-section">
 <% unless @club.website.blank? %>
   <div>
-    <%= link_to @club.website, @club.website %>
+    <%= link_to @club.website, @club.website, :class => "link" %>
   </div>
 <% end %>
 
@@ -34,20 +39,21 @@
   <%#= image_tag "Map" %>
 </div>
 
-<div class="infobox">
-  <label><%= Coach.model_name.human(:count => 2) %></label>
+</div>
+
+<legend>Training</legend>
+<div class="info-section">
   <% unless @club.coaches.empty? %>
+  <label><%= Coach.model_name.human(:count => 2) %></label>
     <ul>
       <% @club.coaches.each do |c| %>
         <li><%= "#{c.first_name} #{c.last_name}" %></li>
       <% end %>
     </ul>
-  <% else %>
-    Keine Angabe.
   <% end %>
 
-  <label><%= Training.model_name.human(:count => 2) %></label>
   <% unless @club.trainings.empty? %>
+  <label><%= Training.model_name.human(:count => 2) %></label>
     <ul>
     <% @club.trainings.each do |t| %>
       <li>
@@ -60,14 +66,15 @@
       </li>
     <% end %>
     </ul>
-  <% else %>
-    Keine Angabe.
   <% end %>
 </div>
 
+</div>
+
+<div class="span4">
   
-<div class="infobox">
-  <label><%= t('misc.contact') %></label>
+  <legend>Kontaktdaten</legend>
+<div class="info-section infobox">
   <% unless @club.contact_name.blank? then %>
     <%= @club.contact_name %></br>
   <% end %>
@@ -77,22 +84,25 @@
   <% end %>
   <% unless @club.contact_mail.blank? then %>
     <span><%=  Club.human_attribute_name(:contact_mail) %>:</span>
-    <a href="mailto:<%= @club.contact_mail %>"><%= @club.contact_mail %></a>
+    <a class="link" href="mailto:<%= @club.contact_mail %>"><%= @club.contact_mail %></a>
   <% end %>
 </div>
 
-<div class="infobox">
-  <label>Anstehende <%= Event.model_name.human(:count => 2) %></label>
+<legend>Anstehende <%= Event.model_name.human(:count => 2) %></legend>
+<div class="info-section infobox">
   <% if @club.events.empty? then %>
     Keine Veranstaltungen in nächster Zeit.
   <% else %>
     <ul>
     <% @club.events.each do |e| %>
       <% if e.approved %>
-        <li><%= link_to e.title, event_path(e.id) %></li>
+        <li><%= link_to e.title, event_path(e.id), :class => "link" %></li>
       <% end %>
     <% end %>
     </ul>
   <% end %>
 </div>
 
+</div>
+
+</div>

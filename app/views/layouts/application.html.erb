@@ -25,7 +25,7 @@
   <div class="container">
     
     <h1 id="header">Berliner Boxverband</h1>
-    <%#= debug params %>
+    <%= debug params %>
   
     <div class="row">
 
@@ -34,37 +34,78 @@
         <%= link_to image_tag("boxen-zeichnung.jpg"), root_path %>
         
         <ul id="main-nav" class="nav nav-list">
-          <li><%= link_to t('nav.home'), root_path %></li>
-          <li><%= link_to t('nav.calendar'), calendar_path %></li>
-          <li><%= link_to Club.model_name.human(:count => 2), clubs_path %></li>
-          <li><%= link_to t('nav.news'), root_path %></li>
+
+          <li class="main-item"><%= nav_link t('nav.calendar'), calendar_path %></li>
+          <% if controller?("events") && action?("index") %>
+            <ul class="sub-menu nav nav-list">
+              <li class="sub-item"><%= nav_link localize(current_date - 1.month, :format => '%B %Y'), calendar_path(current_date - 1.month) %></li>
+              <li class="sub-item"><%= nav_link localize(current_date, :format => '%B %Y'), calendar_path(current_date) %></li>
+              <li class="sub-item"><%= nav_link localize(current_date + 1.month, :format => '%B %Y'), calendar_path(current_date + 1.month) %></li>
+            </ul>
+          <% end %>
+          <% if (controller?("events") && action?("show", "apply", "participants")) || (controller?("fights") && action?("index")) %>
+            <ul class="sub-menu nav nav-list">
+              <li class="sub-item"><%= nav_link localize(current_date, :format => '%B %Y'), calendar_path(current_date) %></li>
+              <li class="sub-item"><%= nav_link @event.title, event_path(@event) %></li>
+              <ul class="sub-menu nav nav-list">
+                <% if can? :apply, @event and @event.approved %>
+                  <li class="sub-item"><%= nav_link t('buttons.apply', :item => Boxer), application_path(@event) %></li>
+                  <li class="sub-item"><%= nav_link "#{t('misc.participant')} (#{@event.boxers.count})", participants_path(@event) %></li>
+                <% end %>
+                <% if can? :destroy, @event %>
+                  <li class="sub-item"><%= nav_link t(Fight.model_name.human(:count => 2)), event_fights_path(@event) %></li>
+                <% end %>
+              </ul>
+            </ul>
+          <% end %>
+          
+          <li class="main-item"><%= nav_link Club.model_name.human(:count => 2), clubs_path, {}, {:url_segment => 1} %></li>
+          <li class="main-item"><%= nav_link t('nav.news'), root_path %></li>
           
           <li class="divider"></li>
           <% if current_user.nil? %>
           
-            <li><%= link_to t('buttons.login'), login_path %></li>
-            <li><%= link_to t('buttons.sign_up'), signup_path %></li>
+            <li class="main-item"><%= nav_link t('buttons.login'), login_path %></li>
+            <li class="main-item"><%= nav_link t('buttons.sign_up'), signup_path %></li>
             
           <% else %>
           
-            <li class="dropdown"><%= link_to t('nav.dashboard'), "#", :'data-toggle' => 'dropdown', :class => "dropdown-toggle" %>
-              <ul class="dropdown-menu">
-                <li class="dropdown-link"><%= link_to t('nav.profile'), my_profile_path %></li>
-                <li class="dropdown-link"><%= link_to Event.model_name.human(:count => 2), my_events_path("host") %></li>
-                <li class="dropdown-link"><%= link_to Boxer.model_name.human(:count => 2), my_boxers_path %></li>
+            <li class="main-item"><%= nav_link t('nav.dashboard'), dashboard_path %>
+            <% if (controller?("events") && action?("my_events", "new", "edit", "manage") || (controller?("events") && action?("show") && @event.club_id == current_user.id)) || controller?("boxers") && action?("my_boxers", "new", "edit", "show") || controller?("clubs") && action?("dashboard", "my_profile", "edit") %>
+              <ul class="sub-menu nav nav-list">
+                <li class="sub-item"><%= nav_link t('nav.profile'), my_profile_path %></li>
+                <% if controller?("clubs") && action?("my_profile", "edit") %>
+                  <ul class="sub-menu nav nav-list">
+                    <li class="sub-item"><%= nav_link t('buttons.edit'), edit_profile_path %></li>
+                  </ul>
+                <% end %>
+                <li class="sub-item"><%= nav_link Event.model_name.human(:count => 2), my_events_path("host"), {}, {:url_segment => 1} %></li>
+                <% if controller?("events") && action?("my_events", "new") %>
+                  <ul class="sub-menu nav nav-list">
+                  <li class="sub-item"><%= nav_link "Neu", new_event_path %></li>
+                  </ul>
+                <% end %>
+                <li class="sub-item"><%= nav_link Boxer.model_name.human(:count => 2), my_boxers_path, {}, {:url_segment => 1} %></li>
+                <% if controller?("boxers") && action?("my_boxers", "new") %>
+                  <ul class="sub-menu nav nav-list">
+                    <li class="sub-item"><%= nav_link "Neu", new_boxer_path %></li>
+                  </ul>
+                <% end %>
                 <% if current_user.admin? %>
-                  <li class="dropdown-link"><%= link_to t('nav.request', count: 2), manage_path("open") %></li>
+                  <li class="sub-item"><%= nav_link t('nav.request', count: 2), manage_path("open"), {}, {:url_segment => 1} %></li>
                 <% end %>
                 <li class="divider"></li>
-                <li><%= link_to t('buttons.logout'), logout_path(current_user), method: :delete, :id => "logout" %></li>
+                <li class="sub-item"><%= link_to t('buttons.logout'), logout_path(current_user), method: :delete, :id => "logout" %></li>
               </ul>
+            <% end %>
             </li>
             
           <% end %>
           
         </ul>
+
   
-      </div>
+      </div>      
   
       <div class="span10">
   

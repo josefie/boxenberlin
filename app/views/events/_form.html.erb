@@ -1,15 +1,4 @@
 <%= form_for(@event) do |f| %>
-  <% if @event.errors.any? %>
-    <div id="error_explanation">
-      <h2>Veranstaltung konnte nicht gespeichert werden:</h2>
-
-      <ul>
-      <% @event.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
   
   <legend class="section-title">Weitere Informationen zur Veranstaltung</legend>
   <label>Diese Informationen können auch später noch bearbeitet werden</label>
@@ -17,10 +6,16 @@
   <div class="form-section">
     
     <div class="form-group">
+      <%= f.label :deadline, :class => "subtitle" %>
+      <%= f.date_field :deadline, :class => "form-controls small-field" %>
+    </div>
+    
+    <div class="form-group">
       <%= f.label :additional_info, :class => "subtitle" %>
       <%= f.text_area :additional_info, :rows => "5", :class => "form-controls large-field" %>
     </div>
     
+    <!--
     <div class="form-group">
       <%= f.label :admission, :class => "subtitle" %>
       
@@ -35,6 +30,7 @@
         <label class="add-on">€</label>
       </div>
     </div>
+    -->
   
     <div class="form-group input-append">
       <%= f.label :fee, :class => "subtitle" %>
@@ -44,14 +40,8 @@
     
     <div class="form-group">
       <label class="subtitle">Zugelassene Alters- und Leistungsklassen</label>
-      <%= check_box_tag "all_performance_classes", "", true, :onclick => "toggle_info(this, '#event_performance_class_ids';" %><label>Alle</label>
-
+      <%= f.check_box "all_performance_classes", :checked => true, :onclick => "$('#event_performance_class_ids').toggle();" %><label>Alle</label>
       <%= f.collection_select :performance_class_ids, PerformanceClass.all, :id, :title, {}, {:class => "form-controls", :multiple => true} %>
-    </div>
-    
-    <div class="form-group">
-      <%= f.label :deadline, :class => "subtitle" %>
-      <%= f.date_field :deadline, :class => "form-controls small-field" %>
     </div>
   
     <div class="form-group">

@@ -2,16 +2,8 @@
 <script src='//google-maps-utility-library-v3.googlecode.com/svn/tags/markerclustererplus/2.0.14/src/markerclusterer_packed.js' type='text/javascript'></script>
 
 <h2 class="page-title"><%= @event.title %></h2>
-
-<div class="row">
-  
-  <div class="span6">
     
     <div class="buttons">      
-      <% if can? :destroy, @event and @event.approved %>
-        <%= link_to "#{t('misc.participant')} (#{@event.boxers.count})", participants_path(@event), :class => "btn" %>
-      <% end %>
-      
       <% if can? :update, @event %>
         <%= link_to t('buttons.edit'), edit_event_path(@event), :class => "btn" %>
       <% end %>
@@ -20,17 +12,33 @@
         <%= link_to t('buttons.destroy'), @event, method: :delete, data: { confirm: t('messages.confirm_delete') }, :class => "btn delete" %>
       <% end %>
     </div>
-
+    
+  <div class="row">
+  <div class="span5">
+    
+    <legend>Ort und Zeit</legend>
+    <div class="info-section">
+      
     <% unless @event.date.nil? %>
       <p>
-        <label class="subtitle"><%= Event.human_attribute_name(:date) %>:</label>
+        <label><%= Event.human_attribute_name(:date) %>:</label>
         <%= format_date(@event.date) %>
+      </p>
+    <% end %>
+    
+    <% unless @event.schedule_items.empty? %>
+      <p>
+        <label><%= Event.human_attribute_name(:schedule) %></label>
+        <% @event.schedule_items.each do |si| %>
+          <%= si.label %>:
+          <%= format_time(si.time) %></br>
+        <% end %>
       </p>
     <% end %>
 
     <% unless @event.location.nil? %>
       <p>
-        <label class="subtitle"><%= Event.human_attribute_name(:location) %>:</label>
+        <label><%= Event.human_attribute_name(:location) %>:</label>
         <address>
           <%= @event.location.street %>
           <%= @event.location.number %><br>
@@ -54,17 +62,19 @@
       </script>
     <% end %>
 
+    </div>
+  
     <% if current_user && @event.approved then %>
 
-        <div class="participations infobox">
+        <legend>Meine <%= t('misc.participant') %></legend>
+        <div class="participations info-section">
           
-          <label class="subtitle">Meine <%= t('misc.participant') %></label>
           <div class="apply buttons">
             <% if can? :apply, @event %>
-                <p>Anmeldungen bis <%= format_date(@event.get_deadline) %></p>
+                <p class="subtitle">Anmeldungen bis <%= format_date(@event.get_deadline) %></p>
                 <%= link_to t('buttons.apply', :item => Boxer.model_name.human), application_path(@event.id), :class => "btn btn-primary" %>
             <% else %>
-                <p>Anmeldefrist abgelaufen.</p>
+                <p class="subtitle">Anmeldefrist abgelaufen.</p>
             <% end %>
           </div>
   
@@ -88,9 +98,9 @@
 
       <% if current_user && (current_user.admin? || @event.club_id == current_user.id) %>
 
-        <div class="approved infobox">
+        <legend>Veranstaltung genehmigt?</legend>
+        <div class="approved info-section">
   
-          <label class="subtitle">Veranstaltung genehmigt?</label>
           <% if @event.approved.nil? then %>
             <%= image_tag "pending.png", :alt => "Offen", :width => 20 %> <span>Offen</span>
           <% elsif @event.approved then %>
@@ -105,12 +115,12 @@
   
               <%= form_for(@event, :remote => true, :class => "approve_form", :html => {:onsubmit => "approve_event()"}) do |f| %>
                 <%= f.hidden_field :approved, value: true %>
-                <%= f.submit t('buttons.approve'), :class => "btn" %>
+                <%= f.submit t('buttons.approve'), :class => "btn btn-primary" %>
               <% end %>
 
               <%= form_for(@event, :remote => true, :class => "approve_form", :html => {:onsubmit => "decline_event()"}) do |f| %>
                 <%= f.hidden_field :approved, value: false %>
-                <%= f.submit t('buttons.decline'), :class => "btn" %>
+                <%= f.submit t('buttons.decline'), :class => "btn btn-primary delete" %>
               <% end %>
   
             </div>
@@ -121,17 +131,16 @@
 
       <% end %>
 
-      <%= link_to "Zurück zum Kalender", calendar_path(@event.date), :class => "btn" %>
     </div>
 
     <div class="span4">
   
-      <div class="infobox">
-        <label class="subtitle"><%= t('misc.contact') %></label>
+      <legend><%= t('misc.contact') %></legend>
+      <div class="info-section">
         
         <p>
           <label><%= t('misc.host') %>:</label>
-          <%= link_to @event.club.name, club_path(@event.club.id) %>
+          <%= link_to @event.club.name, club_path(@event.club.id), :class => "link" %>
         </p>
     
         <% if @event.contact_name &&  @event.contact_name_public %>
@@ -156,26 +165,16 @@
         <% end %>
       </div>
       
-    <div class="infobox">
-      
-    <label class="subtitle">Weitere Informationen:</label>
+    <legend>Weitere Informationen</legend>
+    <div class="info-section">
     
     <% unless @event.additional_info.blank? %>
       <p>
         <%= @event.additional_info %>
       </p>
     <% end %>
-    
-    <% unless @event.schedule_items.empty? %>
-      <p>
-        <label><%= Event.human_attribute_name(:schedule) %></label>
-        <% @event.schedule_items.each do |si| %>
-          <%= si.label %>:
-          <%= format_time(si.time) %></br>
-        <% end %>
-      </p>
-    <% end %>
 
+    <!--
     <% unless @event.admission.blank? %>
       <p>
         <label><%= Event.human_attribute_name(:admission) %>
@@ -189,6 +188,7 @@
         <% end %>
       </p>
     <% end %>
+    -->
 
     <% unless @event.fee.blank? %>
       <p>

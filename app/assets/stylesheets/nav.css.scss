@@ -1,0 +1,40 @@
+@import "variables";
+
+#main-nav {
+  
+  a#logout {
+    color: #fff;
+    &:hover {
+      background: #D00;
+    }
+  }
+  
+  li.nav-header {
+    font-size: 14px;
+  }
+}
+
+.nav li a, .nav li.divider {
+  background: $dark-color;
+  color: #fff;
+  
+  &:hover {
+    background: $main-color;
+  }
+  
+  &.selected {
+    color: #fff;
+    background: $main-color;
+  }
+}
+
+li.sub-item {
+  margin: 0 -5px 0 -5px;
+  a {
+    background: #666;
+  }
+}
+
+.sub-menu {
+  padding: 5px;
+}

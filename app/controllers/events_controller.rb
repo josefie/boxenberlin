@@ -104,6 +104,7 @@ class EventsController < ApplicationController
   
   def my_events
     if current_user then
+      params[:role] ||= "host"
       @club = current_user
       if params[:role] == "host" then
         @events = @club.get_hosting_events.order("approved").reverse_order

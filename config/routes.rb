@@ -8,7 +8,7 @@ Boxenberlin::Application.routes.draw do
 
   #resources :clubs, :except => :new
   
-  resources :clubs, :except => :new do
+  resources :clubs, :except => [:new, :edit] do
     resources :locations, :only => [:create, :update, :destroy]
   end
 
@@ -34,8 +34,10 @@ Boxenberlin::Application.routes.draw do
   get 'calendar/(:date)' => 'events#index', defaults: {date: Date.today.to_s}, as: :calendar, 
   constraints: { date: /\d{4}-\d{2}-\d{2}/ }
   
+  get 'dashboard' => 'clubs#dashboard', as: :dashboard
   get 'profile' => 'clubs#my_profile', as: :my_profile
-  get 'events/role/:role' => 'events#my_events', as: :my_events
+  get 'profile/edit' => 'clubs#edit', as: :edit_profile
+  get 'events/(role/:role)' => 'events#my_events', as: :my_events
   get 'boxers' => 'boxers#my_boxers', as: :my_boxers
   get 'manage/(:status)' => 'events#manage', as: :manage
   

@@ -1,0 +1,20 @@
+<h2 class="page-title"><%= t('nav.dashboard') %></h2>
+
+<legend>Benachrichtigungen</legend>
+<div class="info-section">
+  Keine neuen Benachrichtigungen.
+</div>
+
+<legend>Funktionen</legend>
+<div class="info-section">
+  <ul>
+    <li><%= link_to "Profil bearbeiten", edit_profile_path, :class => "link" %></li>
+    <li><%= link_to "Neue Veranstaltung beantragen", new_event_path, :class => "link" %></li>
+    <li><%= link_to "Neuen Boxer hinzufügen", new_boxer_path, :class => "link" %></li>
+  </ul>
+</div>
+
+<legend>Meine Abzeichen</legend>
+<div class="info-section">
+  Du hast noch keine Abzeichen.
+</div>

@@ -93,7 +93,8 @@ div.form-section {
   }
   
   #event_performance_class_ids {
-    height: 300px;
+    height: 260px;
+    display: none;
   }
 }
 
@@ -112,3 +113,8 @@ div.form-section {
     display: inline;
   }
 }
+
+#search {
+  @include form-input;
+}
+

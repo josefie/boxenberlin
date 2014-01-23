@@ -303,10 +303,10 @@ de:
       weekday:
         name: Name
   nav:
-    home: "Startseite"
-    calendar: "Kalender"
-    dashboard: "Mein Konto"
-    profile: "Profil"
+    home: Startseite
+    calendar: Termine
+    dashboard: Mein Konto
+    profile: Profil
     news: Neuigkeiten
     request:
       one: Antrag

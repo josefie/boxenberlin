@@ -25,10 +25,15 @@
   }
   
   &.delete:hover {
-    background: $main-color;
+    background: #D00;
   }
 }
 
 .btn.remove-element-btn {
   margin-top: 10px;
+}
+
+.btn-primary {
+  padding: 15px;
+  font-size: 1.5em;
 }

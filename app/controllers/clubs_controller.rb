@@ -1,5 +1,5 @@
 class ClubsController < ApplicationController
-  before_action :set_club, only: [:show, :edit, :update, :destroy]
+  before_action :set_club, only: [:show, :update, :destroy]
   before_action :parse_time, only: :update
   
   # GET /clubs
@@ -21,7 +21,12 @@ class ClubsController < ApplicationController
 
   # GET /clubs/1/edit
   def edit
-    authorize! :update, @club
+    if current_user then
+      @club = current_user
+      authorize! :update, @club
+    else
+      redirect_to login_path
+    end
   end
 
   # POST /clubs
@@ -66,6 +71,10 @@ class ClubsController < ApplicationController
       format.html { redirect_to root_url, notice: I18n.t('messages.deletion_successful', :model => Club.model_name.human) }
       format.json { head :no_content }
     end
+  end
+  
+  def dashboard
+    @club = current_user
   end
 
   def my_profile

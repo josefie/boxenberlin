@@ -12,11 +12,7 @@
 
   <tbody>
     <% @events.each do |event| %>
-    <% if event.approved %>
     <tr class="calendar-row" onclick="window.location.href = '<%= event_path(event) %>'">
-    <% else %>
-    <tr class="calendar-row pending" onclick="window.location.href = '<%= event_path(event) %>'">
-    <% end %>
       <td class="event-day"><%= event.date.day %></td>
       <td class="event-title"><%= link_to event.title, event, :class => "hide-link" %></td>
       <td>
