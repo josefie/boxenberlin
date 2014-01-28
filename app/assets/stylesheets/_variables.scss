@@ -1,7 +1,7 @@
 $main-color: #22F;
 $secondary-color: #22F;/*#D00;*/
 $dark-color: #222;
-$background: #fffeea; /*#f4e9d3;*/
+$background: #BCC;/*#fffeea;*/
 $border: 1px #999 solid;
 $app-fonts: sawasdee, verdana, arial, helvetica, sans-serif;
 
@@ -17,9 +17,6 @@ $app-fonts: sawasdee, verdana, arial, helvetica, sans-serif;
     color: #fff;
     a {
       color: #fff;
-      &:hover {
-        /*color: #fff;*/
-      }
     }
   }
 }

@@ -1,11 +1,7 @@
 <h2 class="page-title"><%= Fight.model_name.human(count: 2) %> (<%= @fights.count %>)</h2>
-<div>
-<p>Matching Wert: <%= @stat.matching_value %></p>
-<p>Anteil zusammengesetzer Boxer: <%= @stat.percentage_matched %>%</p>
-</div>
 
 <%= form_tag(event_fights_path(@event), method: :get, id: "fights_form") do |f| %>
-  <legend class="section-title">Kämpfer zusammenstellen</legend>
+  <legend class="section-title">Einstellungen</legend>
   
   <div class="form-section" id="championship">
 
@@ -36,14 +32,22 @@
     <%#= hidden_field_tag "algorithm", :value => '2' %>
     
     <div class="form-group" id="generate-fight-submit">
-      <%= submit_tag "Kämpfe generieren", :class => "btn" %>
+      <%= submit_tag "Kämpferliste generieren", :class => "btn btn-primary" %>
     </div>
   </div>
 <% end %>
 
+<% unless @fights.empty? %>
+
+<legend class="section-title">Matching Statistik</legend>
+<div class="form-section">
+<p>Matching Wert: <%= @stat.matching_value %></p>
+<p>Anteil zusammengesetzer Boxer: <%= @stat.percentage_matched %>%</p>
+</div>
+
 <table class="table table-hover">
   <thead>
-    <tr>
+    <tr class="">
       <th>Differenz</th>
       <th>Altersklasse</th>
       <th>Rote Ecke</th>
@@ -103,4 +107,48 @@
   </tbody>
 </table>
 
-<%= link_to t('buttons.back'), participants_path(@event), :class => "btn" %>
+<% else %>
+  Es wurden noch keine passenden Kämpfe gefunden.
+<% end %>
+
+
+<% unless @event.fights.empty? %>
+<legend class="section-title">Ihre bestätigten Kämpfe</legend>
+<div class="form-section">
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Priorität</th>
+      <th>Altersklasse</th>
+      <th>Rote Ecke</th>
+      <th>Blaue Ecke</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @event.fights.each do |fight| %>
+      <tr>
+        <td><%= fight.priority %></td>
+        <td>
+          <% unless fight.opponent_red.get_age_class.nil? %>
+            <%= fight.opponent_red.get_age_class.title %>
+          <% end %>
+        </td>
+        <td>
+          <%= fight.opponent_red.get_name %>
+        </td>
+        <td>
+          <%= fight.opponent_blue.get_name %>
+        </td>
+        <td>
+        <%= link_to t('buttons.destroy'), nil, :onclick => remove_fight(@event, fight), :class => "btn delete" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
+</div>
+<%# link_to t('buttons.back'), participants_path(@event), :class => "btn" %>

@@ -25,13 +25,13 @@
   <div class="container">
     
     <h1 id="header">Berliner Boxverband</h1>
-    <%= debug params %>
+    <%#= debug params %>
   
     <div class="row">
 
       <div class="span2">
         
-        <%= link_to image_tag("boxen-zeichnung.jpg"), root_path %>
+        <%#= link_to image_tag("boxen-zeichnung.jpg"), root_path %>
         
         <ul id="main-nav" class="nav nav-list">
           <li class="main-item"><%= nav_link t('nav.home'), root_path %></li>
@@ -46,9 +46,10 @@
             </ul>
           <% end %>
           <% if (controller?("events") && action?("show", "apply", "participants")) || (controller?("fights") && action?("index")) %>
-          <% unless @event.club_id == current_user %>
+          
             <ul class="sub-menu nav nav-list">
               <li class="sub-item"><%= nav_link @event.title, event_path(@event), {}, {:url_segment => 2} %></li>
+              <% if current_user %>
               <ul class="sub-menu nav nav-list">
                 <% if @event.approved %>
                   <li class="sub-item"><%= nav_link t('buttons.apply', :item => Boxer), application_path(@event) %></li>
@@ -58,8 +59,9 @@
                   <%# end %>
                 <% end %>
               </ul>
+              <% end %>
             </ul>
-          <% end %>
+          
           <% end %>
                     
           <li class="divider"></li>

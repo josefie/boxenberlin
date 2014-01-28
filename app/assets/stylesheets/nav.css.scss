@@ -1,7 +1,7 @@
 @import "variables";
 
 #main-nav {
-  
+  padding-right: 0;
   a#logout {
     color: #fff;
     &:hover {
@@ -17,6 +17,8 @@
 .nav li a, .nav li.divider {
   background: $dark-color;
   color: #fff;
+  word-break: break-all;
+  line-height: 30px;
   
   &:hover {
     background: $main-color;
@@ -29,12 +31,13 @@
 }
 
 li.sub-item {
-  margin: 0 -5px 0 -5px;
+/*  margin: 0 -5px 0 -5px;*/
+
   a {
     background: #666;
   }
 }
 
 .sub-menu {
-  padding: 5px;
+  padding: 5px 0 0 0;
 }

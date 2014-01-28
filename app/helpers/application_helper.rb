@@ -29,9 +29,15 @@ module ApplicationHelper
   end
   
   def add_fight(event, fight)
-    #fight.save
-    #event.fights << fight
-    #participants_left = @event.boxers.reject { |p| p.id == (fight.opponent_red.id || fight.opponenet_blue.id) }
+    fight.save
+    event.fights << fight
+    event.boxers.reject! { |p| p.id == (fight.opponent_red.id || fight.opponent_blue.id) }
+  end
+  
+  def remove_fight(event, fight)
+    event.boxers << fight.opponent_red
+    event.boxers << fight.opponent_blue
+    fight.destroy
   end
   
 end

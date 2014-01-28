@@ -2,8 +2,9 @@
 
 .container {
   background-color: $background;
-  box-shadow: #999 0px 2px 20px;
-  padding: 0 10px 10px 10px;
+/*  box-shadow: #999 0px 2px 20px;*/
+  padding: 0 10px 0 10px;
+  min-height: 100%;
 }
 
 #flash {

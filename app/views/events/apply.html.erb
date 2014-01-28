@@ -12,7 +12,11 @@
 
 <%= form_tag send_application_path, method: :post do %>
 
-<table class="table table-hover">
+<table class="table">
+  <thead>
+    <th class="checkbox-column"></th>
+    <th></th>
+  </thead>
   <tbody>
     <% unless @boxers.empty? %>
       <tr>

@@ -5,4 +5,14 @@
 
 .boxer-row {
   @include table-row;
+  &:hover > td {
+    color: $dark-color;
+    a {
+      color: $dark-color;
+    }
+  }
+  
+  td {
+    vertical-align: middle;
+  }
 }

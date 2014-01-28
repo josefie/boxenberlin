@@ -15,8 +15,11 @@
     </div>
     
   <div class="row">
+  <% if current_user %>
   <div class="span5">
-    
+  <% else %>
+  <div class="span10">
+  <% end %>
     <legend>Ort und Zeit</legend>
     <div class="info-section">
       
@@ -63,110 +66,7 @@
       </script>
     <% end %>
 
-    </div>
-  
-    <% if current_user && @event.approved then %>
-
-        <legend>Meine <%= t('misc.participant') %></legend>
-        <div class="participations info-section">
-          
-          <div class="apply buttons">
-            <% if can? :apply, @event %>
-                <p class="subtitle">Anmeldungen bis <%= format_date(@event.get_deadline) %></p>
-                <%= link_to t('buttons.apply', :item => Boxer.model_name.human), application_path(@event.id), :class => "btn btn-primary" %>
-            <% else %>
-                <p class="subtitle">Anmeldefrist abgelaufen.</p>
-            <% end %>
-          </div>
-  
-          <% unless @boxers_applied.empty? then %>
-            <p>Folgende Boxer sind angemeldet:</p>
-            <table class="table">
-              <tbody>
-                <% @boxers_applied.each do |b| %>
-                <tr>
-                  <td><%= b.get_name %></td>
-                  <% if @event.upcoming? %>
-                    <td><%= link_to t('buttons.undo_application'), undo_application_path(@event.id, b.id), method: :delete, data: { confirm: t('messages.confirm_delete') }, :class => "link" %></td>
-                  <% end %>
-                </tr>
-                <% end %>
-              </tbody>
-            </table>
-          <% end %>
-
-        </div>
-
-      <% end %>
-
-      <% if current_user && (current_user.admin? || @event.club_id == current_user.id) %>
-
-        <legend>Veranstaltung genehmigt?</legend>
-        <div class="approved info-section">
-  
-          <% if @event.approved.nil? then %>
-            <%= image_tag "pending.png", :alt => "Offen", :width => 20 %> <span>Offen</span>
-          <% elsif @event.approved then %>
-            <%= image_tag "approved.png", :alt => "Ja", :width => 20 %> <span>Ja</span>
-          <% else %>
-            <%= image_tag "declined.png", :alt => "Nein", :width => 20 %> <span>Nein</span>
-          <% end %>
-
-          <% if can? :manage, @event and !@event.approved then %>
-
-            <div id="approve-buttons" class="actions form-actions">
-  
-              <%= form_for(@event, :remote => true, :class => "approve_form", :html => {:onsubmit => "approve_event()"}) do |f| %>
-                <%= f.hidden_field :approved, value: true %>
-                <%= f.submit t('buttons.approve'), :class => "btn btn-primary" %>
-              <% end %>
-
-              <%= form_for(@event, :remote => true, :class => "approve_form", :html => {:onsubmit => "decline_event()"}) do |f| %>
-                <%= f.hidden_field :approved, value: false %>
-                <%= f.submit t('buttons.decline'), :class => "btn btn-primary delete" %>
-              <% end %>
-  
-            </div>
-            
-          <% end %>
-            
-        </div>
-
-      <% end %>
-
-    </div>
-
-    <div class="span4">
-  
-      <legend><%= t('misc.contact') %></legend>
-      <div class="info-section">
-        
-        <p>
-          <label><%= t('misc.host') %>:</label>
-          <%= link_to @event.club.name, club_path(@event.club.id), :class => "link" %>
-        </p>
-    
-        <% if @event.contact_name &&  @event.contact_name_public %>
-          <p>
-            <strong><%= Event.human_attribute_name(:contact_name) %>:</strong>
-            <%= @event.contact_name %>
-          </p>
-        <% end %>
-
-        <% if @event.contact_phone && @event.contact_phone_public %>
-          <p>
-            <strong><%= Event.human_attribute_name(:contact_phone) %>:</strong>
-            <%= @event.contact_phone %>
-          </p>
-        <% end %>
-
-        <% if @event.contact_mail && @event.contact_mail_public %>
-          <p>
-            <strong><%= Event.human_attribute_name(:contact_mail) %>:</strong>
-            <a href="mailto:<%= @event.contact_mail %>"><%= @event.contact_mail %></a>
-          </p>
-        <% end %>
-      </div>
+  </div>
       
     <legend>Weitere Informationen</legend>
     <div class="info-section">
@@ -212,6 +112,110 @@
       </p>
 
     </div>
+    
+    <legend><%= t('misc.contact') %></legend>
+      <div class="info-section">
+        
+        <p>
+          <label><%= t('misc.host') %>:</label>
+          <%= link_to @event.club.name, club_path(@event.club.id), :class => "link" %>
+        </p>
+    
+        <% if @event.contact_name &&  @event.contact_name_public %>
+          <p>
+            <strong><%= Event.human_attribute_name(:contact_name) %>:</strong>
+            <%= @event.contact_name %>
+          </p>
+        <% end %>
+
+        <% if @event.contact_phone && @event.contact_phone_public %>
+          <p>
+            <strong><%= Event.human_attribute_name(:contact_phone) %>:</strong>
+            <%= @event.contact_phone %>
+          </p>
+        <% end %>
+
+        <% if @event.contact_mail && @event.contact_mail_public %>
+          <p>
+            <strong><%= Event.human_attribute_name(:contact_mail) %>:</strong>
+            <a href="mailto:<%= @event.contact_mail %>"><%= @event.contact_mail %></a>
+          </p>
+        <% end %>
+      </div>
+
+    </div>
+
+    <div class="span4">
+      <% if current_user && (current_user.admin? || @event.club_id == current_user.id) %>
+
+        <legend>Veranstaltung genehmigt?</legend>
+        <div class="approved info-section">
+  
+          <% if @event.approved.nil? then %>
+            <%= image_tag "pending.png", :alt => "Offen", :width => 20 %> <span>Offen</span>
+          <% elsif @event.approved then %>
+            <%= image_tag "approved.png", :alt => "Ja", :width => 20 %> <span>Ja</span>
+          <% else %>
+            <%= image_tag "declined.png", :alt => "Nein", :width => 20 %> <span>Nein</span>
+          <% end %>
+
+          <% if can? :manage, @event and !@event.approved then %>
+
+            <div id="approve-buttons" class="actions form-actions">
+  
+              <%= form_for(@event, :remote => true, :class => "approve_form", :html => {:onsubmit => "approve_event()"}) do |f| %>
+                <%= f.hidden_field :approved, value: true %>
+                <%= f.submit t('buttons.approve'), :class => "btn btn-primary" %>
+              <% end %>
+
+              <%= form_for(@event, :remote => true, :class => "approve_form", :html => {:onsubmit => "decline_event()"}) do |f| %>
+                <%= f.hidden_field :approved, value: false %>
+                <%= f.submit t('buttons.decline'), :class => "btn btn-primary delete" %>
+              <% end %>
+  
+            </div>
+            
+          <% end %>
+            
+        </div>
+
+      <% end %>
+      
+      <% if current_user && @event.approved then %>
+
+        <legend>Meine <%= t('misc.participant') %></legend>
+        <div class="participations info-section">
+          
+          <div class="apply buttons">
+            <% if can? :apply, @event %>
+                <p class="subtitle">Anmeldungen bis <%= format_date(@event.get_deadline) %></p>
+                <%= link_to t('buttons.apply', :item => Boxer.model_name.human), application_path(@event.id), :class => "btn btn-primary" %>
+            <% else %>
+                <p class="subtitle">Anmeldefrist abgelaufen.</p>
+            <% end %>
+          </div>
+  
+          <% unless @boxers_applied.empty? then %>
+            <p>Folgende Boxer sind angemeldet:</p>
+            <table class="table">
+              <tbody>
+                <% @boxers_applied.each do |b| %>
+                <tr>
+                  <td><%= b.get_name %></td>
+                  <% if @event.upcoming? %>
+                    <td><%= link_to t('buttons.undo_application'), undo_application_path(@event.id, b.id), method: :delete, data: { confirm: t('messages.confirm_delete') }, :class => "link" %></td>
+                  <% end %>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+          <% end %>
+
+        </div>
+
+      <% end %>
+  
+      
     
   </div>
 

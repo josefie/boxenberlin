@@ -21,18 +21,18 @@
 <% end %>
 
 <% unless @club.locations.empty? %>
-  <address>
-    <ul>
-      <% @club.locations.each do |l| %>
-        <li>
+  <ul>
+    <% @club.locations.each do |l| %>
+      <li>
+        <address>
           <%= l.street %>
           <%= l.number %><br>
           <%= l.zip %>
           <%= l.city %>
-        </li>
-      <% end %>
-    </ul>
-  </address>
+        </address>
+      </li>
+    <% end %>
+  </ul>
 <% end %>
 
 <div>
