@@ -124,7 +124,7 @@ class Event < ActiveRecord::Base
           #red.get_weight_class == blue.get_weight_class and
           (red.weight - blue.weight).abs <= 2 and # todo: replace with weight class
           red.get_performance_class == blue.get_performance_class and
-          red.club_id != blue.club.id
+          red.club_id != blue.club_id
           )
           fight = Fight.new(:opponent_red => red, :opponent_blue => blue, :event_id => self.id, :approved => false)
           unless fight.nil?
@@ -163,7 +163,7 @@ class Event < ActiveRecord::Base
           if same_club
             fight = Fight.new(:opponent_red => red, :opponent_blue => blue, :event_id => self.id, :approved => false)
           else
-            if(red.club_id != blue.club.id)
+            if(red.club_id != blue.club_id)
               fight = Fight.new(:opponent_red => red, :opponent_blue => blue, :event_id => self.id, :approved => false)
             end
           end
@@ -193,12 +193,40 @@ class Event < ActiveRecord::Base
   def maximum_weight_matching(graph)
     # maximum weight algorithmus
     graph.sort! { |a,b| a.priority <=> b.priority }
-    return maximal_inclusion_matching(graph)
+    return maximal_inclusion_matching(graph).reject{ |f| f.priority > 99 }
   end
   
   def maximum_cardinality_matching(graph)
     # maximum cardinality algorithmus
     return graph
+  end
+  
+  def calc_stat(matching)
+    @matching_value = 0
+    @percentage_matched = 0
+    matched_opponents = Array.new
+    matching.each do |f|
+      @matching_value += f.priority
+      b1 = f.opponent_red
+      b2 = f.opponent_blue
+      unless (matched_opponents.include?(b1)) then matched_opponents << b1 end
+      unless (matched_opponents.include?(b2)) then matched_opponents << b2 end
+    end
+    
+    stat = MatchingStat.new
+    unless matching.empty?
+      @matching_value /= matching.count
+      @percentage_matched = ((matched_opponents.count.to_f / self.boxers.count.to_f) * 100).to_i
+      
+      # save matching statistics
+      #stat = MatchingStat.new #MatchingStat.find_by_event_id(@event) || MatchingStat.new
+      stat.matching_value = @matching_value
+      stat.percentage_matched = @percentage_matched
+      stat.event_id = self.id
+      stat.save
+      
+    end
+    return stat
   end
   
 end

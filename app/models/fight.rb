@@ -6,9 +6,27 @@ end
 
 public
 def prioritize
-  self.priority = (opponent_red.get_performance_value - opponent_blue.get_performance_value).abs
-  # todo: other stuff that influences the fights priority, e.g.
-    # opponents are from the same club -> lower
-    # same opponent twice -> lower
-    # greater age_distance or weight_distance -> lower
+  pd = get_performance_distance
+  wd = get_weight_distance
+  ad = get_age_distance.abs
+  
+  # ignore age_distance and weight_distance if less than 2 
+  if ad <= 2 then ad = 0 end
+  if wd.abs <= 2 then wd = 0 end
+    
+  # greater age_distance or weight_distance -> lower priority
+  self.priority = (pd + wd).abs# + ad
+    
+end
+
+def get_performance_distance
+  self.opponent_red.get_performance_value - self.opponent_blue.get_performance_value
+end
+
+def get_weight_distance
+  self.opponent_red.weight - self.opponent_blue.weight
+end
+
+def get_age_distance
+  self.opponent_red.get_age - self.opponent_blue.get_age
 end

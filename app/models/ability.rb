@@ -13,7 +13,7 @@ class Ability
         end
         can :create, Event
         can [:update, :destroy], Event do |event|
-          event.club_id == user.id and event.date >= Date.today
+          event.club_id == user.id and event.upcoming?
         end
         can :create, Boxer
         can [:update, :destroy], Boxer do |boxer|
@@ -21,6 +21,9 @@ class Ability
         end
         can :apply, Event do |event|
           event.get_deadline >= Date.today
+        end
+        can :create_fights, Event do |event|
+          event.club_id == user.id
         end
       else #guest
         can :read, Event

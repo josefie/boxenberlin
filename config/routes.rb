@@ -1,13 +1,12 @@
 Boxenberlin::Application.routes.draw do
   
-  #resources :fights
+  #resources :news
+  get 'news' => 'news#homepage', as: :news_index
 
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
   delete 'logout/:id' => 'sessions#destroy', as: :logout
 
-  #resources :clubs, :except => :new
-  
   resources :clubs, :except => [:new, :edit] do
     resources :locations, :only => [:create, :update, :destroy]
   end
@@ -19,14 +18,12 @@ Boxenberlin::Application.routes.draw do
   end
   
   resources :boxers, :except => :index
-
-  #resources :participations, :only => :destroy
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'events#index'
+  root 'news#homepage'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
@@ -45,9 +42,6 @@ Boxenberlin::Application.routes.draw do
   post 'events/:id/apply' => 'events#send_application', as: :send_application  
   get 'events/:id/participants' => 'events#participants', as: :participants
   delete 'events/:id/participants/:boxer_id' => 'events#undo_application', as: :undo_application
-
-  #get 'events/:id/participations' => 'events#participations', as: :participations
-  #get 'events/:id/participations/fights' => 'events#fights', as: :fight_list
   
   
   # Example of named route that can be invoked with purchase_url(id: product.id)

@@ -4,31 +4,23 @@ class FightsController < ApplicationController
   # GET /fights
   # GET /fights.json
   def index
-    @event = Event.find(params[:event_id])
-    #generate_fights(age_distance, weight_distance, same_club, championship, algorithm)
-    @fights = @event.generate_fights(2, 2, false, false, 2).sort! { |a,b| a.priority <=> b.priority }
-    @matching_value = 0
-    @percentage_matched = 0
-    matched_opponents = Array.new
+    if current_user then
+      @event = Event.find(params[:event_id])
+      authorize! :create_fights, @event
     
-    @fights.each do |f|
-      @matching_value += f.priority
-      b1 = f.opponent_red
-      b2 = f.opponent_blue
-      unless (matched_opponents.include?(b1)) then matched_opponents << b1 end
-      unless (matched_opponents.include?(b2)) then matched_opponents << b2 end
-    end
-    
-    unless @fights.empty?
-      @matching_value /= @fights.count
-      @percentage_matched = ((matched_opponents.count.to_f / @event.boxers.count.to_f) * 100).to_i
+      #generate_fights(age_distance, weight_distance, same_club, championship, algorithm)
+      #@fights = @event.generate_fights(2, 2, false, false, 2).sort! { |a,b| a.priority <=> b.priority }
+      ad = params[:age_distance] ? params[:age_distance].to_i : 2
+      wd = params[:weight_distance] ? params[:weight_distance].to_i : 2
+      sc = params[:same_club] == "1"
+      cs = params[:championship] == "1"
+      alg = 2
       
-      # save matching statistics
-      stat = MatchingStat.new #MatchingStat.find_by_event_id(@event) || MatchingStat.new
-      stat.matching_value = @matching_value
-      stat.percentage_matched = @percentage_matched
-      stat.event_id = @event.id
-      stat.save
+      @fights = @event.generate_fights(ad, wd, sc, cs, alg).sort! { |a,b| a.priority <=> b.priority }
+      
+      @stat = @event.calc_stat(@fights)
+    else
+      redirect_to login_path
     end
   end
 
@@ -85,7 +77,7 @@ class FightsController < ApplicationController
       format.json { head :no_content }
     end
   end
-
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_fight
@@ -96,4 +88,5 @@ class FightsController < ApplicationController
     def fight_params
       params.require(:fight).permit(:approved)
     end
+    
 end

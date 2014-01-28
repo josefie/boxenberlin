@@ -1,24 +1,65 @@
 <h2 class="page-title"><%= Fight.model_name.human(count: 2) %> (<%= @fights.count %>)</h2>
 <div>
-<p>Matching Wert: <%= @matching_value %></p>
-<p>Anteil zusammengesetzer Boxer: <%= @percentage_matched %>%</p>
+<p>Matching Wert: <%= @stat.matching_value %></p>
+<p>Anteil zusammengesetzer Boxer: <%= @stat.percentage_matched %>%</p>
 </div>
+
+<%= form_tag(event_fights_path(@event), method: :get, id: "fights_form") do |f| %>
+  <legend class="section-title">Kämpfer zusammenstellen</legend>
+  
+  <div class="form-section" id="championship">
+
+    <div class="form-group check">
+      <%= label_tag "Ist dies eine Meisterschaft?" %><br>
+      <%= radio_button_tag "championship", "1", params[:championship] == "1", :class => "form-controls", :onclick => "$('.no-championship').hide();" %>
+      <%= label_tag "Ja" %>
+      <%= radio_button_tag "championship", "0", params[:championship] == "0" || params[:championship].nil?, :class => "form-controls", :onclick => "$('.no-championship').show();" %>
+      <%= label_tag "Nein" %>
+    </div>
+    
+    <div class="form-group no-championship">
+      <%= label_tag "Maximale Gewichtsdifferenz" %>
+      <%= select_tag "weight_distance", options_for_select(0..8, params[:weight_distance] || 2), :class => "form-controls x-small-field" %>
+    </div>
+    <div class="form-group no-championship">
+      <%= label_tag "Maximale Altersdifferenz" %>
+      <%= select_tag "age_distance", options_for_select(0..8, params[:age_distance] || 2), :class => "form-controls x-small-field" %>
+    </div>
+    <div class="form-group check no-championship">
+      <%= label_tag "Dürfen Boxer aus demselben Verein gegeneinander kämpfen?" %><br>
+      <%= radio_button_tag "same_club", "1", params[:same_club] == "1", :class => "form-controls" %>
+      <%= label_tag "Ja" %>
+      <%= radio_button_tag "same_club", "0", params[:same_club] == "0" || params[:same_club].nil?, :class => "form-controls" %>
+      <%= label_tag "Nein" %>
+    </div>
+
+    <%#= hidden_field_tag "algorithm", :value => '2' %>
+    
+    <div class="form-group" id="generate-fight-submit">
+      <%= submit_tag "Kämpfe generieren", :class => "btn" %>
+    </div>
+  </div>
+<% end %>
 
 <table class="table table-hover">
   <thead>
     <tr>
-      <th>Priorität</th>
+      <th>Differenz</th>
       <th>Altersklasse</th>
       <th>Rote Ecke</th>
       <th>Blaue Ecke</th>
-      <th>bestätigt?</th>
+      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @fights.each do |fight| %>
       <tr>
-        <td><%= fight.priority %></td>
+        <td>Leistung: <%= fight.get_performance_distance %><br>
+          Alter: <%= fight.get_age_distance %><br>
+          Gewicht: <%= fight.get_weight_distance.round(2) %><br>
+          Priorität: <%= fight.priority %>
+        </td>
         <td>
           <% unless fight.opponent_red.get_age_class.nil? %>
             <%= fight.opponent_red.get_age_class.title %>
@@ -36,7 +77,7 @@
             <%= fight.opponent_red.get_performance_class.title %>
             <% end %><br>
           KÄMPFE: (<%= fight.opponent_red.fights_won %>/<%= fight.opponent_red.fights_lost %>/<%= fight.opponent_red.fights_drawn %>)<br>
-          VEREIN: <%= Club.find_by_id(fight.opponent_red.club_id).name %><br>
+          VEREIN: <%= fight.opponent_red.club_id %><%#= Club.find_by_id(fight.opponent_red.club_id).name %><br>
           LEISTUNGSNIVEAU: <%= fight.opponent_red.get_performance_value %><br>
         </td>
         <td>
@@ -51,11 +92,11 @@
             <%= fight.opponent_blue.get_performance_class.title %>
             <% end %><br>
           KÄMPFE: (<%= fight.opponent_blue.fights_won %>/<%= fight.opponent_blue.fights_lost %>/<%= fight.opponent_blue.fights_drawn %>)<br>
-          VEREIN: <%= Club.find_by_id(fight.opponent_blue.club_id).name %><br>
+          VEREIN: <%= fight.opponent_blue.club_id %><%#= Club.find_by_id(fight.opponent_blue.club_id).name %><br>
           LEISTUNGSNIVEAU: <%= fight.opponent_blue.get_performance_value %><br>
         </td>
         <td>
-          <%= fight.approved %>
+          <%= link_to t('buttons.approve'), nil, :onclick => add_fight(@event, fight), :class => "btn" %>
         </td>
       </tr>
     <% end %>

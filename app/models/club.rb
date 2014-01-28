@@ -16,6 +16,9 @@ class Club < ActiveRecord::Base
   
   has_secure_password
   validates :password, presence: true, :on => :create
+  
+  before_validation :format_url
+  validates_format_of :website, :with => URI::regexp(%w(http https)), :allow_blank => true
 
   def admin?
     false
@@ -35,6 +38,10 @@ class Club < ActiveRecord::Base
   
   def get_past_events
     Event.find_past.where(:club_id => self.id)
+  end
+  
+  def format_url
+    #self.website = "http://#{self.website}" unless self.website[/^https?/] || self.website.blank?
   end
   
 end

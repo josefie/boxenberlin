@@ -28,4 +28,10 @@ module ApplicationHelper
     action.include?(params[:action])
   end
   
+  def add_fight(event, fight)
+    #fight.save
+    #event.fights << fight
+    #participants_left = @event.boxers.reject { |p| p.id == (fight.opponent_red.id || fight.opponenet_blue.id) }
+  end
+  
 end

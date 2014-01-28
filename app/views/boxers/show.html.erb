@@ -1,4 +1,4 @@
-<h2 class="page-title"><%= @boxer.first_name %> <%= @boxer.last_name %></h2>
+<h2 class="page-title"><%= @boxer.get_name %></h2>
 
 <div class="buttons">
 <% if can? :update, @boxer %>
@@ -44,13 +44,19 @@
 </p>
 
 <p>
+  <strong><%= t('misc.weight_class') %>:</strong> -
+</p>
+
+<p>
 <strong><%= Club.model_name.human %>:</strong>
-  <%= @boxer.club.name %>
+  <% unless @boxer.club.nil? %>
+    <%= @boxer.club.name %>
+  <% end %>
 </p>
 
 </div>
 
-<% if @boxer.active %>
+<%# if @boxer.active %>
 
 <div class="span4">
 
@@ -78,6 +84,6 @@
 
 </div>
   
-<% end %>
+<%# end %>
 
 </div>

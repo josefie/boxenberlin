@@ -3,7 +3,8 @@
 
 <h2 class="page-title"><%= @event.title %></h2>
     
-    <div class="buttons">      
+    <div class="buttons">
+      <%#= link_to "#{t('misc.participant')} (#{@event.boxers.count})", participants_path(@event), :class => "btn" %>
       <% if can? :update, @event %>
         <%= link_to t('buttons.edit'), edit_event_path(@event), :class => "btn" %>
       <% end %>
@@ -80,12 +81,14 @@
   
           <% unless @boxers_applied.empty? then %>
             <p>Folgende Boxer sind angemeldet:</p>
-            <table class="table table-hover">
+            <table class="table">
               <tbody>
                 <% @boxers_applied.each do |b| %>
                 <tr>
                   <td><%= b.get_name %></td>
-                  <td><%= link_to t('buttons.undo_application'), undo_application_path(@event.id, b.id), method: :delete, data: { confirm: t('messages.confirm_delete') }, :class => "link" %></td>
+                  <% if @event.upcoming? %>
+                    <td><%= link_to t('buttons.undo_application'), undo_application_path(@event.id, b.id), method: :delete, data: { confirm: t('messages.confirm_delete') }, :class => "link" %></td>
+                  <% end %>
                 </tr>
                 <% end %>
               </tbody>

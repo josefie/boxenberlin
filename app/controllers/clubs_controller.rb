@@ -16,7 +16,7 @@ class ClubsController < ApplicationController
   # GET /clubs/new
   def new
     @club = Club.new
-    authorize! :create, @club
+    session[:club_id] = nil
   end
 
   # GET /clubs/1/edit

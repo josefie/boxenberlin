@@ -7,10 +7,10 @@
 
 <legend>Funktionen</legend>
 <div class="info-section">
-  <ul>
-    <li><%= link_to "Profil bearbeiten", edit_profile_path, :class => "link" %></li>
-    <li><%= link_to "Neue Veranstaltung beantragen", new_event_path, :class => "link" %></li>
-    <li><%= link_to "Neuen Boxer hinzufügen", new_boxer_path, :class => "link" %></li>
+  <ul id="dashboard-functions">
+    <li class="dashboard-function"><%= link_to "Vereinsprofil bearbeiten", edit_profile_path, :class => "btn btn-primary" %></li>
+    <li class="dashboard-function"><%= link_to "Neue Veranstaltung beantragen", new_event_path, :class => "btn btn-primary" %></li>
+    <li class="dashboard-function"><%= link_to "Neuen Boxer hinzufügen", new_boxer_path, :class => "btn btn-primary" %></li>
   </ul>
 </div>
 

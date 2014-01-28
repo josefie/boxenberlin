@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140119181612) do
+ActiveRecord::Schema.define(version: 20140124170926) do
 
   create_table "boxers", force: true do |t|
     t.string   "first_name"
@@ -119,6 +119,14 @@ ActiveRecord::Schema.define(version: 20140119181612) do
     t.integer  "matching_value"
     t.integer  "percentage_matched"
     t.integer  "event_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "news", force: true do |t|
+    t.string   "title"
+    t.text     "text"
+    t.date     "date"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

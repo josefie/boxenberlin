@@ -11,6 +11,12 @@
     </div>
   <% end %>
   
+  <ul class="nav nav-tabs">
+    <li><%= nav_link t('misc.general'), edit_profile_path %></li>
+    <li><%= nav_link t(Training.model_name.human), '#' %></li>
+    <li><%= nav_link t('misc.settings'), '#' %></li>
+  </ul>
+
   <legend class="section-title"><%= t('misc.general') %></legend>
   
   <div class="form-section">
@@ -39,7 +45,7 @@
     
     <div class="form-group">
       <%= f.label :website %>
-      <%= f.url_field :website, :class => "form-controls" %>
+      <%= f.text_field :website, :class => "form-controls" %>
     </div>
   
   </div>

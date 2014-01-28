@@ -1,6 +1,6 @@
 class BoxersController < ApplicationController
   before_action :set_boxer, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource except: [:create, :my_boxers]
+  #load_and_authorize_resource except: [:create, :my_boxers]
   
   # GET /boxers
   # GET /boxers.json
@@ -11,17 +11,28 @@ class BoxersController < ApplicationController
   # GET /boxers/1
   # GET /boxers/1.json
   def show
+    unless current_user
+      redirect_to login_path
+    end
   end
 
   # GET /boxers/new
   def new
-    @boxer = Boxer.new
-    authorize! :create, @boxer
+    if current_user then
+      @boxer = Boxer.new
+      authorize! :create, @boxer
+    else
+      redirect_to login_path
+    end
   end
 
   # GET /boxers/1/edit
   def edit
-    authorize! :update, @boxer
+    if current_user then
+      authorize! :update, @boxer
+    else
+      redirect_to login_path
+    end
   end
 
   # POST /boxers

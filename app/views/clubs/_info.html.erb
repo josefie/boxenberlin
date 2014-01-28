@@ -95,8 +95,10 @@
   <% else %>
     <ul>
     <% @club.events.each do |e| %>
-      <% if e.approved %>
+      <% if e.approved && e.upcoming? %>
         <li><%= link_to e.title, event_path(e.id), :class => "link" %></li>
+      <% else %>
+        Keine Veranstaltungen in nächster Zeit.
       <% end %>
     <% end %>
     </ul>

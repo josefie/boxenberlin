@@ -49,15 +49,23 @@ class EventsController < ApplicationController
 
   # GET /events/new
   def new
-    @event = Event.new
-    authorize! :create, @event
-    @event.build_location(:event_id => @event.id)
+    if current_user then
+      @event = Event.new
+      authorize! :create, @event
+      @event.build_location(:event_id => @event.id)
+    else
+      redirect_to login_path
+    end
   end
 
   # GET /events/1/edit
   def edit
-    authorize! :update, @event
-    @event.location ||= @event.build_location(:event_id => @event.id)
+    if current_user then
+      authorize! :update, @event
+      @event.location ||= @event.build_location(:event_id => @event.id)
+    else
+      redirect_to login_path
+    end
   end
 
   # POST /events
@@ -121,12 +129,17 @@ class EventsController < ApplicationController
   end
   
   def participants
-    @boxers = @event.boxers
+    if current_user then
+      @boxers = @event.boxers
+      authorize! :read, Boxer
+    else
+      redirect_to login_path
+    end
   end
   
   def manage
-    authorize! :manage, @events
-    if current_user.admin? then
+    if current_user then
+      authorize! :approve, Event
       if params[:status] == "approved" then
         @events = Event.where(:approved => true)
       elsif params[:status] == "declined" then
@@ -134,6 +147,8 @@ class EventsController < ApplicationController
       elsif params[:status] == "open" then
         @events = Event.where(:approved => nil)
       end
+    else
+      redirect_to login_path
     end
   end
   
@@ -154,6 +169,7 @@ class EventsController < ApplicationController
   end
   
   def send_application
+    authorize! :apply, @event
     unless params[:boxer_ids].nil? then
       params[:boxer_ids].each do |id|
         @event.boxers << Boxer.find_by_id(id)
@@ -165,7 +181,7 @@ class EventsController < ApplicationController
   
   def undo_application
     boxer = Boxer.find_by_id(params[:boxer_id])
-    authorize! :destroy, boxer
+    authorize! :apply, @event
     @event.boxers.delete(boxer)
     respond_to do |format|
       format.html { redirect_to @event, notice: I18n.t('messages.deletion_successful', :model => "Anmeldung") }

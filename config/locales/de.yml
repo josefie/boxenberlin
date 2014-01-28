@@ -220,9 +220,9 @@ de:
       location:
         one: Ort
         other: Orte
-      participation:
-        one: Teilnahme
-        other: Teilnahmen
+      news:
+        one: Neuigkeit
+        other: Neuigkeiten
       performance_class:
         one: Leistungsklasse
         other: Leistungsklassen
@@ -283,8 +283,10 @@ de:
         zip: PLZ
         city: Ort
         country: Land
-      participation:
-        status: Status
+      news:
+        title: Titel
+        text: Text
+        date: Datum
       performance_class:
         title: Titel
         age_min: Mindestalter
@@ -348,12 +350,14 @@ de:
     approved: Bestätigte
     declined: Abgelehnte
     age_class: Altersklasse
+    weight_class: Gewichtsklasse
     fight:
       one: Kampf
       other: Kämpfe
     male: männlich
     female: weiblich
     general: Allgemein
+    settings: Einstellungen
   messages:
     creation_successful: "%{model} wurde erfolgreich erstellt."
     creation_failed: "%{model} konnte nicht erstellt werden."

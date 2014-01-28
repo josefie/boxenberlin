@@ -6,9 +6,7 @@
       <th><%= Boxer.human_attribute_name(:weight) %></th>
       <th>
         <%= t('misc.fight', count: 2) %> 
-        (<%= Boxer.human_attribute_name(:fights_won) %>/
-        <%= Boxer.human_attribute_name(:fights_lost) %>/
-        <%= Boxer.human_attribute_name(:fights_drawn) %>)
+
       </th>
       <th></th>
       <th></th>
@@ -23,7 +21,7 @@
         <tr class="inactive boxer-row" onclick="window.location.href = '<%= boxer_path(boxer) %>'">
       <% end %>
       
-      <td><%= link_to "#{boxer.first_name} #{boxer.last_name}", boxer %></td>
+      <td><%= link_to boxer.get_name, boxer %></td>
       <td>
       <% unless boxer.get_age_class.nil? %>
         <%= boxer.get_age_class.title %> 
@@ -32,7 +30,9 @@
       <% end %>
       </td>
       <td><%= boxer.weight.to_i %> kg</td>
-      <td><%= "#{boxer.fights_won}/#{boxer.fights_lost}/#{boxer.fights_drawn}" %></td>
+      <td><strong><%= Boxer.human_attribute_name(:fights_won) %>:</strong> <%= boxer.fights_won %><br>
+          <%= Boxer.human_attribute_name(:fights_lost) %>: <%= boxer.fights_lost %><br>
+          <%= Boxer.human_attribute_name(:fights_drawn) %>: <%= boxer.fights_drawn %></td>
       <td><% if boxer.active then %>aktiv<% end %></td>
     </tr>
     <% end %>
