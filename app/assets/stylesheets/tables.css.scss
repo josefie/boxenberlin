@@ -1,3 +1,13 @@
 .checkbox-column {
   width: 10px;
 }
+
+.boxer-data tr td {
+  padding: 2px;
+  border: none;
+  
+  &:first-child {
+    text-align: left;
+    padding-right: 10px;
+  }
+}

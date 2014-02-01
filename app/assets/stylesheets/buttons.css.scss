@@ -5,15 +5,18 @@
 }
 
 .buttons.btn-group a.btn, .btn {
-  color: $secondary-color;
+  color: $secondary-color;  
   border-radius: 0;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border: $border;
-  background: transparent;
+  background: transparent;  
   margin-bottom: 20px;
   font-family: sawasdee;
   font-weight: bold;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
   
   &:visited {
     color: $secondary-color;
@@ -34,7 +37,7 @@
 }
 
 .btn-primary {
-  padding: 15px;
+  padding: 15px 30px 15px 30px;
   font-size: 1.5em;
   line-height: 30px;
 }

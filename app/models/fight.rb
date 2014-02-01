@@ -30,3 +30,35 @@ end
 def get_age_distance
   self.opponent_red.get_age - self.opponent_blue.get_age
 end
+
+def get_age_class
+  age_class = nil
+  unless self.opponent_red.get_age_class.nil?
+    age_red = self.opponent_red.get_age_class
+    unless self.opponent_blue.get_age_class.nil?
+      age_blue = self.opponent_blue.get_age_class
+      age_class = (age_red.id > age_blue.id) ? age_red : age_blue
+    else
+      age_class = age_red
+    end
+  end
+  return age_class
+end
+
+def get_performance_class
+  performance_class = nil
+  unless self.opponent_red.get_performance_class.nil?
+    performance_red = self.opponent_red.get_performance_class
+    unless self.opponent_blue.get_performance_class.nil?
+      performance_blue = self.opponent_blue.get_performance_class
+      performance_class = (performance_red.id > performance_blue.id) ? performance_red : performance_blue
+    else
+      performance_class = performance_red
+    end
+  end
+  return performance_class
+end
+
+def get_weight_class
+  
+end

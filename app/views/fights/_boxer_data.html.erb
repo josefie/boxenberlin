@@ -1,0 +1,50 @@
+<table class="boxer-data">
+  <tr>
+    <td>NAME:</td>
+    <td><%= opponent.get_name %></td>
+  </tr>
+  <tr>
+    <td>GESCHLECHT:</td>
+    <td><% if opponent.gender then %>weiblich<% else %>männlich<% end %></td>
+  </tr>
+  <tr>
+    <td>ALTER:</td>
+    <td><%= opponent.get_age %></td>
+  </tr>
+  <tr>
+    <td>GEWICHT:</td>
+    <td><%= opponent.weight.round(1) %></td>
+  </tr>
+  <tr>
+    <td>KÄMPFE:</td>
+    <td><%= opponent.number_of_fights %> (<%= opponent.fights_won %>/<%= opponent.fights_lost %>/<%= opponent.fights_drawn %>)<br></td>
+  </tr>
+  <tr>
+    <td>ALTERSKLASSE:</td>
+    <td>
+      <% unless opponent.get_age_class.nil? %>
+        <%= opponent.get_age_class.title %>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td>GEWICHTSKLASSE:</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>LEISTUNGSKLASSE:</td>
+    <td>
+      <% unless opponent.get_performance_class.nil? %>
+        <%= opponent.get_performance_class.title %>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td>VEREIN:</td>
+    <td><%= opponent.club_id %><%#= Club.find_by_id(opponent.club_id).name %></td>
+  </tr>
+  <tr>
+    <td>LEISTUNGSNIVEAU:</td>
+    <td><%= opponent.get_performance_value %></td>
+  </tr>
+</table>

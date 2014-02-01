@@ -43,4 +43,8 @@ class Boxer < ActiveRecord::Base
     (self.fights_won * 5) + (self.fights_lost * 1) + (self.fights_drawn * 2)
   end
   
+  def number_of_fights
+    (self.fights_won + self.fights_lost + self.fights_drawn)
+  end
+  
 end
