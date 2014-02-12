@@ -16,8 +16,7 @@
     
     <div class="form-group">
       <%= f.label :title, :class => "subtitle" %>
-      <%= f.text_field :title, :class => "form-controls", :title => "Bitte geben Sie einen Titel für Ihre Veranstaltung an." %>
-      <p class="tipp">Der Titel wird im Veranstaltungskalender angezeigt.</p>
+      <%= f.text_field :title, :class => "form-controls", :title => "Bitte geben Sie einen Titel für Ihre Veranstaltung an. Der Titel wird im Veranstaltungskalender angezeigt." %>
     </div>
       
     <div class="form-group inline-fields">
@@ -28,46 +27,43 @@
       
         <div class="form-group">
           <label><%= l.label :street %></label>
-          <%= l.text_field :street, :class => "form-controls medium-field", :title => "Bitte geben Sie die Veranstaltungsadresse an." %>
+          <%= l.text_field :street, :class => "form-controls medium-field", :title => "Bitte geben Sie eine Adresse an. Der Ort wird auf der Veranstaltungsseite in einer Karte angezeigt." %>
         </div>
         
         <div class="form-group">
           <label><%= l.label :number %></label>
-          <%= l.text_field :number, :class => "form-controls x-small-field", :title => "Bitte geben Sie den Veranstaltungsadresse an." %>
+          <%= l.text_field :number, :class => "form-controls x-small-field", :title => "Bitte geben Sie eine Adresse an." %>
         </div>
         
         <div class="form-group">
           <label><%= l.label :zip %></label>
-          <%= l.text_field :zip, :class => "form-controls small-field", :title => "Bitte geben Sie den Veranstaltungsadresse an." %>
+          <%= l.text_field :zip, :class => "form-controls small-field", :title => "Bitte geben Sie eine Adresse an." %>
         </div>
         
         <div class="form-group">
           <label><%= l.label :city %></label>
-          <%= l.text_field :city, :class => "form-controls small-field", :value => "Berlin", :title => "Bitte geben Sie den Veranstaltungsadresse an." %>
+          <%= l.text_field :city, :class => "form-controls small-field", :value => "Berlin", :title => "Bitte geben Sie eine Adresse an." %>
         </div>
       
         <%= l.hidden_field :country, :value => "DE" %>
         <%= f.hidden_field :latitude, :id => 'gmaps-output-latitude' %>
         <%= f.hidden_field :longitude, :id => 'gmaps-output-longitude' %>
-        
-        <p class="tipp">Der Veranstaltungsort wird auf der Veranstaltungsseite in einer Karte angezeigt.</p>
+
       <% end %>
     </div>
 
     <div class="form-group">
       <%= f.label :date, :class => "subtitle" %>
-      <%= f.date_field :date, "value" => @event.date || Time.now.to_date.to_s, :class => "form-controls small-field", :title => "Bitte geben Sie den Veranstaltungstermin an." %>
-      <p class="tipp">Wählen Sie bitte ein Datum aus.</p>
+      <%= f.date_field :date, "value" => @event.date || Time.now.to_date.to_s, :class => "form-controls small-field", :title => "Wählen Sie bitte einen Termin für die Veranstaltung aus." %>
     </div>
   
     <div class="form-group">
       <%= f.label :schedule, :class => "subtitle" %>
+      <p class="tipp">Sie können für jeden Termin einen Eintrag hinzufügen (z.B. Beginn, Wiegen, Arzt etc.)</p>
       <%= link_to_add_fields(t('buttons.add', :item => ScheduleItem.model_name.human), f, :schedule_items) %>
       <%= f.fields_for :schedule_items do |builder| %>
         <%= render "schedule_item_fields", :f => builder %>
       <% end %>
-      
-      <p class="tipp">Sie können für jeden Termin einen Eintrag hinzufügen (z.B. Beginn, Wiegen, Arzt etc.)</p>
     </div>
   
     <div>
@@ -77,11 +73,11 @@
       <div class="inline-fields">
         <div class="form-group">
           <%= f.label :contact_name %>
-          <%= f.text_field :contact_name, :value => @event.contact_name || current_user.contact_name, :class => "form-controls", :title => "Bitte geben Sie einen Ansprechpartner an." %>
+          <%= f.text_field :contact_name, :value => @event.contact_name || current_user.contact_name, :class => "form-controls", :title => "Ihre Kontaktdaten werden für Rückfragen benötigt. Wenn Sie möchten, dass einzelne Angaben auch für die Öffentlichkeit sichtbar sind (z.B. für Teilnehmer), dann setzen Sie bitte ein Häkchen bei 'öffentlich sichtbar'." %>
         </div>
       
         <div class="form-group check">
-          <%= f.check_box :contact_name_public, :class => "form-controls", :title => "Bitte geben Sie an, ob der Name für alle sichtbar sein soll." %>
+          <%= f.check_box :contact_name_public, :class => "form-controls", :title => "Der Name wird auf der Veranstaltungsseite sichtbar gemacht." %>
           <%= f.label :contact_name_public %>
         </div>
       </div>
@@ -93,7 +89,7 @@
         </div>
         
         <div class="form-group check">
-          <%= f.check_box :contact_phone_public, :class => "form-controls", :title => "Bitte geben Sie an, ob die Nummer für alle sichtbar sein soll." %>
+          <%= f.check_box :contact_phone_public, :class => "form-controls", :title => "Die Nummer wird auf der Veranstaltungsseite sichtbar gemacht." %>
           <%= f.label :contact_phone_public %>
         </div>
       </div>
@@ -105,13 +101,11 @@
         </div>
         
         <div class="form-group check">
-          <%= f.check_box :contact_mail_public, :class => "form-controls", :title => "Bitte geben Sie an, ob die Adresse für alle sichtbar sein soll." %>
+          <%= f.check_box :contact_mail_public, :class => "form-controls", :title => "Die Adresse wird auf der Veranstaltungsseite sichtbar gemacht." %>
           <%= f.label :contact_mail_public %>
         </div>
       </div>
-    <p class="tipp">Ihre Kontaktdaten werden für Rückfragen benötigt. <br>
-      Wenn Sie möchten, dass einzelne Angaben auch für die Öffentlichkeit sichtbar sind,<br> 
-      (z.B. für Teilnehmer) dann setzen Sie bitte ein Häkchen bei 'öffentlich sichtbar'.</p>
+    <p class="tipp"></p>
     </div>
     
   </div>

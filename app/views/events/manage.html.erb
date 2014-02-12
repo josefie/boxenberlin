@@ -1,11 +1,5 @@
 <h2 class="page-title"><%= t('nav.request', count: 2) %></h2>
 
-<ul class="nav nav-tabs">
-  <li><%= nav_link t('misc.open'), manage_path("open") %></li>
-  <li><%= nav_link t('misc.approved'), manage_path("approved") %></li>
-  <li><%= nav_link t('misc.declined'), manage_path("declined") %></li>
-</ul>
-
 <% if params[:status] == "open" %>
 <h3><%= t('misc.open') %>
 <% elsif params[:status] == "approved" %>
