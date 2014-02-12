@@ -14,6 +14,7 @@ class BoxersController < ApplicationController
     unless current_user
       redirect_to login_path
     end
+    session[:return_to] = boxer_path(@boxer)
   end
 
   # GET /boxers/new
@@ -57,7 +58,7 @@ class BoxersController < ApplicationController
     authorize! :update, @boxer
     respond_to do |format|
       if @boxer.update(boxer_params)
-        format.html { redirect_to @boxer, notice: I18n.t('messages.update_successful', :model => Boxer.model_name.human) }
+        format.html { redirect_to session[:return_to], notice: I18n.t('messages.update_successful', :model => Boxer.model_name.human) }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -97,6 +98,6 @@ class BoxersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def boxer_params
       params.require(:boxer).permit(:first_name, :last_name, :date_of_birth, :weight, :fights_won, :fights_lost, :fights_drawn, :gender, :active, 
-      :club_id, :age_class_id, :weight_class_id)
+      :club_id)
     end
 end

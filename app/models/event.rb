@@ -22,8 +22,8 @@ class Event < ActiveRecord::Base
   accepts_nested_attributes_for :location, allow_destroy: true#, reject_if: proc { |a| a['city'].blank? }
   
   def at_least_one_schedule_item
-    if self.schedule_items.empty?
-      errors[:base] << ("Es muss mindestens ein Starttermin angegeben werden.")
+    if self.schedule_items.count < 2
+      errors[:base] << ("Es muss mindestens ein Start- und ein Wiegetermin angegeben werden.")
     end
   end
   
@@ -81,6 +81,10 @@ class Event < ActiveRecord::Base
     else
       ( obj.location.street.present? or obj.location.number.present? or obj.location.zip.present? or obj.location.city.present? ) and ( obj.location.street_changed? or obj.location.number_changed? or obj.location.zip_changed? or obj.location.city_changed? )
     end
+  end
+  
+  def apply(boxer)
+    self.boxers << boxer
   end
 
   def generate_fights(age_distance, weight_distance, same_club, championship, algorithm)

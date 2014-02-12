@@ -13,94 +13,48 @@
   <!-- google maps -->
   <%= javascript_include_tag "http://maps.google.com/maps/api/js?sensor=false" %>
   <!-- jquery -->
-  <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" %>
+  <%#= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" %>
   <!-- jquery UI -->
-  <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js" %>
+  <%#= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js" %>
   
   <%= csrf_meta_tags %>
 </head>
 
 <body>
   
+  <%= link_to "<h1 id='header'>Berliner Boxverband</h1>".html_safe, root_path %>
+
   <div class="container">
+    <div id="nav-bar">
+      <ul id="main-nav" class="nav nav-list">
+        <li class="main-item"><%= nav_link t('nav.news'), news_path %></li>
+        <li class="main-item"><%= nav_link Club.model_name.human(:count => 2), clubs_path, {}, {:url_segment => 1} %></li>
+        <li class="main-item"><%= nav_link t('nav.calendar'), calendar_path, {}, {:url_segment => 1} %></li>
+      </ul>
+      <ul id="second-nav" class="nav nav-list">
+        <li class="second-item"><%= nav_link t('nav.dashboard'), dashboard_path %>
+        <% if current_user.nil? %>
+          <li class="second-item"><%= nav_link t('buttons.sign_up'), signup_path %></li>
+        <% else %>
+          <li class="second-item"><%= link_to t('buttons.logout'), logout_path(current_user), method: :delete, :id => "logout" %></li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="clear-div"></div>
     
-    <h1 id="header">Berliner Boxverband</h1>
-    <%#= debug params %>
-  
-    <div class="row">
+    <%= debug params %>
+    
+    <div class="content">
 
-      <div class="span2">
-        
-        <%#= link_to image_tag("boxen-zeichnung.jpg"), root_path %>
-        
-        <ul id="main-nav" class="nav nav-list">
-          <li class="main-item"><%= nav_link t('nav.home'), root_path %></li>
-          <li class="main-item"><%= nav_link t('nav.news'), news_index_path %></li>
-          <li class="main-item"><%= nav_link Club.model_name.human(:count => 2), clubs_path, {}, {:url_segment => 1} %></li>
-          <li class="main-item"><%= nav_link t('nav.calendar'), calendar_path, {}, {:url_segment => 1} %></li>
-          <% if controller?("events") && action?("index") %>
-            <ul class="sub-menu nav nav-list">
-              <li class="sub-item"><%= nav_link localize(current_date - 1.month, :format => '%B %Y'), calendar_path(current_date - 1.month) %></li>
-              <li class="sub-item"><%= nav_link localize(current_date, :format => '%B %Y'), calendar_path(current_date) %></li>
-              <li class="sub-item"><%= nav_link localize(current_date + 1.month, :format => '%B %Y'), calendar_path(current_date + 1.month) %></li>
-              <li class="sub-item"><%= nav_link localize(current_date + 2.month, :format => '%B %Y'), calendar_path(current_date + 2.month) %></li>
-            </ul>
-          <% end %>
-          <% if (controller?("events") && action?("show", "apply", "participants")) || (controller?("fights") && action?("index")) %>
-          
-            <ul class="sub-menu nav nav-list">
-              <li class="sub-item"><%= nav_link @event.title, event_path(@event), {}, {:url_segment => 2} %></li>
-              <% if current_user %>
-              <ul class="sub-menu nav nav-list">
-                <% if @event.approved %>
-                  <li class="sub-item"><%= nav_link t('buttons.apply', :item => Boxer), application_path(@event) %></li>
-                  <li class="sub-item"><%= nav_link "#{t('misc.participant')} (#{@event.boxers.count})", participants_path(@event) %></li>
-                  <%# if can? :destroy, @event %>
-                    <li class="sub-item"><%= nav_link t(Fight.model_name.human(:count => 2)), event_fights_path(@event) %></li>
-                  <%# end %>
-                <% end %>
-              </ul>
-              <% end %>
-            </ul>
-          
-          <% end %>
-                    
-          <li class="divider"></li>
-          <% if current_user.nil? %>
-          
-            <li class="main-item"><%= nav_link t('buttons.login'), login_path %></li>
-            <li class="main-item"><%= nav_link t('buttons.sign_up'), signup_path %></li>
-            
-          <% else %>
-          
-            <li class="main-item"><%= nav_link t('nav.dashboard'), dashboard_path %>
-            <% if (controller?("events") && action?("my_events", "new", "edit", "manage") || (controller?("events") && action?("show", "apply", "participants") || (controller?("fights") && action?("index")) && @event.club_id == current_user.id)) || controller?("boxers") && action?("my_boxers", "new", "edit", "show") || controller?("clubs") && action?("dashboard", "my_profile", "edit") %>
-              <ul class="sub-menu nav nav-list">
-                <li class="sub-item"><%= nav_link t('nav.profile'), my_profile_path, {}, {:url_segment => 1} %></li>
-                <li class="sub-item"><%= nav_link Event.model_name.human(:count => 2), my_events_path("host"), {}, {:url_segment => 1} %></li>
-                <li class="sub-item"><%= nav_link Boxer.model_name.human(:count => 2), my_boxers_path, {}, {:url_segment => 1} %></li>
-                <% if current_user.admin? %>
-                  <li class="sub-item"><%= nav_link t('nav.request', count: 2), manage_path("open"), {}, {:url_segment => 1} %></li>
-                <% end %>
-                <li class="divider"></li>
-                <li class="sub-item"><%= link_to t('buttons.logout'), logout_path(current_user), method: :delete, :id => "logout" %></li>
-              </ul>
-            <% end %>
-            </li>
-            
-          <% end %>
-          
-        </ul>
-
-  
-      </div>      
-  
-      <div class="span10">
-  
+      <% if current_user %>
+        <%= render 'layouts/sidebar' %>
+      <% end %>
+      
+      <div class="main-content">
         <% if !flash.empty? %>
           <div id="flash">
             <% flash.keys.each do |k| %>
-              <div class="<%= k %> text-success">
+              <div class="<%= k %>">
                 <%= flash[k] %>
               </div>
             <% end %>
@@ -108,7 +62,6 @@
         <% end %>
   
         <%= yield %>
-
       </div>
       
     </div>

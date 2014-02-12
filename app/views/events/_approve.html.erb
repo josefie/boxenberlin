@@ -1,0 +1,26 @@
+<% if current_user && (@event.club_id == current_user.id) && (@event.approved.nil? || @event.approved == false) %>
+
+  <div class="approved info-section admin-section">
+    <% if @event.approved.nil? || @event.approved == false %>
+      <%= image_tag "pending.png", :alt => "Offen", :width => 20 %> <span>Diese Veranstaltung wurde noch nicht bestätigt</span>
+    <% end %>
+  </div>
+  
+<% elsif can? :approve, @event and !@event.approved then %>
+
+  <div class="approved info-section admin-section">
+    <legend>Genehmigung</legend>
+    <div id="approve-buttons" class="actions">
+      <%= form_for(@event, :remote => true, :class => "approve_form", :html => {:onsubmit => "approve_event()"}) do |f| %>
+        <%= f.hidden_field :approved, value: true %>
+        <%= f.submit t('buttons.approve'), :class => "btn btn-primary" %>
+      <% end %>
+
+      <%= form_for(@event, :remote => true, :class => "approve_form", :html => {:onsubmit => "decline_event()"}) do |f| %>
+        <%= f.hidden_field :approved, value: false %>
+        <%= f.submit t('buttons.decline'), :class => "btn btn-primary delete" %>
+      <% end %>
+    </div>
+  </div>
+        
+<% end %>

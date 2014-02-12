@@ -5,9 +5,9 @@
 <% end %>
 
 <ul class="nav nav-tabs">
-  <li><%= nav_link t('misc.host'), my_events_path("host") %></li>
-  <li><%= nav_link t('misc.participant'), my_events_path("participate") %></li>
-  <li><%= nav_link t('misc.archive'), my_events_path("archive") %></li>
+  <li><%= link_to t('misc.host'), my_events_path(:role => "host") %></li>
+  <li><%= link_to t('misc.participant'), my_events_path(:role => "participate") %></li>
+  <li><%= link_to t('misc.archive'), my_events_path(:role => "archive") %></li>
 </ul>
 
 <% if params[:role] == "host" %>

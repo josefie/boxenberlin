@@ -8,8 +8,13 @@ class Boxer < ActiveRecord::Base
   validates :fights_won, :numericality => {:only_integer => true, :greater_than_or_equal_to => 0}
   validates :fights_lost, :numericality => {:only_integer => true, :greater_than_or_equal_to => 0}
   validates :fights_drawn, :numericality => {:only_integer => true, :greater_than_or_equal_to => 0}
-  validates :date_of_birth, presence: true  
   validate :at_least_one_name
+  validates :date_of_birth, presence: true  
+  validates :weight, presence: true
+  validates :fights_won, presence: true
+  validates :fights_lost, presence: true
+  validates :fights_drawn, presence: true
+  validates :gender, :inclusion => {:in => [true, false]}
 
   def at_least_one_name
     if self.first_name.blank? && self.last_name.blank?

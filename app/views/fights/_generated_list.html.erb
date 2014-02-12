@@ -1,0 +1,53 @@
+<% unless @fights.empty? %>
+
+<div class="form-section">
+<legend>Matching Statistik</legend>
+<p>Matching Wert: <%= @stat.matching_value %></p>
+<p>Anteil zusammengesetzer Boxer: <%= @stat.percentage_matched %>%</p>
+</div>
+
+<table class="table table-hover">
+  <thead>
+    <tr class="">
+      <th>Differenz</th>
+      <th>Klassifizierung</th>
+      <th>Rote Ecke</th>
+      <th>Blaue Ecke</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @fights.each do |fight| %>
+      <tr>
+        <td>
+          Alter: <%= fight.get_age_distance.abs %><br>
+          Gewicht: <%= fight.get_weight_distance.round(1).abs %><br>
+          Leistung: <%= fight.get_performance_distance.abs %><br>
+          Priorität: <%= fight.priority %>
+        </td>
+        <td>
+          <% unless fight.get_age_class.nil? %>
+          <%= fight.get_age_class.title %><br>
+          <% end %>
+          <% unless fight.get_performance_class.nil? %>
+          <%= fight.get_performance_class.title %><br>
+          <% end %>
+        </td>
+        <td>
+          <%= render 'fights/boxer_data', opponent: fight.opponent_red %>
+        </td>
+        <td>
+          <%= render 'fights/boxer_data', opponent: fight.opponent_blue %>
+        </td>
+        <td>
+          <%#= link_to t('buttons.approve'), nil, :onclick => add_fight(@event, fight), :class => "btn" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% else %>
+<p>Es wurden noch keine passenden Kämpfe gefunden.</p>
+<% end %>

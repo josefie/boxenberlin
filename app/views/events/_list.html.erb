@@ -6,7 +6,6 @@
       <th><%= label_tag "Datum und Adresse" %></th>
       <th><%= label_tag "Teilnehmer und Anmeldefrist" %></th>
       <th><%= label_tag "Veranstalter" %></th>
-      <th><%= label_tag "genehmigt" %></th>
     </tr>
   </thead>
 
@@ -26,15 +25,6 @@
         Anmeldungen bis <%= format_date(event.get_deadline) %>
       </td>
       <td><%= unless event.club.nil? then event.club.name end %></td>
-      <td>
-        <% if event.approved %>
-          <%= image_tag "approved.png", :width => 40, :class => "icon" %>
-        <% elsif event.approved == false %>
-          <%= image_tag "declined.png", :width => 40, :class => "icon" %>
-        <% else %>
-          <%= image_tag "pending.png", :width => 40, :class => "icon" %>
-        <% end %>
-      </td>
     </tr>
     <% end %>
   </tbody>

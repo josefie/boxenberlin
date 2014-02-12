@@ -5,21 +5,24 @@
 }
 
 .buttons.btn-group a.btn, .btn {
-  color: $secondary-color;  
-  border-radius: 0;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border: $border;
-  background: transparent;  
+  color: #fff;
+  background: $dark-color;
+  padding: 5px 20px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border: none;
   margin-bottom: 20px;
   font-family: sawasdee;
   font-weight: bold;
   box-shadow: none;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
+  text-shadow: none;
   
   &:visited {
-    color: $secondary-color;
+    background: $dark-color;
+    color: #fff;
   }
   
   &:hover {
@@ -37,7 +40,38 @@
 }
 
 .btn-primary {
-  padding: 15px 30px 15px 30px;
+  padding: 15px 30px;
   font-size: 1.5em;
   line-height: 30px;
+  background: $main-color;
+  
+  &:visited {
+    background: $main-color;
+  }
+  
+  &:hover {
+    background: $dark-color;
+  }
+}
+
+#tabs {
+  font-family: sawasdee;
+  font-size: 1em;
+  margin-bottom: 20px;
+  
+  ul li a, ul li a:visited {
+    background-color: $dark-color;
+    color: #FFF;
+    font-family: sawasdee;
+    font-weight: bold;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    text-shadow: none;
+  
+    &:hover {
+      background: $secondary-color;
+      color: #fff;
+    }
+  }
 }

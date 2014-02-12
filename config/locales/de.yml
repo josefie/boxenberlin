@@ -264,7 +264,7 @@ de:
         contact_name: Ansprechpartner
         contact_phone: Telefon
         contact_mail: E-Mail
-        additional_info: Beschreibung der Veranstaltung
+        additional_info: Beschreibung
         admission: Eintritt
         admission_discounted: Ermäßigter Eintritt
         contact_name_public: öffentlich sichtbar?
@@ -306,7 +306,7 @@ de:
         name: Name
   nav:
     home: Startseite
-    calendar: Termine
+    calendar: Kalender
     dashboard: Mein Konto
     profile: Profil
     news: Neuigkeiten
@@ -358,7 +358,10 @@ de:
     female: weiblich
     general: Allgemein
     settings: Einstellungen
+    description: Beschreibung
   messages:
+    successful: "%{item} war erfolgreich."
+    failed: "%{item} ist fehlgeschlagen."
     creation_successful: "%{model} wurde erfolgreich erstellt."
     creation_failed: "%{model} konnte nicht erstellt werden."
     update_successful: "%{model} wurde erfolgreich aktualisiert."

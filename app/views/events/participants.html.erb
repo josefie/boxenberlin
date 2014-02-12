@@ -1,8 +1,0 @@
-<h2 class="page-title"><%= @boxers.count %> <%= t('misc.participant') %></h2>
-
-<% unless @boxers.empty? %>
-  <%= link_to Fight.model_name.human(count: 2), event_fights_path(@event), :class => "btn" %>
-  <%= render 'boxers/list' %>
-<% end %>
-
-<%#= link_to t('buttons.back'), event_path(@event), :class => "btn" %>

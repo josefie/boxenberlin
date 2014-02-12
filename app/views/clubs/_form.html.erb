@@ -10,49 +10,49 @@
       </ul>
     </div>
   <% end %>
-  
-  <ul class="nav nav-tabs">
-    <li><%= nav_link t('misc.general'), edit_profile_path %></li>
-    <li><%= nav_link t(Training.model_name.human), '#' %></li>
-    <li><%= nav_link t('misc.settings'), '#' %></li>
-  </ul>
 
-  <legend class="section-title"><%= t('misc.general') %></legend>
   
-  <div class="form-section">
+  <div id="tabs">
+  <ul class="nav nav-tabs">
+    <li><%= nav_link t('misc.general'), '#general' %></li>
+    <li><%= nav_link t(Training.model_name.human), '#training' %></li>
+    <li><%= nav_link t('misc.settings'), '#settings' %></li>
+  </ul>
+  
+  <div id="general" class="form-section">
+    <legend class="section-title"><%= t('misc.general') %></legend>
     
     <div class="form-group">
       <%= f.label :name, :class => "subtitle" %>
-      <%= f.text_field :name, :class => "form-controls" %>
+      <%= f.text_field :name, :class => "form-controls", :title => "Bitte geben Sie den Namen Ihres Vereins an." %>
     </div>
     
     <label class="subtitle"><%= t('misc.contact') %></label>
     
     <div class="form-group">
       <%= f.label :contact_name %>
-      <%= f.text_field :contact_name, :class => "form-controls" %>
+      <%= f.text_field :contact_name, :class => "form-controls", :title => "Bitte geben Sie den Namen eines Ansprechpartners an." %>
     </div>
     
     <div class="form-group">
       <%= f.label :contact_phone %>
-      <%= f.text_field :contact_phone, :class => "form-controls" %>
+      <%= f.text_field :contact_phone, :class => "form-controls", :title => "Bitte geben Sie eine Telefonnummer an." %>
     </div>
   
     <div class="form-group">
       <%= f.label :contact_mail %>
-      <%= f.text_field :contact_mail, :class => "form-controls" %>
+      <%= f.text_field :contact_mail, :class => "form-controls", :title => "Bitte geben Sie eine E-Mail-Adresse an." %>
     </div>
     
     <div class="form-group">
       <%= f.label :website %>
-      <%= f.text_field :website, :class => "form-controls" %>
+      <%= f.text_field :website, :class => "form-controls", :title => "Bitte geben Sie die URL der Website Ihres Vereins an." %>
     </div>
   
   </div>
   
-  <legend class="section-title"><%= Training.model_name.human %></legend>
-  
-  <div class="form-section">
+  <div id="training" class="form-section">
+    <legend class="section-title"><%= Training.model_name.human %></legend>
     
     <label class="subtitle"><%= Coach.model_name.human(:count => 2) %></label>
   
@@ -83,9 +83,19 @@
   
   </div>
   
+  <div id="settings" class="form-section">
+    <legend class="section-title"><%= t('misc.settings') %></legend>
+    
+    <% if can? :destroy, @club %>
+      <%= link_to "#{t('nav.profile')} #{t('buttons.destroy')}", @club, method: :delete, data: { confirm: t('messages.confirm_delete_profile') }, :class => "btn delete"  %>
+    <% end %>
+  </div>
+  
+  </div>
+  
   <div class="actions form-actions">
-    <%= f.submit t('buttons.save'), :class => "btn" %>
-    <%= link_to t('buttons.cancel'), my_profile_path, :class => "btn delete" %>
+    <%= f.submit t('buttons.save'), :class => "btn", :title => "Klicken zum Speichern Ihrer Änderungen." %>
+    <%= link_to t('buttons.cancel'), my_profile_path, :class => "btn delete", :title => "Klicken um die Bearbeitung abzubrechen." %>
   </div>
   
 <% end %>

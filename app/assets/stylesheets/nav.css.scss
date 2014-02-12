@@ -1,18 +1,48 @@
 @import "variables";
 
-#main-nav {
-  padding-right: 0;
+@mixin main-nav {
+  padding: 5px 0px;
+  margin: 0 -10px;
+  
+  li {
+    display: inline;
+    padding: 10px 0px;
+    margin: 0;
+  }
+  li > a {
+    display: inline;
+    width: 100%;
+    padding: 10px 20px;
+    margin: 0;
+  }
+  
   a#logout {
     color: #fff;
     &:hover {
       background: #D00;
     }
   }
-  
-  li.nav-header {
-    font-size: 14px;
-  }
+  float: left;
 }
+
+#nav-bar {
+  background: $dark-color;
+  height: 40px;
+}
+
+#main-nav {
+  @include main-nav;
+}
+
+#second-nav {
+  @include main-nav;
+  float: right;
+}
+
+.clear-div {
+  clear: both;
+}
+
 
 .nav li a, .nav li.divider {
   background: $dark-color;
@@ -39,5 +69,5 @@ li.sub-item {
 }
 
 .sub-menu {
-  padding: 5px 0 0 0;
+  padding: 5px 0 0 5px;
 }

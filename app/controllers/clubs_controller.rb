@@ -36,8 +36,8 @@ class ClubsController < ApplicationController
     authorize! :create, @club
     respond_to do |format|
       if @club.save
-        format.html { redirect_to edit_club_path(@club), notice: I18n.t('messages.signup_successful') }
         session[:club_id] = @club.id #log in
+        format.html { redirect_to edit_profile_path, notice: I18n.t('messages.signup_successful') }
         format.json { render action: 'show', status: :created, location: @club }
       else
         format.html { render action: 'new' }
@@ -74,7 +74,11 @@ class ClubsController < ApplicationController
   end
   
   def dashboard
-    @club = current_user
+    if current_user then
+      @club = current_user and return
+    else
+      redirect_to login_path
+    end
   end
 
   def my_profile

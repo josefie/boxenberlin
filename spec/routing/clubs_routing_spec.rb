@@ -14,9 +14,21 @@ describe ClubsController do
     it "routes to #create" do
       post("/clubs").should route_to("clubs#create")
     end
+    
+    it "routes to #update" do
+      put("/clubs/1").should route_to("clubs#update", :id => "1")
+    end
+
+    it "routes to #destroy" do
+      delete("/clubs/1").should route_to("clubs#destroy", :id => "1")
+    end
 
     it "routes to #show" do
       get("/clubs/1").should route_to("clubs#show", :id => "1")
+    end
+    
+    it "routes to #dashboard" do
+      get("/dashboard").should route_to("clubs#dashboard")
     end
     
     it "routes to #my_profile" do
@@ -24,15 +36,7 @@ describe ClubsController do
     end
 
     it "routes to #edit" do
-      get("/clubs/1/edit").should route_to("clubs#edit", :id => "1")
-    end
-
-    it "routes to #update" do
-      put("/clubs/1").should route_to("clubs#update", :id => "1")
-    end
-
-    it "routes to #destroy" do
-      delete("/clubs/1").should route_to("clubs#destroy", :id => "1")
+      get("/profile/edit").should route_to("clubs#edit")
     end
 
   end

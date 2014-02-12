@@ -9,9 +9,7 @@
 <% end %>
 </div>
 
-<div class="row">
-  
-<div class="info-section span5">
+<div>
   
 <legend><%= t('misc.general')%></legend>
 
@@ -55,13 +53,8 @@
 </p>
 
 </div>
-
-<%# if @boxer.active %>
-
-<div class="span4">
-
   <legend><%= t('misc.fight', count: 2) %></legend>
-  <div class="info-section infobox">
+  <div class="info-section">
 <p>
   <%= Boxer.human_attribute_name(:fights_won) %>:
   <%= @boxer.fights_won %></br>
@@ -79,11 +72,5 @@
     Nicht klassifiziert
   <% end %>
 </p>
-
-</div>
-
-</div>
-  
-<%# end %>
 
 </div>

@@ -1,0 +1,35 @@
+<% unless @event.date.nil? %>
+  <div class="info-field">
+    <strong><%= Event.human_attribute_name(:date) %>:</strong>
+    <%= format_date(@event.date) %>
+  </div>
+<% end %>
+
+<% unless @event.get_deadline.nil? %>
+  <div class="info-field">
+    <strong><%= Event.human_attribute_name(:deadline)%>:</strong>
+    <%= format_date(@event.get_deadline) %>
+  </div>
+<% end %>
+    
+<% unless @event.schedule_items.empty? %>
+  <div class="info-field">
+    <strong><%= Event.human_attribute_name(:schedule) %>:</strong><br>
+    <% @event.schedule_items.each do |si| %>
+      <%= si.label %>:
+      <%= format_time(si.time) %></br>
+    <% end %>
+  </div>
+<% end %>
+
+<% unless @event.location.nil? %>
+  <div class="info-field">
+    <strong><%= Event.human_attribute_name(:location) %>:</strong><br>
+    <address>
+      <%= @event.location.street %>
+      <%= @event.location.number %><br>
+      <%= @event.location.zip %>
+      <%= @event.location.city %>
+    </address>
+  </div>
+<% end %>

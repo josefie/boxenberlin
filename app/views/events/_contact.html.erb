@@ -1,0 +1,25 @@
+<div class="info-field">
+  <strong><%= t('misc.host') %>:</strong>
+  <%= link_to @event.club.name, club_path(@event.club.id), :class => "link" %>
+</div>
+    
+<% if @event.contact_name &&  @event.contact_name_public %>
+  <div class="info-field">
+    <strong><%= Event.human_attribute_name(:contact_name) %>:</strong>
+    <%= @event.contact_name %>
+  </div>
+<% end %>
+
+<% if @event.contact_phone && @event.contact_phone_public %>
+  <div class="info-field">
+    <strong><%= Event.human_attribute_name(:contact_phone) %>:</strong>
+    <%= @event.contact_phone %>
+  </div>
+<% end %>
+
+<% if @event.contact_mail && @event.contact_mail_public %>
+  <div class="info-field">
+    <strong><%= Event.human_attribute_name(:contact_mail) %>:</strong>
+    <a href="mailto:<%= @event.contact_mail %>"><%= @event.contact_mail %></a>
+  </div>
+<% end %>

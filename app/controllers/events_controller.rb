@@ -1,5 +1,6 @@
+# encoding: utf-8
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show, :edit, :update, :destroy, :apply, :send_application, :participants, :undo_application, :fights]
+  before_action :set_event, only: [:show, :edit, :update, :destroy, :send_application, :undo_application, :fights]
   before_action :parse_time, only: [:update, :create]
   
   Inf = 1.0 / 0.0
@@ -27,7 +28,18 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
   def show
-    @boxers_applied = @event.boxers.where('club_id = ?', current_user)
+    @boxers = @event.boxers
+    @my_boxers = Array.new
+    if current_user
+      current_user.boxers.each do |b|
+        unless b.events.include?(@event)
+          @my_boxers << b
+        end
+      end
+    end
+    
+    @fights = Array.new
+    
     @hash = Gmaps4rails.build_markers(@event) do |event, marker|
       marker.lat event.latitude
       marker.lng event.longitude
@@ -35,16 +47,22 @@ class EventsController < ApplicationController
     end
     
     @gmaps_options = {
-      "map_options" => {
-        "auto_zoom" => false,
-        "zoom" => 12,
-        "center_latitude" => @event.latitude,
-        "center_longitude" => @event.longitude
-      },
-      "markers" => {
-        "data" => @hash
-      }
+      "map_options" => { "auto_zoom" => false, "zoom" => 12, "center_latitude" => @event.latitude, "center_longitude" => @event.longitude },
+      "markers" => { "data" => @hash }
     }
+    
+    session[:return_to] = event_path(@event)
+  end
+  
+  def fights
+    ad = params[:age_distance] ? params[:age_distance].to_i : 2
+    wd = params[:weight_distance] ? params[:weight_distance].to_i : 2
+    sc = params[:same_club] == "1"
+    cs = params[:championship] == "1"
+    alg = 2
+    
+    @fights = @event.generate_fights(ad, wd, sc, cs, alg).sort! { |a,b| a.priority <=> b.priority }
+    @stat = @event.calc_stat(@fights)
   end
 
   # GET /events/new
@@ -162,7 +180,7 @@ class EventsController < ApplicationController
           @boxers << b
         end
       end
-      session[:return_to] = application_path(@event)
+      session[:return_to] = event_apply_path(@event)
     else
       redirect_to login_path
     end
@@ -171,20 +189,31 @@ class EventsController < ApplicationController
   def send_application
     authorize! :apply, @event
     unless params[:boxer_ids].nil? then
+      invalid_count = 0
       params[:boxer_ids].each do |id|
-        @event.boxers << Boxer.find_by_id(id)
+        boxer = Boxer.find_by_id(id)
+        if boxer.valid?
+          @event.boxers << boxer
+        else
+          invalid_count += 1
+        end
+      end
+      @event.save
+      if invalid_count > 0
+        redirect_to event_path(@event)
+        flash[:alert] = "#{invalid_count} Boxer konnte(n) nicht angemeldet werden. Bitte überpruefen Sie die Angaben und versuchen es erneut."
+      else
+        redirect_to @event, notice: I18n.t('messages.successful', :item => "Anmeldung der Boxer")
       end
     end
-    @event.save
-    redirect_to @event
   end
-  
+    
   def undo_application
     boxer = Boxer.find_by_id(params[:boxer_id])
     authorize! :apply, @event
     @event.boxers.delete(boxer)
     respond_to do |format|
-      format.html { redirect_to @event, notice: I18n.t('messages.deletion_successful', :model => "Anmeldung") }
+      format.html { redirect_to @event, notice: I18n.t('messages.successful', :item => "Abmeldung des Boxers") }
       format.json { head :no_content }
     end
   end

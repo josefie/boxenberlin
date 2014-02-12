@@ -2,7 +2,7 @@ $main-color: #22F;
 $secondary-color: #22F;/*#D00;*/
 $dark-color: #222;
 $background: #BCC;/*#fffeea;*/
-$border: 1px #999 solid;
+$border: 2px #222 solid;
 $app-fonts: sawasdee, verdana, arial, helvetica, sans-serif;
 
 @mixin table-row {
@@ -18,5 +18,23 @@ $app-fonts: sawasdee, verdana, arial, helvetica, sans-serif;
     a {
       color: #fff;
     }
+  }
+}
+
+@mixin navigation {
+  background: $dark-color;
+  padding: 5px 0px;
+  margin: 0 -10px;
+  
+  li {
+    display: inline;
+    padding: 10px 0px;
+    margin: 0;
+  }
+  li > a {
+    display: inline;
+    width: 100%;
+    padding: 10px 20px;
+    margin: 0;
   }
 }

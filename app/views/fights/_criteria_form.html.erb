@@ -1,0 +1,36 @@
+<%= form_tag(fights_event_path(@event), method: :post, id: "fights_form") do |f| %>
+  
+  <div class="form-section" id="championship">
+    <legend>Einstellungen</legend>
+    
+    <div class="form-group check">
+      <%= label_tag :championship, "Ist dies eine Meisterschaft oder ein Turnier?" %><br>
+      <%= radio_button_tag "championship", "1", params[:championship] == "1", :class => "form-controls", :onclick => "$('.no-championship').hide();" %>
+      <%= label_tag "Ja" %>
+      <%= radio_button_tag "championship", "0", params[:championship] == "0" || params[:championship].nil?, :class => "form-controls", :onclick => "$('.no-championship').show();" %>
+      <%= label_tag "Nein" %>
+    </div>
+    
+    <div class="form-group no-championship">
+      <%= label_tag :weight_distance, "Maximale Gewichtsdifferenz:" %>
+      <%= select_tag "weight_distance", options_for_select(0..8, params[:weight_distance] || 2), :class => "form-controls x-small-field" %>
+    </div>
+    <div class="form-group no-championship">
+      <%= label_tag :age_distance, "Maximale Altersdifferenz:" %>
+      <%= select_tag "age_distance", options_for_select(0..8, params[:age_distance] || 2), :class => "form-controls x-small-field" %>
+    </div>
+    <div class="form-group check no-championship">
+      <%= label_tag :same_club, "Dürfen Boxer aus demselben Verein gegeneinander kämpfen?" %><br>
+      <%= radio_button_tag "same_club", "1", params[:same_club] == "1", :class => "form-controls" %>
+      <%= label_tag "Ja" %>
+      <%= radio_button_tag "same_club", "0", params[:same_club] == "0" || params[:same_club].nil?, :class => "form-controls" %>
+      <%= label_tag "Nein" %>
+    </div>
+
+    <%#= hidden_field_tag "algorithm", :value => '2' %>
+    
+    <div class="form-group" id="generate-fight-submit">
+      <%= submit_tag "Kämpferliste generieren", :class => "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>

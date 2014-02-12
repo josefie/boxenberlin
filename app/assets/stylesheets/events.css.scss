@@ -15,6 +15,7 @@
   .event-day {
     font-size: 5em;
     font-weight: normal;
+
   }
   .event-title {
     font-size: 1.5em;
@@ -44,11 +45,26 @@
   }
 }
 
+#calendar-control {
+  display: inline;
+  .nav {
+    display: inline;
+    li a, li {
+      padding: 0;
+    }
+  }
+  margin: 0;
+}
+
 span#calendar-label {
-  font-size: 1.8em;
+  font-size: 2.5em;
   vertical-align: middle;
 }
 
 #map {
   margin-bottom: 20px;
+}
+
+#tabs .info-field {
+  margin: 20px 0;
 }

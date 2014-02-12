@@ -1,9 +1,18 @@
-<%= form_for(@event) do |f| %>
-  
-  <legend class="section-title">Weitere Informationen zur Veranstaltung</legend>
-  <label>Diese Informationen können auch später noch bearbeitet werden</label>
+<%= form_for @event do |f| %>
+  <% if @event.errors.any? %>
+    <div id="error_explanation">
+      <h2>Veranstaltung konnte nicht gespeichert werden:</h2>
+
+      <ul>
+      <% @event.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
   
   <div class="form-section">
+  <legend class="section-title">Weitere Informationen</legend>
     
     <div class="form-group">
       <%= f.label :deadline, :class => "subtitle" %>
@@ -14,23 +23,6 @@
       <%= f.label :additional_info, :class => "subtitle" %>
       <%= f.text_area :additional_info, :rows => "5", :class => "form-controls large-field" %>
     </div>
-    
-    <!--
-    <div class="form-group">
-      <%= f.label :admission, :class => "subtitle" %>
-      
-      <div class="input-append">
-        <%= f.label t('misc.default') %>
-        <%= f.text_field :admission, :class => "form-controls small-field" %>
-        <label class="add-on">€</label>
-      </div>
-      <div class="input-append">
-        <%= f.label t('misc.discounted') %>
-        <%= f.text_field :admission_discounted, :class => "form-controls small-field" %>
-        <label class="add-on">€</label>
-      </div>
-    </div>
-    -->
   
     <div class="form-group input-append">
       <%= f.label :fee, :class => "subtitle" %>
@@ -52,6 +44,7 @@
   
   <div class="actions form-actions">
     <%= f.submit t('buttons.save'), :class => "btn" %>
-    <%= link_to t('buttons.cancel'), my_events_path("host"), :class => "btn delete" %>
+    <%= link_to t('buttons.cancel'), my_events_path(:role => "host"), :class => "btn delete" %>
   </div>
+  
 <% end %>

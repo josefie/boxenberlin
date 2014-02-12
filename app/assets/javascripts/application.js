@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
+//= require jquery.ui.all
 
 //= require_tree .
 //= require underscore
@@ -20,10 +21,6 @@
 
 //= require jquery.turbolinks
 //= require turbolinks
-  
-  function myFunction() {
-    alert("Hi");
-  }
 
   function remove_element(link) {
     event.preventDefault();
@@ -80,3 +77,12 @@
       });
     });
   }
+  
+  $(function() {
+    $( "#tabs" ).tabs({ selected: $("#tabs").data("selected") });
+  });
+  
+  $(function() {
+    $(".form-controls").tooltip().off("mouseover mouseout");
+  });
+  

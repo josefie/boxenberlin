@@ -1,6 +1,6 @@
 <h2 class="page-title"><%= Fight.model_name.human(count: 2) %> (<%= @fights.count %>)</h2>
 
-<%= form_tag(event_fights_path(@event), method: :get, id: "fights_form") do |f| %>
+<%= form_tag(fights_event_path(@event), method: :post, id: "fights_form") do |f| %>
   
   <div class="form-section" id="championship">
     <legend>Einstellungen</legend>

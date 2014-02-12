@@ -6,9 +6,7 @@
       <th><%= Boxer.human_attribute_name(:weight) %></th>
       <th>
         <%= t('misc.fight', count: 2) %> 
-
       </th>
-      <th></th>
       <th></th>
     </tr>
   </thead>
@@ -25,9 +23,14 @@
       <td><%= localize boxer.date_of_birth %> (<%= boxer.get_age %> Jahre)</td>
       <td><%= boxer.weight.to_i %> kg</td>
       <td><strong><%= Boxer.human_attribute_name(:fights_won) %>:</strong> <%= boxer.fights_won %><br>
-          <%= Boxer.human_attribute_name(:fights_lost) %>: <%= boxer.fights_lost %><br>
-          <%= Boxer.human_attribute_name(:fights_drawn) %>: <%= boxer.fights_drawn %></td>
-      <td><% if boxer.active then %>aktiv<% end %></td>
+          <strong><%= Boxer.human_attribute_name(:fights_lost) %>:</strong> <%= boxer.fights_lost %><br>
+          <strong><%= Boxer.human_attribute_name(:fights_drawn) %>:</strong> <%= boxer.fights_drawn %>
+      </td>
+      <% if controller?('events') && action?('show') && boxer.club_id == current_user.id %>
+        <td><%= link_to t('buttons.undo_application'), undo_apply_event_path(@event.id, boxer.id), method: :delete, data: { confirm: t('messages.confirm_delete') }, :class => "btn delete" %></td>
+      <% else %>
+        <td></td>
+      <% end %>
     </tr>
     <% end %>
   </tbody>

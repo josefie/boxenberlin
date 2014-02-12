@@ -20,6 +20,7 @@ gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
@@ -47,7 +48,7 @@ group :test do
   gem 'factory_girl_rails', "~> 4.2.1"
   gem 'guard-rspec'
   gem "database_cleaner", "~> 1.2.0"
-  gem "capybara-webkit"
+  #gem "capybara-webkit"
 end
 
 gem "bcrypt-ruby", "~> 3.0.1"

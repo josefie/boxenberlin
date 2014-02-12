@@ -1,14 +1,25 @@
 @import "variables";
 
-.container {
+body {
   background-color: $background;
-/*  box-shadow: #999 0px 2px 20px;*/
-  padding: 0 10px 0 10px;
-  min-height: 100%;
 }
 
-#flash {
-  color: #00aa00;
+.container {
+  background-color: $background;
+  padding: 0 10px 0 10px;
+  min-height: 100%;
+  min-width: 960px;
+  max-width: 960px;
+}
+
+.sidebar {
+  float: left;
+  width: 180px;
+}
+
+.main-content {
+  float: right;
+  width: 760px;
 }
 
 #header {
@@ -18,8 +29,6 @@
   text-align: center;
   text-transform: uppercase;
   margin-top: 0;
-  margin-left: -10px;
-  margin-right: -10px;
 }
 
 h1, h2, h3, .nav a {
@@ -32,19 +41,12 @@ h2.page-title {
   line-height: 50px;
 }
 
-.infobox {
-  padding: 20px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  border: $border;
-}
-
 label {
   cursor: default;
 }
 
 .subtitle {
-  font-weight: normal;
+  font-weight: bold;
   font-size: 16px;
   margin-bottom: 10px;
   margin-top: 10px;
@@ -71,4 +73,16 @@ ul {
   li {
     list-style-type: none;
   }
+}
+
+label {
+  font-weight: bold;
+}
+
+.admin-section {
+  background: #DD7D7D;
+  padding: 20px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
 }

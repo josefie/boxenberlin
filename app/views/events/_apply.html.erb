@@ -1,0 +1,49 @@
+<% unless @my_boxers.empty? %>
+
+<legend class="section-title">Boxer anmelden:</legend>
+
+<%= form_tag apply_event_path(@event), method: :post do %>
+
+<table class="table">
+  <thead>
+    <th class="checkbox-column"></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </thead>
+  <tbody>
+
+    <% @my_boxers.each do |boxer| %>
+      <tr>
+        <td><%= check_box_tag "boxer_ids[]", boxer.id %></td>
+        <td><%= boxer.get_name %></td>
+        <td><%= localize boxer.date_of_birth %> (<%= boxer.get_age %> Jahre)</td>
+        <td><%= boxer.weight.to_i %> kg</td>
+        <td><strong><%= Fight.model_name.human(count: 2) %>: </strong><%= boxer.number_of_fights %> (<%= boxer.fights_won %>/<%= boxer.fights_lost %>/<%= boxer.fights_drawn %>)<br></td>
+        <td><%= link_to t('buttons.edit'), edit_boxer_path(boxer), :class => "btn" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "Weiteren Boxer erfassen?", new_boxer_path, :class => "link" %>
+
+<div class="actions form-actions">
+  <%= submit_tag t('buttons.apply', :item => "Jetzt"), :method => :post, :action => 'send_application', :event_id => @event, :class => "btn btn-primary" %>
+</div>
+
+<% end %>
+
+<% else %>
+
+  <label class="subtitle">Sie haben noch keine Boxer in Ihrer Liste.</label>
+  <%= link_to "Neuen Boxer hinzufügen", new_boxer_path, :class => "btn" %>
+
+<% end %>
+
+<legend class="section-title">Teilnehmerliste (<%= @boxers.count %>):</legend>
+<% unless @event.boxers.empty? %>
+  <%= render 'boxers/list' %>
+<% end %>

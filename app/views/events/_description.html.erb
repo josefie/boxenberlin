@@ -1,0 +1,26 @@
+<% unless @event.additional_info.blank? %>
+  <div class="info-field">
+    <strong><%= Event.human_attribute_name(:additional_info) %>:</strong><br>
+    <%= @event.additional_info %>
+  </div>
+<% end %>
+
+<% unless @event.fee.blank? %>
+  <div class="info-field">
+    <strong><%= Event.human_attribute_name(:fee) %>:</strong>
+    <%= @event.fee %> €
+  </div>
+<% end %>
+
+<div class="info-field">
+  <strong>Zugelassene Alters- und <%= PerformanceClass.model_name.human(count: 2) %>:</strong><br>
+  <% unless @event.performance_classes.empty? then %>
+    <ul>
+      <% @event.performance_classes.each do |pc| %>
+        <li><%= pc.title %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    alle
+  <% end %>
+</div>

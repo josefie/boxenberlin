@@ -1,0 +1,25 @@
+    
+  <% if controller?('events') && action?('index') %>
+  <div class="sidebar">
+    <ul class="nav nav-list">
+      <% 12.times do |n| %>
+        <li class="sub-item"><%= nav_link localize(Date.today + n.month, :format => '%B %Y'), calendar_path(Date.today + n.month) %></li>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+  <% if current_user && action?('my_events') || action?('my_boxers') || action?('my_profile') || action?('dashboard') %>
+  <div class="sidebar">
+    <ul class="nav nav-list">
+      <li class="main-item"><%= nav_link t('nav.dashboard'), dashboard_path %>
+      <li class="sub-item"><%= nav_link t('nav.profile'), my_profile_path %></li>
+      <li class="sub-item"><%= nav_link Event.model_name.human(:count => 2), my_events_path("host") %></li>
+      <li class="sub-item"><%= nav_link Boxer.model_name.human(:count => 2), my_boxers_path %></li>
+      <% if current_user.admin? %>
+        <li class="sub-item"><%= nav_link t('nav.request', count: 2), manage_path("open") %></li>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
+      

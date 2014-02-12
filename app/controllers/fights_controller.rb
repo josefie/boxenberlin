@@ -5,7 +5,7 @@ class FightsController < ApplicationController
   # GET /fights.json
   def index
     if current_user then
-      @event = Event.find(params[:event_id])
+      @event = Event.find(params[:id])
       authorize! :create_fights, @event
     
       #generate_fights(age_distance, weight_distance, same_club, championship, algorithm)

@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
     
     if club && club.authenticate(params[:password])
       session[:club_id] = club.id
-      redirect_to dashboard_path, notice: I18n.t('messages.login_successful')
+      redirect_to dashboard_path, notice: I18n.t('messages.successful', :item => 'Anmeldung')
     else
       flash.now[:alert] = I18n.t('messages.login_failed')
       render action: 'new'
@@ -18,6 +18,6 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:club_id] = nil
-    redirect_to root_url, notice: I18n.t('messages.logout_successful')
+    redirect_to root_url, notice: I18n.t('messages.successful', :item => 'Abmeldung')
   end
 end

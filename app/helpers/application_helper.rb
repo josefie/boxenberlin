@@ -1,7 +1,8 @@
+#ruby encoding: utf-8
 module ApplicationHelper
   
   def link_to_remove_fields(name, f)
-    f.hidden_field(:_destroy) + link_to(name, "#", :onclick => "remove_element(this)", :class => "btn remove-element-btn delete")
+    f.hidden_field(:_destroy) + link_to(name, "#", :onclick => "remove_element(this)", :class => "btn remove-element-btn delete", :title => "Klicken um diesen Eintrag zu entfernen.")
   end
   
   def link_to_add_fields(name, f, association)
@@ -9,7 +10,7 @@ module ApplicationHelper
     fields = f.fields_for(association, new_object, :child_index => "new_#{association}") do |builder|
       render(association.to_s.singularize + "_fields", :f => builder)
     end
-    link_to(name, "#",  :onclick => "add_elements(this, \"#{association}\", \"#{escape_javascript(fields)}\")", :class => "btn")
+    link_to(name, "#",  :onclick => "add_elements(this, \"#{association}\", \"#{escape_javascript(fields)}\")", :class => "btn", :title => "Klicken um einen weiteren Eintrag hinzuzufügen.")
   end
   
   def format_date(date)
