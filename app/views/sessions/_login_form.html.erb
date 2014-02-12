@@ -1,5 +1,7 @@
 <%= form_tag login_path do %>
   
+<div class="form-section">
+  
   <div class="form-group">
     <label><%= t('activerecord.attributes.club.contact_mail') %></label>
     <%= text_field_tag :email, params[:email], :class => "form-controls" %>
@@ -14,4 +16,6 @@
   
   <%= link_to "Noch kein Vereinskonto?", signup_path, :class => "link" %>
   
+</div>
+
 <% end %>

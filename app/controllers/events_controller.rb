@@ -63,6 +63,8 @@ class EventsController < ApplicationController
     
     @fights = @event.generate_fights(ad, wd, sc, cs, alg).sort! { |a,b| a.priority <=> b.priority }
     @stat = @event.calc_stat(@fights)
+    
+    redirect_to @event
   end
 
   # GET /events/new
@@ -201,7 +203,7 @@ class EventsController < ApplicationController
       @event.save
       if invalid_count > 0
         redirect_to event_path(@event)
-        flash[:alert] = "#{invalid_count} Boxer konnte(n) nicht angemeldet werden. Bitte überpruefen Sie die Angaben und versuchen es erneut."
+        flash[:alert] = "#{invalid_count} Boxer konnte(n) nicht angemeldet werden. Bitte überprüfen Sie die Vollständigkeit der Angaben und versuchen es dann erneut."
       else
         redirect_to @event, notice: I18n.t('messages.successful', :item => "Anmeldung der Boxer")
       end

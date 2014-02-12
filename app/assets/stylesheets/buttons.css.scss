@@ -5,8 +5,8 @@
 }
 
 .buttons.btn-group a.btn, .btn {
-  color: #fff;
-  background: $dark-color;
+  @include button-color;
+  
   padding: 5px 20px;
   border-radius: 4px;
   -webkit-border-radius: 4px;
@@ -19,20 +19,6 @@
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   text-shadow: none;
-  
-  &:visited {
-    background: $dark-color;
-    color: #fff;
-  }
-  
-  &:hover {
-    background: $secondary-color;
-    color: #fff;
-  }
-  
-  &.delete:hover {
-    background: #D00;
-  }
 }
 
 .btn.remove-element-btn {
@@ -43,15 +29,6 @@
   padding: 15px 30px;
   font-size: 1.5em;
   line-height: 30px;
-  background: $main-color;
-  
-  &:visited {
-    background: $main-color;
-  }
-  
-  &:hover {
-    background: $dark-color;
-  }
 }
 
 #tabs {
@@ -69,9 +46,13 @@
     -moz-box-shadow: none;
     text-shadow: none;
   
-    &:hover {
+    &:hover, &:active, &:visited {
       background: $secondary-color;
       color: #fff;
     }
+  }
+  
+  .btn {
+    @include button-color;
   }
 }

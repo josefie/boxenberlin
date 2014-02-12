@@ -41,4 +41,28 @@ module ApplicationHelper
     fight.destroy
   end
   
+  def calendar_nav
+    if controller?('events') && action?('index')
+      return true
+    end
+    return false
+  end
+  
+  def dashboard_nav
+    if (current_user && (
+      action?('my_events') ||
+      action?('my_boxers') ||
+      action?('my_profile') ||
+      action?('manage') ||
+      action?('dashboard') ||
+      (controller?('events') && (action?('new') || action?('edit') || action?('create') || action?('update') || action?('destroy'))) ||
+      (controller?('events') && action?('show') && @event.club_id == current_user.id ) ||
+      (controller?('clubs') && action?('edit')) ||
+      (controller?('boxers') && (action?('new') || action?('edit') || action?('create') || action?('update') || action?('destroy'))) ||
+      (controller?('boxers') && action?('show') && @boxer.club_id == current_user.id )
+      ))
+      return true
+    end
+    return false
+  end
 end

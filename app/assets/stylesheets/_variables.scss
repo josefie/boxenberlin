@@ -1,7 +1,8 @@
 $main-color: #22F;
-$secondary-color: #22F;/*#D00;*/
+$secondary-color: #22F;
 $dark-color: #222;
-$background: #BCC;/*#fffeea;*/
+$background: #BCC;
+$red-color: #D00;
 $border: 2px #222 solid;
 $app-fonts: sawasdee, verdana, arial, helvetica, sans-serif;
 
@@ -36,5 +37,37 @@ $app-fonts: sawasdee, verdana, arial, helvetica, sans-serif;
     width: 100%;
     padding: 10px 20px;
     margin: 0;
+  }
+}
+
+@mixin button-color {
+  background: $dark-color;
+  color: #fff;
+  
+  &:visited {
+    background: $dark-color;
+    color: #fff;
+  }
+  
+  &:hover, &:active {
+    background: $secondary-color;
+    color: #fff;
+  }
+    
+  &.delete:hover, &.delete:active {
+    background: $red-color;
+    color: #fff;
+  }
+  
+  &.btn-primary {
+    background: $main-color;
+    
+    &:visited {
+      background: $main-color;
+    }
+  
+    &:hover, &:active {
+      background: $dark-color;
+    }
   }
 }

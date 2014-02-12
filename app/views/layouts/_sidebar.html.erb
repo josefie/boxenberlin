@@ -1,5 +1,5 @@
     
-  <% if controller?('events') && action?('index') %>
+  <% if calendar_nav %>
   <div class="sidebar">
     <ul class="nav nav-list">
       <% 12.times do |n| %>
@@ -9,7 +9,7 @@
   </div>
   <% end %>
 
-  <% if current_user && action?('my_events') || action?('my_boxers') || action?('my_profile') || action?('manage') || action?('dashboard') %>
+  <% if dashboard_nav %>
   <div class="sidebar">
     <ul class="nav nav-list">
       <li class="main-item"><%= nav_link t('nav.dashboard'), dashboard_path %>

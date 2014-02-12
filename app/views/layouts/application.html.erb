@@ -22,10 +22,10 @@
 
 <body>
   
-  <%= link_to "<h1 id='header'>Berliner Boxverband</h1>".html_safe, root_path %>
+  <%#= link_to "<h1 id='header'>Berliner Boxverband</h1>".html_safe, root_path %>
 
-  <div class="container">
-    <div id="nav-bar">
+  <div id="nav-bar">
+      <div>
       <ul id="main-nav" class="nav nav-list">
         <li class="main-item"><%= nav_link t('nav.news'), news_path %></li>
         <li class="main-item"><%= nav_link Club.model_name.human(:count => 2), clubs_path, {}, {:url_segment => 1} %></li>
@@ -39,28 +39,35 @@
           <li class="second-item"><%= link_to t('buttons.logout'), logout_path(current_user), method: :delete, :id => "logout" %></li>
         <% end %>
       </ul>
+      </div>
     </div>
     <div class="clear-div"></div>
     
-    <%= debug params %>
+  <div class="container">
     
-    <div class="content">
+    <%#= debug params %>
+    
+    <div id="content">
 
-      <% if current_user %>
+      <% if calendar_nav || dashboard_nav %>
         <%= render 'layouts/sidebar' %>
+        <div class="main-content narrow">
+      <% else %>
+        <div class="main-content wide">
       <% end %>
       
-      <div class="main-content">
+      <div id="flash">
         <% if !flash.empty? %>
-          <div id="flash">
+        
             <% flash.keys.each do |k| %>
               <div class="<%= k %>">
                 <%= flash[k] %>
               </div>
             <% end %>
-          </div>
+          
         <% end %>
-  
+        </div>
+        
         <%= yield %>
       </div>
       

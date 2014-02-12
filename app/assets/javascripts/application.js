@@ -36,20 +36,15 @@
   }
   
   function approve_event() {
-/*    event.preventDefault();*/
-
     $("approve_form").submit();
-    $('#approve-buttons').hide();
-    //$('#flash.notice').append("Approved!");
-    alert("Veranstaltung genehmigt!");
+    $('.approved.info-section').hide();
+    $('#flash').html("<div class='notice'>Veranstaltung genehmigt.</div>")
   }
   
   function decline_event() {
-/*    event.preventDefault();*/
-
     $("approve_form").submit();
-    $('#approve-buttons').hide();
-    alert("Veranstaltung abgelehnt!");
+    $('.approved.info-section').hide();
+    $('#flash').html("<div class='notice'>Veranstaltung abgelehnt.</div>")
   }
   
   $("tr[data-link]").click(function() {
@@ -69,14 +64,11 @@
     }
   }
   
-  function selectAll() {
-    alert("test select all");
-    $("#check-all").click(function() {
-      $("#boxer_ids[]").each(function() {
-        $(this).prop("checked");
-      });
+  $(function () {
+    $('.checkall').on('click', function () {
+        $(this).closest('tbody').find(':checkbox').prop('checked', this.checked);
     });
-  }
+  });
   
   $(function() {
     $( "#tabs" ).tabs({ selected: $("#tabs").data("selected") });

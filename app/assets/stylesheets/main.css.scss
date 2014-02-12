@@ -10,6 +10,7 @@ body {
   min-height: 100%;
   min-width: 960px;
   max-width: 960px;
+  margin-top: 20px;
 }
 
 .sidebar {
@@ -18,11 +19,17 @@ body {
 }
 
 .main-content {
-  float: right;
-  width: 760px;
+  &.narrow {
+    float: right;
+    width: 760px;
+  }
+  &.wide {
+    width: 100%;
+  }
 }
 
 #header {
+  display: none;
   background: #222;
   color: #FFF;
   font-size: 1.5em;

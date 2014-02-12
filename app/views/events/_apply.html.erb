@@ -14,7 +14,10 @@
     <th></th>
   </thead>
   <tbody>
-
+    <tr>
+      <td><input type="checkbox" class="checkall"></td>
+      <td colspan="5">Alle</td>
+    </tr>
     <% @my_boxers.each do |boxer| %>
       <tr>
         <td><%= check_box_tag "boxer_ids[]", boxer.id %></td>

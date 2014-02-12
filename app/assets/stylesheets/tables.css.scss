@@ -1,3 +1,5 @@
+@import "variables";
+
 .checkbox-column {
   width: 10px;
 }
@@ -9,5 +11,47 @@
   &:first-child {
     text-align: left;
     padding-right: 10px;
+  }
+}
+
+.boxer-row {
+  @include table-row;
+  &:hover > td {
+    color: $dark-color;
+    a {
+      color: $dark-color;
+    }
+  }
+  
+  td {
+    vertical-align: middle;
+  }
+}
+
+.inactive, .inactive a, .inactive a:visited {
+  color: #777;
+}
+
+.active, .active a, .active a:visited {
+  
+}
+
+/*a:visited.boxer_active,
+a.boxer_active {
+  color: #0a0;
+}
+
+a:visited.boxer_inactive,
+a.boxer_inactive {
+  color: #bbb;
+}*/
+
+.club-row {
+  @include table-row;
+  &:hover > td {
+    color: $dark-color;
+    a {
+      color: $dark-color;
+    }
   }
 }
