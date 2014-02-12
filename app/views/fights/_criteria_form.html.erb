@@ -1,6 +1,6 @@
 <%= form_tag(fights_event_path(@event), method: :post, id: "fights_form") do |f| %>
   
-  <div class="form-section" id="championship">
+  <div id="championship">
     <legend>Einstellungen</legend>
     
     <div class="form-group check">
@@ -30,7 +30,7 @@
     <%#= hidden_field_tag "algorithm", :value => '2' %>
     
     <div class="form-group" id="generate-fight-submit">
-      <%= submit_tag "Kämpferliste generieren", :class => "btn btn-primary" %>
+      <%= submit_tag "Kampfliste generieren", :class => "btn btn-primary" %>
     </div>
   </div>
 <% end %>

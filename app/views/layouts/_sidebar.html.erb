@@ -16,18 +16,14 @@
         
       <li class="sub-item"><%= nav_link t('nav.profile'), my_profile_path, :class => controller?('clubs') && action?('edit') ? 'selected' : '' %></li>
       
+      <li class="sub-item"><%= nav_link Boxer.model_name.human(:count => 2), my_boxers_path, :class => controller?('boxers') ? 'selected' : '' %></li>
+      
       <li class="sub-item"><%= nav_link Event.model_name.human(:count => 2), my_events_path("host"), :class => my_events_nav ? 'selected' : '' %></li>
       <% if my_events_nav %>
         <ul class="nav nav-list sub-menu">
           <li class="sub-item"><%= nav_link t('misc.host'), my_events_path("host") %></li>
           <li class="sub-item"><%= nav_link t('misc.participant'), my_events_path("participate") %></li>
           <li class="sub-item"><%= nav_link t('misc.archive'), my_events_path("archive") %></li>
-        </ul>
-      <% end %>
-      
-      <li class="sub-item"><%= nav_link Boxer.model_name.human(:count => 2), my_boxers_path, :class => controller?('boxers') ? 'selected' : '' %></li>
-      <% if action?('my_boxers') %>
-        <ul class="nav nav-list sub-menu">
         </ul>
       <% end %>
       

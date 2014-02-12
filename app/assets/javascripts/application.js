@@ -71,7 +71,7 @@
   });
   
   $(function() {
-    $( "#tabs" ).tabs({ selected: $("#tabs").data("selected") });
+    $( "#tabs" ).tabs({ active: $("#tabs").data("tab") });
   });
   
   $(function() {

@@ -16,7 +16,7 @@
     
     <%= render 'approve' %>
     
-    <div id="tabs" data-selected="<%= params[:selected] || 1 %>">
+    <div id="tabs" data-tab="<%= params[:tab] || 0 %>">
       <ul class="nav nav-tabs">
         <li><%= nav_link t('misc.general'), '#general' %></li>
         <li><%= nav_link t('misc.description'), '#description' %></li>

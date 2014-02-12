@@ -102,12 +102,15 @@ class Event < ActiveRecord::Base
       fights = maximal_inclusion_matching(fights)
     elsif algorithm == 2 then
       fights = maximum_weight_matching(fights)
-    elsif algorithm == 3 then
-      fights = maximum_cardinality_matching(fights)
     else
-      return fights
+      fights = maximum_cardinality_matching(fights)
     end
     
+    self.fights.delete_all #todo: exclude approved fights and remove from participants
+    
+    fights.each do |f|
+      f.save
+    end
     return fights
   end
   

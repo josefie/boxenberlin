@@ -38,7 +38,8 @@ class EventsController < ApplicationController
       end
     end
     
-    @fights = Array.new
+    @fights = Fight.where(event_id: @event.id)
+    @stat = @event.calc_stat(@fights)
     
     @hash = Gmaps4rails.build_markers(@event) do |event, marker|
       marker.lat event.latitude
@@ -61,10 +62,8 @@ class EventsController < ApplicationController
     cs = params[:championship] == "1"
     alg = 2
     
-    @fights = @event.generate_fights(ad, wd, sc, cs, alg).sort! { |a,b| a.priority <=> b.priority }
-    @stat = @event.calc_stat(@fights)
-    
-    redirect_to @event
+    fights = @event.generate_fights(ad, wd, sc, cs, alg).sort! { |a,b| a.priority <=> b.priority }    
+    redirect_to event_path(@event, :tab => "4")
   end
 
   # GET /events/new
@@ -148,15 +147,6 @@ class EventsController < ApplicationController
     end
   end
   
-  def participants
-    if current_user then
-      @boxers = @event.boxers
-      authorize! :read, Boxer
-    else
-      redirect_to login_path
-    end
-  end
-  
   def manage
     if current_user then
       authorize! :approve, Event
@@ -167,22 +157,6 @@ class EventsController < ApplicationController
       elsif params[:status] == "open" then
         @events = Event.where(:approved => nil)
       end
-    else
-      redirect_to login_path
-    end
-  end
-  
-  def apply
-    if current_user then
-      authorize! :apply, @event
-      @events = [@event]
-      @boxers = Array.new
-      current_user.boxers.each do |b|
-        unless b.events.include?(@event)
-          @boxers << b
-        end
-      end
-      session[:return_to] = event_apply_path(@event)
     else
       redirect_to login_path
     end

@@ -1,10 +1,13 @@
 <% unless @fights.empty? %>
 
-<div class="form-section">
-<legend>Matching Statistik</legend>
+<div>
+<legend>Statistik</legend>
+
+<p>Es wurden <%= @fights.count %> Kämpfe gefunden.</p>
 <p>Matching Wert: <%= @stat.matching_value %></p>
 <p>Anteil zusammengesetzer Boxer: <%= @stat.percentage_matched %>%</p>
-</div>
+
+<legend>Vorgeschlagene Kämpfe</legend>
 
 <table class="table table-hover">
   <thead>
@@ -51,3 +54,5 @@
 <% else %>
 <p>Es wurden noch keine passenden Kämpfe gefunden.</p>
 <% end %>
+
+</div>
