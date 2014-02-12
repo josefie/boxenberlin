@@ -29,10 +29,10 @@
       <ul id="main-nav" class="nav nav-list">
         <li class="main-item"><%= nav_link t('nav.news'), news_path %></li>
         <li class="main-item"><%= nav_link Club.model_name.human(:count => 2), clubs_path, {}, {:url_segment => 1} %></li>
-        <li class="main-item"><%= nav_link t('nav.calendar'), calendar_path, {}, {:url_segment => 1} %></li>
+        <li class="main-item"><%= nav_link t('nav.calendar'), calendar_path, :class => calendar_nav ? 'selected' : '' %></li>
       </ul>
       <ul id="second-nav" class="nav nav-list">
-        <li class="second-item"><%= nav_link t('nav.dashboard'), dashboard_path %>
+      <li class="second-item"><%= nav_link t('nav.dashboard'), dashboard_path, :class => dashboard_nav ? 'selected' : '' %>
         <% if current_user.nil? %>
           <li class="second-item"><%= nav_link t('buttons.sign_up'), signup_path %></li>
         <% else %>
