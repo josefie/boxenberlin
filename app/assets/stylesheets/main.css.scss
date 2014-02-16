@@ -46,6 +46,11 @@ h2.page-title {
   color: $main-color;
   font-size: 3em;
   line-height: 50px;
+  
+  &.row-icon {
+    display: inline-block;
+    float: left;
+  }
 }
 
 label {
@@ -98,4 +103,8 @@ label {
   background: #DDD;
   padding: 10px;
   margin-bottom: 20px;
+  
+  img {
+    margin: 10px;
+  }
 }

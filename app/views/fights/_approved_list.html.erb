@@ -1,0 +1,16 @@
+<div>
+<legend class="section-title">Bestätigte <%= Fight.model_name.human(:count => 2) %></legend>
+<% unless @fights_approved.empty? %>
+
+<div>
+  <% @fights_approved.each do |fight| %>
+    <%= render 'fights/preview', :object => fight, fight: fight %>
+  <% end %>
+</div>
+<% else %>
+<div class="info-box">
+  <%= image_tag "info.png", :width => "15" %> <span>Es wurden noch keine Kämpfe bestätigt.</span>
+</div>
+<% end %>
+
+</div>

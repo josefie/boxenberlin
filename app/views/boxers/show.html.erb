@@ -1,13 +1,17 @@
-<h2 class="page-title"><%= @boxer.get_name %></h2>
+<h2 class="page-title row-icon"><%= @boxer.get_name %></h2>
 
-<div class="buttons">
+<div class="buttons icons">
 <% if can? :update, @boxer %>
-  <%= link_to t('buttons.edit'), edit_boxer_path(@boxer), :class => "btn" %>
+  <%= link_to image_tag('edit.png', width: "25", alt: t('buttons.edit')), edit_boxer_path(@boxer), :class => "icon", :title => "Boxer bearbeiten" %>
+  <%#= link_to t('buttons.edit'), edit_boxer_path(@boxer), :class => "btn" %>
 <% end %>
 <% if can? :destroy, @boxer %>
-  <%= link_to t('buttons.destroy'), @boxer, method: :delete, data: { confirm: t('messages.confirm_delete') }, :class => "btn delete" %>
+  <%= link_to image_tag('delete.png', width: "25", alt: t('buttons.destroy')), boxer_path(@boxer), method: :delete, data: { confirm: t('messages.confirm_delete') }, :class => "icon delete", :title => "Boxer löschen" %>
+  <%#= link_to t('buttons.destroy'), @boxer, method: :delete, data: { confirm: t('messages.confirm_delete') }, :class => "btn delete" %>
 <% end %>
 </div>
+
+<div class="clear-div"></div>
 
 <div>
   

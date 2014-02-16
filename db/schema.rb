@@ -96,8 +96,8 @@ ActiveRecord::Schema.define(version: 20140214174842) do
   create_table "fights", force: true do |t|
     t.boolean  "approved"
     t.integer  "event_id"
-    t.integer  "opponent_red"
-    t.integer  "opponent_blue"
+    t.integer  "opponent_red",  null: false
+    t.integer  "opponent_blue", null: false
     t.integer  "priority"
     t.datetime "created_at"
     t.datetime "updated_at"

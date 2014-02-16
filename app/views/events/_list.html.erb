@@ -16,13 +16,10 @@
       <td class="event-title"><%= link_to event.title, event, :class => "hide-link" %></td>
       <td>
         <%= format_date(event.date) %><br>
-        <% unless event.location.nil? %>
-        <%= event.location.city %>
-        <% end %>
       </td>
       <td class="event-participations">
-        <%= event.boxers.count %> <%= t('misc.participant') %><br>
-        Anmeldefrist: <%= format_date(event.get_deadline) %>
+        <span class="badge"><%= event.boxers.count %></span> 
+        <%= t('misc.participant') %><br>
       </td>
       <td><%= unless event.club.nil? then event.club.name end %></td>
     </tr>

@@ -46,11 +46,13 @@
 <% else %>
 
   <label class="subtitle">Sie haben keine Boxer anzumelden.</label>
-  <%= link_to "Neuen Boxer hinzufügen", new_boxer_path, :class => "btn" %>
+  <%= link_to "Neuen Boxer hinzufügen", new_boxer_path, :class => "btn" %><br>
 
 <% end %>
 
-<legend class="section-title" onclick="toggle">Teilnehmerliste (<%= @boxers.count %>)</legend>
+<div class="expand btn <%= @event.boxers.empty? ? 'disabled' : '' %>" onclick="$('#participants-list').toggle();">Teilnehmerliste anzeigen <span class="badge"><%= @boxers.count %></span></div>
 <% unless @event.boxers.empty? %>
+<div id="participants-list">
   <%= render 'boxers/list' %>
+</div>
 <% end %>

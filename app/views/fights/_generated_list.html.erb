@@ -1,6 +1,7 @@
+<div>
+  
 <% unless @fights.empty? %>
 
-<div>
   <div class="info-box">
     <legend class="section-title"><%= t('misc.statistics')%></legend>
 
@@ -19,13 +20,13 @@
 
 <div>
   <% @fights.each do |fight| %>
-    <%= render 'fights/preview', fight: fight %>
-  <% end %>    
+    <%= render 'fights/preview', :object => fight, fight: fight %>
+  <% end %>
 </div>
 
 <% else %>
 <div class="info-box">
-  <label class="subtitle">Es wurden noch keine passenden Kämpfe gefunden.</label>
+  <%= image_tag "info.png", :width => "15" %> <span>Es wurden noch keine passenden Kämpfe gefunden.</span>
 </div>
 <% end %>
 

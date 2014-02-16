@@ -1,7 +1,20 @@
 <table class="fight-preview table table-striped">
   <tr class="fight-name">
     <td colspan="2"><%= fight.opponent_red.get_name %> vs. <%= fight.opponent_blue.get_name %></td>
-    <td><%= link_to "Bestätigen", '#', :class => "btn", :title => "Klicken, um diesen Kampf zu bestätigen." %></td>
+    <!--td><%= link_to "Bestätigen", "#", :class => "btn", :title => "Klicken, um diesen Kampf zu bestätigen." %></td-->
+    <td>
+    <% if fight.approved %>
+    <%= form_for(fight, :remote => true, :class => "decline_fight_form", :html => {:onsubmit => "remove_fight()"}) do |f| %>
+        <%= f.hidden_field :approved, value: false %>
+        <%= f.submit t('buttons.destroy'), :class => "decline-fight btn delete" %>
+      <% end %>
+    <% else %>
+      <%= form_for(fight, :remote => true, :class => "approve_fight_form", :html => {:onsubmit => "add_fight()"}) do |f| %>
+        <%= f.hidden_field :approved, value: true %>
+        <%= f.submit t('buttons.approve'), :class => "approve-fight btn" %>
+      <% end %>
+    <% end %>
+    </td>
   </tr>
   <tr class="fight-values">
     <td colspan="3">

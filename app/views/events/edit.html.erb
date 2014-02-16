@@ -21,7 +21,7 @@
 
   <div class="actions form-actions">
     <%= f.submit t('buttons.save'), :class => "btn" %>
-    <%= link_to t('buttons.cancel'), my_events_path(:role => "host"), :class => "btn delete" %>
+    <%= link_to t('buttons.cancel'), event_path(@event), :class => "btn delete" %>
   </div>
   
 <% end %>

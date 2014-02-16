@@ -54,6 +54,7 @@
   $(document).ready(function() {
     toggle_info('#boxer_active', '#boxer-info-section');
     toggle_info('#boxer_active', '#boxer-info-title');
+    $('#participants-list').hide();
   });
 
   function toggle_info(check, element) {
@@ -78,5 +79,20 @@
   $(".form-controls").tooltip();/*.off("mouseover mouseout");*/
   $(".btn").tooltip();
   $(".bar-chart").tooltip();
+  $(".icon").tooltip();
   });
+  
+  function add_fight() {
+    $("approve_fight_form").submit();
+    /*$("decline_fight_form").show();
+    $("approve_fight_form").hide();*/
+    $('#flash').html("<div class='notice'>Kampf wurde bestätigt.</div>");
+  }
+  
+  function remove_fight() {
+    $("decline_fight_form").submit();
+    /*$("approve_fight_form.btn").show();
+    $("decline_fight_form.btn").hide();*/
+    $('#flash').html("<div class='alert'>Kampf wurde entfernt.</div>");
+  }
   

@@ -39,6 +39,7 @@ class EventsController < ApplicationController
     end
     
     @fights = @event.fights
+    @fights_approved = @event.fights.where(:approved => true)
     @stat = @event.calc_stat(@fights)
     
     @hash = Gmaps4rails.build_markers(@event) do |event, marker|
@@ -53,17 +54,6 @@ class EventsController < ApplicationController
     }
     
     session[:return_to] = event_path(@event)
-  end
-  
-  def fights
-    ad = params[:age_distance] ? params[:age_distance].to_i : 2
-    wd = params[:weight_distance] ? params[:weight_distance].to_i : 2
-    sc = params[:same_club] == "1"
-    cs = params[:championship] == "1"
-    alg = 2
-    
-    fights = @event.generate_fights(ad, wd, sc, cs, alg).sort! { |a,b| a.priority <=> b.priority }
-    redirect_to event_path(@event, :tab => "4")
   end
 
   # GET /events/new
@@ -179,7 +169,7 @@ class EventsController < ApplicationController
         redirect_to event_path(@event, :tab => "3")
         flash[:alert] = "#{invalid_count} Boxer konnte(n) nicht angemeldet werden. Bitte überprüfen Sie die Vollständigkeit der Angaben und versuchen es dann erneut."
       else
-        redirect_to event_path(@event), notice: I18n.t('messages.successful', :item => "Anmeldung der Boxer")
+        redirect_to event_path(@event, :tab => "3"), notice: I18n.t('messages.successful', :item => "Anmeldung der Boxer")
       end
     end
   end
@@ -188,10 +178,23 @@ class EventsController < ApplicationController
     boxer = Boxer.find_by_id(params[:boxer_id])
     authorize! :apply, @event
     @event.boxers.delete(boxer)
+    fights = @event.fights.where('opponent_red = ? OR opponent_blue = ?', boxer, boxer)
+    @event.fights.destroy(fights)
     respond_to do |format|
       format.html { redirect_to event_path(@event, :tab => "3"), notice: I18n.t('messages.successful', :item => "Abmeldung des Boxers") }
       format.json { head :no_content }
     end
+  end
+  
+  def fights
+    ad = params[:age_distance] ? params[:age_distance].to_i : 2
+    wd = params[:weight_distance] ? params[:weight_distance].to_i : 2
+    sc = params[:same_club] == "1"
+    cs = params[:championship] == "1"
+    alg = 2
+    
+    fights = @event.generate_fights(ad, wd, sc, cs, alg).sort! { |a,b| a.priority <=> b.priority }
+    redirect_to event_path(@event, :tab => "4")
   end
 
   private

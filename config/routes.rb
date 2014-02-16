@@ -21,6 +21,8 @@ Boxenberlin::Application.routes.draw do
     end
   end
 
+  resources :fights, :only => :update
+  
   resources :boxers, :except => :index
   
   root 'news#homepage'

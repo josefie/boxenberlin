@@ -62,7 +62,45 @@
     }*/
   }
   
+  form.edit_fight {
+    float: right;
+    margin: 0;
+  }
+  
+  .approve-fight.btn, .decline-fight.btn {
+    margin: 0;
+    font-family: sawasdee;
+    font-size: 0.8em;
+  }
+  
   .btn {
     @include button-color;
   }
+}
+
+.buttons.icons {
+  display: inline-block;
+  margin: 15px 0;
+  float: right;
+  
+  .icon img {
+/*  border: 2px solid $light-gray;*/
+    background: $dark-color;
+    padding: 8px;
+    border-radius: 4px;
+    
+    &:hover {
+      background: $main-color;
+    }
+  }
+  
+  .icon.delete img {
+    &:hover {
+      background: $red-color;
+    }
+  }
+}
+
+.expand {
+  cursor: pointer;
 }
