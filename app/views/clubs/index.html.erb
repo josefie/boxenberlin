@@ -3,10 +3,8 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <th><%#= Club.human_attribute_name(:name) %></th>
-      <th><%#= Location.human_attribute_name(:city) %></th>
-      <th><%#= t('activerecord.attributes.club.name') %></th>
-      <th><%#= t('activerecord.models.location', count: 1) %></th>
+      <th><%= Club.human_attribute_name(:name) %></th>
+      <th><%= Location.model_name.human %></th>
     </tr>
   </thead>
 

@@ -1,15 +1,3 @@
-<%= form_for @event, :method => :post do |f| %>
-  <% if @event.errors.any? %>
-    <div id="error_explanation">
-      <h2>Veranstaltung konnte nicht gespeichert werden:</h2>
-
-      <ul>
-      <% @event.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
 
   <div class="form-section">
     <legend class="section-title">Veranstaltung beantragen</legend>
@@ -114,9 +102,3 @@
     <%= f.hidden_field :club_id, :value => @event.club_id || current_user.id %>
   </div>
   
-  <div class="actions form-actions">
-    <%= f.submit t('buttons.request', :item => Event.model_name.human), :class => "btn" %>
-    <%= link_to t('buttons.cancel'), my_events_path(:role => "host"), :class => "btn delete" %>
-  </div>
-  
-<% end %>

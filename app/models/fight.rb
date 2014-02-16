@@ -10,13 +10,12 @@ def prioritize
   wd = get_weight_distance
   ad = get_age_distance.abs
   
-  # ignore age_distance and weight_distance if less than 2 
+  # ignore age_distance and weight_distance if less than 2
   if ad <= 2 then ad = 0 end
   if wd.abs <= 2 then wd = 0 end
     
-  # greater age_distance or weight_distance -> lower priority
-  self.priority = (pd + wd).abs# + ad
-    
+  # greater weight_distance -> lower priority
+  self.priority = (pd + wd).abs
 end
 
 def get_performance_distance

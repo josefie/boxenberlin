@@ -1,9 +1,9 @@
 <%= form_tag(fights_event_path(@event), method: :post, id: "fights_form") do |f| %>
   
   <div id="championship">
-    <legend>Einstellungen</legend>
+    <legend class="section-title"><%= t('misc.settings')%></legend>
     
-    <div class="form-group check">
+    <div class="form-group check" title="Wenn die Kampfpaarung nach Leistungs-, Alters- und Gewichtsklassen erfolgen soll, wählen Sie bitte 'Ja'.">
       <%= label_tag :championship, "Ist dies eine Meisterschaft oder ein Turnier?" %><br>
       <%= radio_button_tag "championship", "1", params[:championship] == "1", :class => "form-controls", :onclick => "$('.no-championship').hide();" %>
       <%= label_tag "Ja" %>
@@ -12,14 +12,14 @@
     </div>
     
     <div class="form-group no-championship">
-      <%= label_tag :weight_distance, "Maximale Gewichtsdifferenz:" %>
-      <%= select_tag "weight_distance", options_for_select(0..8, params[:weight_distance] || 2), :class => "form-controls x-small-field" %>
+      <%= label_tag :weight_distance, "Maximale Gewichtsdifferenz (kg)" %>
+      <%= select_tag "weight_distance", options_for_select(0..8, params[:weight_distance] || 2), :class => "form-controls x-small-field", :title => "Wählen Sie hier wie groß der Gewichtsunterschied zwischen zwei Boxern maximal sein darf." %>
     </div>
     <div class="form-group no-championship">
-      <%= label_tag :age_distance, "Maximale Altersdifferenz:" %>
-      <%= select_tag "age_distance", options_for_select(0..8, params[:age_distance] || 2), :class => "form-controls x-small-field" %>
+      <%= label_tag :age_distance, "Maximale Altersdifferenz (Jahre)" %>
+      <%= select_tag "age_distance", options_for_select(0..8, params[:age_distance] || 2), :class => "form-controls x-small-field", :title => "Wählen Sie hier wie groß der Altersunterschied zwischen zwei Boxern maximal sein darf." %>
     </div>
-    <div class="form-group check no-championship">
+    <div class="form-group check no-championship" title="Wenn Sie möchten, dass Gegner auch gegeneinander boxen dürfen, wenn beide aus demselben Verein kommen, dann wählen Sie bitte 'Ja'.">
       <%= label_tag :same_club, "Dürfen Boxer aus demselben Verein gegeneinander kämpfen?" %><br>
       <%= radio_button_tag "same_club", "1", params[:same_club] == "1", :class => "form-controls" %>
       <%= label_tag "Ja" %>

@@ -1,3 +1,25 @@
 <h2 class="page-title">Neue <%= Event.model_name.human %></h2>
 
-<%= render 'request_form' %>
+<%= form_for @event do |f| %>
+  <% if @event.errors.any? %>
+    <div id="error_explanation">
+      <h2>Veranstaltung konnte nicht gespeichert werden:</h2>
+
+      <ul>
+      <% @event.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <%= render 'request_form', :f => f  %>
+  
+  <%= render 'form', :f => f  %>
+  
+  <div class="actions form-actions">
+    <%= f.submit t('buttons.request', :item => Event.model_name.human), :class => "btn" %>
+    <%= link_to t('buttons.cancel'), my_events_path(:role => "host"), :class => "btn delete" %>
+  </div>
+  
+<% end %>

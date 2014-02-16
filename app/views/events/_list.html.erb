@@ -22,7 +22,7 @@
       </td>
       <td class="event-participations">
         <%= event.boxers.count %> <%= t('misc.participant') %><br>
-        Anmeldungen bis <%= format_date(event.get_deadline) %>
+        Anmeldefrist: <%= format_date(event.get_deadline) %>
       </td>
       <td><%= unless event.club.nil? then event.club.name end %></td>
     </tr>

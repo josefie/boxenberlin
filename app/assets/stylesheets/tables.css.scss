@@ -28,26 +28,19 @@
   }
 }
 
-.inactive, .inactive a, .inactive a:visited {
-  color: #777;
+.inactive {
+  background: #FFF;
+  color: $light-gray;
 }
 
-.active, .active a, .active a:visited {
-  
+.active {
+  background: #DDD;
+  font-weight: bold;
 }
-
-/*a:visited.boxer_active,
-a.boxer_active {
-  color: #0a0;
-}
-
-a:visited.boxer_inactive,
-a.boxer_inactive {
-  color: #bbb;
-}*/
 
 .club-row {
   @include table-row;
+  width: 100%;
   &:hover > td {
     color: $dark-color;
     a {

@@ -75,6 +75,8 @@
   });
   
   $(function() {
-    $(".form-controls").tooltip().off("mouseover mouseout");
+  $(".form-controls").tooltip();/*.off("mouseover mouseout");*/
+  $(".btn").tooltip();
+  $(".bar-chart").tooltip();
   });
   

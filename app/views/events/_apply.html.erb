@@ -16,13 +16,17 @@
   <tbody>
     <tr>
       <td><input type="checkbox" class="checkall"></td>
-      <td colspan="5">Alle</td>
+      <td colspan="5">Alle auswählen</td>
     </tr>
     <% @my_boxers.each do |boxer| %>
-      <tr>
+      <% if boxer.active %>
+        <tr class="active">
+      <% else %>
+        <tr class="inactive">
+      <% end %>
         <td><%= check_box_tag "boxer_ids[]", boxer.id %></td>
         <td><%= boxer.get_name %></td>
-        <td><%= localize boxer.date_of_birth %> (<%= boxer.get_age %> Jahre)</td>
+        <td><%= boxer.get_age %> Jahre</td>
         <td><%= boxer.weight.to_i %> kg</td>
         <td><strong><%= Fight.model_name.human(count: 2) %>: </strong><%= boxer.number_of_fights %> (<%= boxer.fights_won %>/<%= boxer.fights_lost %>/<%= boxer.fights_drawn %>)<br></td>
         <td><%= link_to t('buttons.edit'), edit_boxer_path(boxer), :class => "btn" %></td>
@@ -41,12 +45,12 @@
 
 <% else %>
 
-  <label class="subtitle">Sie haben noch keine Boxer in Ihrer Liste.</label>
+  <label class="subtitle">Sie haben keine Boxer anzumelden.</label>
   <%= link_to "Neuen Boxer hinzufügen", new_boxer_path, :class => "btn" %>
 
 <% end %>
 
-<legend class="section-title">Teilnehmerliste (<%= @boxers.count %>):</legend>
+<legend class="section-title" onclick="toggle">Teilnehmerliste (<%= @boxers.count %>)</legend>
 <% unless @event.boxers.empty? %>
   <%= render 'boxers/list' %>
 <% end %>

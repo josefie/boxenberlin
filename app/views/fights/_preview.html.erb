@@ -1,0 +1,52 @@
+<table class="fight-preview table table-striped">
+  <tr class="fight-name">
+    <td colspan="2"><%= fight.opponent_red.get_name %> vs. <%= fight.opponent_blue.get_name %></td>
+    <td><%= link_to "Bestätigen", '#', :class => "btn", :title => "Klicken, um diesen Kampf zu bestätigen." %></td>
+  </tr>
+  <tr class="fight-values">
+    <td colspan="3">
+      <div class="bar-chart" title="Der Matching Wert gibt die Leistungsdifferenz zwischen den Gegnern an. Das heißt je niedriger der Wert, desto besser passen die Gegner.">
+      <p class="part" style="width: <%= 100 - fight.priority %>%;">Matching Wert: <%= fight.priority %></p>
+    </div>
+    </td>
+  </tr>
+  <!--tr class="pc">
+    <td colspan="3">Leistungsklasse: <%= fight.get_performance_class.title %></td>
+  </tr>
+  <tr class="pc">
+    <td colspan="3">Altersklasse: <%= fight.get_age_class.title %></td>
+  </tr>
+  <tr class="pc">
+    <td colspan="3">Gewichtsklasse: <%#= fight.get_weight_class.title %></td>
+  </tr-->
+  <tr class="fight-values">
+    <td><%= fight.opponent_red.get_name %></td>
+    <td class="fight-title">Name</td>
+    <td><%= fight.opponent_blue.get_name %></td>
+  </tr>
+  <tr class="fight-values">
+  <td><%= fight.opponent_red.gender ? 'weiblich' : 'männlich' %></td>
+    <td class="fight-title">Geschlecht</td>
+    <td><%= fight.opponent_blue.gender ? 'weiblich' : 'männlich' %></td>
+  </tr>
+  <tr class="fight-values">
+    <td><%= fight.opponent_red.get_age %></td>
+    <td class="fight-title">Alter</td>
+    <td><%= fight.opponent_blue.get_age %></td>
+  </tr>
+  <tr class="fight-values">
+    <td><%= fight.opponent_red.weight.round(1) %></td>
+    <td class="fight-title">Gewicht</td>
+    <td><%= fight.opponent_blue.weight.round(1) %></td>
+  </tr>
+  <tr class="fight-values">
+    <td><%= fight.opponent_red.number_of_fights %> (<%= fight.opponent_red.fights_won %>/<%= fight.opponent_red.fights_lost %>/<%= fight.opponent_red.fights_drawn %>)</td>
+    <td class="fight-title">Kämpfe</td>
+    <td><%= fight.opponent_blue.number_of_fights %> (<%= fight.opponent_blue.fights_won %>/<%= fight.opponent_blue.fights_lost %>/<%= fight.opponent_blue.fights_drawn %>)</td>
+  </tr>
+  <tr class="fight-values">
+    <td><%= fight.opponent_red.club_id %></td>
+    <td class="fight-title">Verein</td>
+    <td><%= fight.opponent_blue.club_id %></td>
+  </tr>
+</table>

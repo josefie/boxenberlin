@@ -3,8 +3,10 @@ $secondary-color: #22F;
 $dark-color: #222;
 $background: #BCC;
 $red-color: #D00;
-$border: 2px #222 solid;
+$green-color: #1A1;
+$border: 1px #222 solid;
 $app-fonts: sawasdee, verdana, arial, helvetica, sans-serif;
+$light-gray: #555;
 
 @mixin table-row {
   cursor: pointer;

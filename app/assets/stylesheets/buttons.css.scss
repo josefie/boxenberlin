@@ -36,8 +36,13 @@
   font-size: 1em;
   margin-bottom: 20px;
   
-  ul li a, ul li a:visited {
-    background-color: $dark-color;
+  ul li, ul li:hover {
+    
+  }
+  
+  ul li a {
+    @include button-color;
+    /*background-color: $dark-color;
     color: #FFF;
     font-family: sawasdee;
     font-weight: bold;
@@ -45,11 +50,16 @@
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     text-shadow: none;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    
+    line-height: 25px;
   
-    &:hover, &:active, &:visited {
-      background: $secondary-color;
+    &:hover, &:active {
+      background-color: $main-color;
       color: #fff;
-    }
+      border: none;
+    }*/
   }
   
   .btn {

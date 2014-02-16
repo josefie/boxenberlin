@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140124170926) do
+ActiveRecord::Schema.define(version: 20140214174842) do
 
   create_table "boxers", force: true do |t|
     t.string   "first_name"
@@ -113,6 +113,8 @@ ActiveRecord::Schema.define(version: 20140124170926) do
     t.integer  "event_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.float    "latitude"
+    t.float    "longitude"
   end
 
   create_table "matching_stats", force: true do |t|

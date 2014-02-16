@@ -341,7 +341,7 @@ de:
   misc:
     default: Standard
     discounted: ermäßigt
-    host: Veranstalter
+    host: Gastgeber
     participant: Teilnehmer
     archive: Archiv
     start: Beginn
@@ -359,6 +359,8 @@ de:
     general: Allgemein
     settings: Einstellungen
     description: Beschreibung
+    details: Details
+    statistics: Statistik
   messages:
     successful: "%{item} war erfolgreich."
     failed: "%{item} ist fehlgeschlagen."

@@ -12,7 +12,6 @@ class Event < ActiveRecord::Base
   belongs_to :club, :foreign_key => 'club_id'
   has_and_belongs_to_many :performance_classes
   has_many :schedule_items
-  has_many :participations
   has_and_belongs_to_many :boxers
   has_one :location, :dependent => :nullify
   has_many :fights

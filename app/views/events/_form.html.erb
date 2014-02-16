@@ -1,39 +1,27 @@
-<%= form_for @event do |f| %>
-  <% if @event.errors.any? %>
-    <div id="error_explanation">
-      <h2>Veranstaltung konnte nicht gespeichert werden:</h2>
-
-      <ul>
-      <% @event.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
   
   <div class="form-section">
   <legend class="section-title">Weitere Informationen</legend>
     
     <div class="form-group">
       <%= f.label :deadline, :class => "subtitle" %>
-      <%= f.date_field :deadline, :class => "form-controls small-field" %>
+      <%= f.date_field :deadline, :class => "form-controls small-field", :title => "Bitte geben Sie ein Datum an, bis zu welchem Anmeldungen eingehen müssen." %>
     </div>
     
     <div class="form-group">
       <%= f.label :additional_info, :class => "subtitle" %>
-      <%= f.text_area :additional_info, :rows => "5", :class => "form-controls large-field" %>
+      <%= f.text_area :additional_info, :rows => "5", :class => "form-controls large-field", :title => "Beschreiben Sie hier Ihre Veranstaltung oder geben Sie zusätzliche Informationen für Teilnehmer und Besucher ein." %>
     </div>
   
     <div class="form-group input-append">
       <%= f.label :fee, :class => "subtitle" %>
-      <%= f.text_field :fee, :class => "form-controls small-field" %>
+      <%= f.text_field :fee, :class => "form-controls small-field", :title => "Wenn es eine Teilnahmegebühr für die Boxer gibt, geben Sie den Betrag bitte hier ein." %>
       <label class="add-on">€</label>
     </div>
     
     <div class="form-group">
       <label class="subtitle">Zugelassene Alters- und Leistungsklassen</label>
       <%= f.check_box "all_performance_classes", :checked => true, :onclick => "$('#event_performance_class_ids').toggle();" %><label>Alle</label>
-      <%= f.collection_select :performance_class_ids, PerformanceClass.all, :id, :title, {}, {:class => "form-controls", :multiple => true} %>
+      <%= f.collection_select :performance_class_ids, PerformanceClass.all, :id, :title, {}, {:class => "form-controls", :multiple => true, :title => "Bitte wählen Sie alle Alters- und Leistungsklassen aus, die an der Veranstaltung teilnehmen dürfen. Halten Sie 'STRG' gedrückt, um mehrere Klassen auszuwählen. Wenn alle zugelassen sind, setzen Sie das Häkchen bei 'Alle'."} %>
     </div>
   
     <div class="form-group">
@@ -41,10 +29,4 @@
     </div>
     
   </div>
-  
-  <div class="actions form-actions">
-    <%= f.submit t('buttons.save'), :class => "btn" %>
-    <%= link_to t('buttons.cancel'), my_events_path(:role => "host"), :class => "btn delete" %>
-  </div>
-  
-<% end %>
+

@@ -27,7 +27,7 @@
           <strong><%= Boxer.human_attribute_name(:fights_drawn) %>:</strong> <%= boxer.fights_drawn %>
       </td>
       <% if controller?('events') && action?('show') && boxer.club_id == current_user.id %>
-        <td><%= link_to t('buttons.undo_application'), undo_apply_event_path(@event.id, boxer.id), method: :delete, data: { confirm: t('messages.confirm_delete') }, :class => "btn delete" %></td>
+        <td><%= link_to t('buttons.undo_application'), undo_apply_event_path(@event.id, boxer.id), method: :delete, data: { confirm: t('messages.confirm_delete') }, :class => "btn delete remove-element-btn" %></td>
       <% else %>
         <td></td>
       <% end %>

@@ -38,7 +38,7 @@ class EventsController < ApplicationController
       end
     end
     
-    @fights = Fight.where(event_id: @event.id)
+    @fights = @event.fights
     @stat = @event.calc_stat(@fights)
     
     @hash = Gmaps4rails.build_markers(@event) do |event, marker|
@@ -62,7 +62,7 @@ class EventsController < ApplicationController
     cs = params[:championship] == "1"
     alg = 2
     
-    fights = @event.generate_fights(ad, wd, sc, cs, alg).sort! { |a,b| a.priority <=> b.priority }    
+    fights = @event.generate_fights(ad, wd, sc, cs, alg).sort! { |a,b| a.priority <=> b.priority }
     redirect_to event_path(@event, :tab => "4")
   end
 
@@ -124,7 +124,7 @@ class EventsController < ApplicationController
     authorize! :destroy, @event
     @event.destroy
     respond_to do |format|
-      format.html { redirect_to calendar_url(@event.date), notice: I18n.t('messages.deletion_successful', :model => Event.model_name.human) }
+      format.html { redirect_to my_events_path("host"), notice: I18n.t('messages.deletion_successful', :model => Event.model_name.human) }
       format.json { head :no_content }
     end
   end
@@ -176,10 +176,10 @@ class EventsController < ApplicationController
       end
       @event.save
       if invalid_count > 0
-        redirect_to event_path(@event)
+        redirect_to event_path(@event, :tab => "3")
         flash[:alert] = "#{invalid_count} Boxer konnte(n) nicht angemeldet werden. Bitte überprüfen Sie die Vollständigkeit der Angaben und versuchen es dann erneut."
       else
-        redirect_to @event, notice: I18n.t('messages.successful', :item => "Anmeldung der Boxer")
+        redirect_to event_path(@event), notice: I18n.t('messages.successful', :item => "Anmeldung der Boxer")
       end
     end
   end
@@ -189,7 +189,7 @@ class EventsController < ApplicationController
     authorize! :apply, @event
     @event.boxers.delete(boxer)
     respond_to do |format|
-      format.html { redirect_to @event, notice: I18n.t('messages.successful', :item => "Abmeldung des Boxers") }
+      format.html { redirect_to event_path(@event, :tab => "3"), notice: I18n.t('messages.successful', :item => "Abmeldung des Boxers") }
       format.json { head :no_content }
     end
   end

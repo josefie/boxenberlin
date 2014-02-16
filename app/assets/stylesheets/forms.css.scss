@@ -42,10 +42,11 @@ legend.section-title {
   color: $secondary-color;
   margin-bottom: 0;
   border: none;
+  border-bottom: 1px solid #DDD;
+  margin-bottom: 10px;
 }
 
 div.form-section {
-/*  border: $border;*/
   background: #FFF;
   padding: 20px;
   margin-bottom: 10px;
@@ -120,7 +121,8 @@ div.form-section {
 #search {
   @include form-input;
   padding: 9px 20px;
-  width: 25em;
+  width: 20em;
+  font-size: 16px;
 }
 
 #search-btn {

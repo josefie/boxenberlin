@@ -8,7 +8,7 @@
 
 <div>
 
-<legend>Training</legend>
+<legend class="section-title">Training</legend>
 <div class="info-section">
   <% unless @club.locations.empty? %>
   <label><%= Location.model_name.human(:count => 2) %></label>
@@ -31,7 +31,7 @@
   </div>
 
   <% unless @club.trainings.empty? %>
-  <label><%= Training.model_name.human(:count => 2) %></label>
+  <label class="section-title"><%= Training.model_name.human(:count => 2) %></label>
     <ul>
     <% @club.trainings.each do |t| %>
       <li>
@@ -56,7 +56,7 @@
   <% end %>
 </div>
 
-<legend>Kontaktdaten</legend>
+<legend class="section-title">Kontaktdaten</legend>
 <div class="info-section">
   <% unless @club.website.blank? %>
     <span><%=  Club.human_attribute_name(:website) %>:</span>
@@ -75,7 +75,7 @@
   <% end %>
 </div>
 
-<legend>Anstehende <%= Event.model_name.human(:count => 2) %></legend>
+<legend class="section-title">Anstehende <%= Event.model_name.human(:count => 2) %></legend>
 <div class="info-section">
   <% if @club.events.empty? then %>
     Keine Veranstaltungen in nächster Zeit.

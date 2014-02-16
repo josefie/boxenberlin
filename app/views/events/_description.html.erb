@@ -1,3 +1,5 @@
+<legend class="section-title"><%= t('misc.details') %></legend>
+
 <% unless @event.additional_info.blank? %>
   <div class="info-field">
     <strong><%= Event.human_attribute_name(:additional_info) %>:</strong><br>

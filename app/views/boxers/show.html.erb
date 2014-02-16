@@ -11,7 +11,7 @@
 
 <div>
   
-<legend><%= t('misc.general')%></legend>
+<legend class="section-title"><%= t('misc.general')%></legend>
 
 <p>
   <strong><%= Boxer.human_attribute_name(:date_of_birth) %>:</strong>
@@ -53,7 +53,7 @@
 </p>
 
 </div>
-  <legend><%= t('misc.fight', count: 2) %></legend>
+  <legend class="section-title"><%= t('misc.fight', count: 2) %></legend>
   <div class="info-section">
 <p>
   <%= Boxer.human_attribute_name(:fights_won) %>:
