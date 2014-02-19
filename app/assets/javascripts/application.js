@@ -82,17 +82,19 @@
   $(".icon").tooltip();
   });
   
-  function add_fight() {
+  function add_fight(id) {
     $("approve_fight_form").submit();
-    /*$("decline_fight_form").show();
-    $("approve_fight_form").hide();*/
-    $('#flash').html("<div class='notice'>Kampf wurde bestätigt.</div>");
+    $("#edit_fight_"+id+" .decline-fight.btn").css("display", "inline");
+    $("#edit_fight_"+id+" .approve-fight.btn").css("display", "none");
+    /*$("#edit_fight_"+id).parent().parent().nextAll(".fight-values").css("display", "none");*/
+    /*$('#flash').html("<div class='notice'>Kampf wurde bestätigt.</div>");*/
   }
   
-  function remove_fight() {
+  function remove_fight(id) {
     $("decline_fight_form").submit();
-    /*$("approve_fight_form.btn").show();
-    $("decline_fight_form.btn").hide();*/
-    $('#flash').html("<div class='alert'>Kampf wurde entfernt.</div>");
+    $("#edit_fight_"+id+" .approve-fight.btn").css("display", "inline");
+    $("#edit_fight_"+id+" .decline-fight.btn").css("display", "none");
+    /*$("#edit_fight_"+id).parents("table").fadeOut(500);*/
+    /*$('#flash').html("<div class='alert'>Kampf wurde entfernt.</div>");*/
   }
   

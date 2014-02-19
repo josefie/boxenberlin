@@ -25,27 +25,27 @@
   <%#= link_to "<h1 id='header'>Berliner Boxverband</h1>".html_safe, root_path %>
 
   <div id="nav-bar">
-      <div>
+    <div>
       <ul id="main-nav" class="nav nav-list">
         <li class="main-item"><%= nav_link t('nav.news'), news_path %></li>
         <li class="main-item"><%= nav_link Club.model_name.human(:count => 2), clubs_path, {}, {:url_segment => 1} %></li>
         <li class="main-item"><%= nav_link t('nav.calendar'), calendar_path, :class => calendar_nav ? 'selected' : '' %></li>
       </ul>
       <ul id="second-nav" class="nav nav-list">
-      <li class="second-item"><%= nav_link t('nav.dashboard'), dashboard_path, :class => dashboard_nav ? 'selected' : '' %>
+        <li class="second-item"><%= nav_link t('nav.dashboard'), dashboard_path, :class => dashboard_nav ? 'selected' : '' %>
         <% if current_user.nil? %>
           <li class="second-item"><%= nav_link t('buttons.sign_up'), signup_path %></li>
         <% else %>
           <li class="second-item"><%= link_to t('buttons.logout'), logout_path(current_user), method: :delete, :id => "logout" %></li>
         <% end %>
       </ul>
-      </div>
     </div>
-    <div class="clear-div"></div>
+  </div>
+  <div class="clear-div"></div>
     
   <div class="container">
     
-    <%= debug params %>
+    <%#= debug params %>
     
     <div id="content">
 

@@ -20,8 +20,6 @@ class Event < ActiveRecord::Base
   accepts_nested_attributes_for :schedule_items, allow_destroy: true, reject_if: proc { |a| a['label'].blank? }
   accepts_nested_attributes_for :location, allow_destroy: true#, reject_if: proc { |a| a['city'].blank? }
   
-  @@boxers_open = Array.new
-  
   def at_least_one_schedule_item
     if self.schedule_items.count < 2
       errors[:base] << ("Es muss mindestens ein Start- und ein Wiegetermin angegeben werden.")
@@ -88,23 +86,14 @@ class Event < ActiveRecord::Base
     self.boxers << boxer
   end
 
-  def generate_fights(age_distance, weight_distance, same_club, championship, algorithm)
-
-    self.fights.reject! { |f| !f.approved }
-
-    self.fights.each do |fight|
-      if fight.approved
-        @@boxers_open = self.boxers.reject! { |b| b.id == (fight.opponent_red.id || fight.opponent_blue.id) }
-      end
-    end
-    
+  def generate_fights(boxers, age_distance, weight_distance, same_club, championship, algorithm)    
     fights = Array.new
     
     # filtern nach kriterien
     unless championship
-      fights = filter(age_distance, weight_distance, same_club)
+      fights = filter(boxers, age_distance, weight_distance, same_club)
     else
-      fights = filter_cs
+      fights = filter_cs(boxers)
     end
 
     # matching
@@ -122,8 +111,7 @@ class Event < ActiveRecord::Base
     return fights
   end
   
-  def filter_cs
-    participants = @@boxers_open
+  def filter_cs(participants)
     number_of_participants = participants.count
     possible_fights = Array.new
     # iterate through all edges/fights
@@ -154,8 +142,7 @@ class Event < ActiveRecord::Base
     return possible_fights
   end
   
-  def filter(age_distance, weight_distance, same_club)
-    participants = self.boxers
+  def filter(participants, age_distance, weight_distance, same_club)
     number_of_participants = participants.count
     possible_fights = Array.new
     # iterate through all edges/fights

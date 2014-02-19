@@ -39,6 +39,7 @@ class EventsController < ApplicationController
     end
     
     @fights = @event.fights
+    #@fights_generated = @event.fights.where(:approved => false || nil)
     @fights_approved = @event.fights.where(:approved => true)
     @stat = @event.calc_stat(@fights)
     
@@ -193,7 +194,17 @@ class EventsController < ApplicationController
     cs = params[:championship] == "1"
     alg = 2
     
-    fights = @event.generate_fights(ad, wd, sc, cs, alg).sort! { |a,b| a.priority <=> b.priority }
+    # delete existing fights that have not been approved yet
+    @event.fights.where(:approved => false).delete_all
+    
+    @boxers_left = @event.boxers.dup
+    
+    @event.fights.each do |fight| # for each approved fight
+      # reject boxers that are already assigned
+      @boxers_left = @boxers_left.reject! {|boxer| [fight.opponent_red, fight.opponent_blue].include?(boxer) || [fight.opponent_red, fight.opponent_blue].include?(boxer) }
+    end
+    
+    @event.generate_fights(@boxers_left, ad, wd, sc, cs, alg).sort! { |a,b| a.priority <=> b.priority }
     redirect_to event_path(@event, :tab => "4")
   end
 

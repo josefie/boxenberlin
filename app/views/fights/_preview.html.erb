@@ -3,17 +3,16 @@
     <td colspan="2"><%= fight.opponent_red.get_name %> vs. <%= fight.opponent_blue.get_name %></td>
     <!--td><%= link_to "Bestätigen", "#", :class => "btn", :title => "Klicken, um diesen Kampf zu bestätigen." %></td-->
     <td>
-    <% if fight.approved %>
-    <%= form_for(fight, :remote => true, :class => "decline_fight_form", :html => {:onsubmit => "remove_fight()"}) do |f| %>
+    <%= form_for(fight, :remote => true, :class => "decline_fight_form", :html => {:onsubmit => "remove_fight(#{fight.id})"}) do |f| %>
         <%= f.hidden_field :approved, value: false %>
-        <%= f.submit t('buttons.destroy'), :class => "decline-fight btn delete" %>
+        <%= f.submit t('buttons.destroy'), :class => "decline-fight btn delete #{fight.approved ? 'show' : 'hide'}", :title => "Klicken, um diesen Kampf zu löschen." %>
       <% end %>
-    <% else %>
-      <%= form_for(fight, :remote => true, :class => "approve_fight_form", :html => {:onsubmit => "add_fight()"}) do |f| %>
+    <%# if !fight.approved %>
+      <%= form_for(fight, :remote => true, :class => "approve_fight_form", :html => {:onsubmit => "add_fight(#{fight.id})"}) do |f| %>
         <%= f.hidden_field :approved, value: true %>
-        <%= f.submit t('buttons.approve'), :class => "approve-fight btn" %>
+        <%= f.submit t('buttons.approve'), :class => "approve-fight btn  #{fight.approved ? 'hide' : 'show'}", :title => "Klicken, um diesen Kampf zu bestätigen." %>
       <% end %>
-    <% end %>
+    <%# end %>
     </td>
   </tr>
   <tr class="fight-values">

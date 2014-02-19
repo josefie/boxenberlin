@@ -14,9 +14,9 @@
         <td><%= link_to club.name, club %></td>
         <td>
         <% unless club.locations.empty? %>
-          <%= club.locations.first.street %>
-          <%= club.locations.first.number %>,
-          <%= club.locations.first.zip %>
+          <%#= club.locations.first.street %>
+          <%#= club.locations.first.number %>
+          <%#= club.locations.first.zip %>
           <%= club.locations.first.city %>
         <% end %>
         </td>
