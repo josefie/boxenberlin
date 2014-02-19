@@ -18,6 +18,7 @@ Boxenberlin::Application.routes.draw do
       delete 'apply/:boxer_id' => 'events#undo_application', as: :undo_apply
       #get 'fights' => 'events#fights'
       post 'fights' => 'events#fights'
+      get 'fights/download' => 'events#download_fightlist'
     end
   end
 

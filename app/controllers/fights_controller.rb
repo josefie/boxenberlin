@@ -1,6 +1,6 @@
 class FightsController < ApplicationController
   before_action :set_fight, only: [:update, :destroy]
-
+  
   # PATCH/PUT /fights/1
   # PATCH/PUT /fights/1.json
   def update

@@ -1,6 +1,7 @@
 # encoding: utf-8
+require "prawn"
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show, :edit, :update, :destroy, :send_application, :undo_application, :fights]
+  before_action :set_event, only: [:show, :edit, :update, :destroy, :send_application, :undo_application, :fights, :download_fightlist]
   before_action :parse_time, only: [:update, :create]
   
   Inf = 1.0 / 0.0
@@ -39,8 +40,6 @@ class EventsController < ApplicationController
     end
     
     @fights = @event.fights
-    #@fights_generated = @event.fights.where(:approved => false || nil)
-    @fights_approved = @event.fights.where(:approved => true)
     @stat = @event.calc_stat(@fights)
     
     @hash = Gmaps4rails.build_markers(@event) do |event, marker|
@@ -207,6 +206,18 @@ class EventsController < ApplicationController
     @event.generate_fights(@boxers_left, ad, wd, sc, cs, alg).sort! { |a,b| a.priority <=> b.priority }
     redirect_to event_path(@event, :tab => "4")
   end
+  
+  def download_fightlist
+    fightlist = @event.fights.where(:approved => true)
+    unless fightlist.empty?
+      send_data generate_pdf(@event.title, fightlist),
+      filename: "#{@event.title.downcase.tr(" ", "_")}_kampfliste.pdf",
+      type: "application/pdf"
+    else
+      redirect_to event_path(@event, :tab => 4)
+      flash[:alert] = "Es wurden noch keine Kämpfe bestätigt."
+    end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -249,6 +260,15 @@ class EventsController < ApplicationController
           schedule_item.parse_time_select! :time
         end
       end
+    end
+    
+    def generate_pdf(name, fightlist)
+      Prawn::Document.new do
+        text "Kampfliste für " + name
+        fightlist.each do |f|
+          text f.opponent_red.get_name + " vs. " + f.opponent_blue.get_name
+        end
+      end.render
     end
     
 end
