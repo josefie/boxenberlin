@@ -29,18 +29,6 @@ module ApplicationHelper
     action.include?(params[:action])
   end
   
-  def add_fight(event, fight)
-    fight.save
-    event.fights << fight
-    event.boxers.reject! { |p| p.id == (fight.opponent_red.id || fight.opponent_blue.id) }
-  end
-  
-  def remove_fight(event, fight)
-    event.boxers << fight.opponent_red
-    event.boxers << fight.opponent_blue
-    fight.destroy
-  end
-  
   def calendar_nav
     if controller?('events') && action?('index')
       return true

@@ -1,12 +1,9 @@
 class Event < ActiveRecord::Base
-  geocoded_by :loc
-  after_validation :geocode, if: ->(obj){ location_change(obj) and !Rails.env.test? }
-  
+
   validates :club_id, presence: true
-  #validates :location, presence: true
   validates :date, presence: true
   validates :title, presence: true
-  #validate :at_least_one_schedule_item
+  validate :at_least_one_schedule_item
   validate :deadline_before_date
   
   belongs_to :club, :foreign_key => 'club_id'
@@ -21,8 +18,8 @@ class Event < ActiveRecord::Base
   accepts_nested_attributes_for :location, allow_destroy: true#, reject_if: proc { |a| a['city'].blank? }
   
   def at_least_one_schedule_item
-    if self.schedule_items.count < 2
-      errors[:base] << ("Es muss mindestens ein Start- und ein Wiegetermin angegeben werden.")
+    if self.schedule_items.blank?
+      errors[:base] << ("Es muss mindestens ein Starttermin angegeben werden.")
     end
   end
   
@@ -67,18 +64,6 @@ class Event < ActiveRecord::Base
       self.deadline
     else
       self.date - 1.day
-    end
-  end
-  
-  def loc
-    [self.location.street, self.location.number, self.location.zip, self.location.city, self.location.country].compact.join(' ')
-  end
-  
-  def location_change(obj)
-    if obj.location.nil?
-      return false
-    else
-      ( obj.location.street.present? or obj.location.number.present? or obj.location.zip.present? or obj.location.city.present? ) and ( obj.location.street_changed? or obj.location.number_changed? or obj.location.zip_changed? or obj.location.city_changed? )
     end
   end
   
@@ -221,7 +206,6 @@ class Event < ActiveRecord::Base
       @percentage_matched = ((matched_opponents.count.to_f / self.boxers.count.to_f) * 100).to_i
       
       # save matching statistics
-      #stat = MatchingStat.new #MatchingStat.find_by_event_id(@event) || MatchingStat.new
       stat.matching_value = @matching_value
       stat.percentage_matched = @percentage_matched
       stat.event_id = self.id

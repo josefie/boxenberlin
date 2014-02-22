@@ -61,11 +61,8 @@
 
 <legend class="section-title">Kontaktdaten</legend>
 <div class="info-section">
-  <% unless @club.website.blank? %>
-    <span><%=  Club.human_attribute_name(:website) %>:</span>
-    <%= link_to @club.website, @club.website, :class => "link" %>
-  <% end %>
   <% unless @club.contact_name.blank? then %>
+    <span><%=  Club.human_attribute_name(:contact_name) %>:</span>
     <%= @club.contact_name %></br>
   <% end %>
   <% unless @club.contact_phone.blank? then %>
@@ -74,7 +71,11 @@
   <% end %>
   <% unless @club.contact_mail.blank? then %>
     <span><%=  Club.human_attribute_name(:contact_mail) %>:</span>
-    <a class="link" href="mailto:<%= @club.contact_mail %>"><%= @club.contact_mail %></a>
+    <a class="link" href="mailto:<%= @club.contact_mail %>"><%= @club.contact_mail %></a><br>
+  <% end %>
+  <% unless @club.website.blank? %>
+    <span><%=  Club.human_attribute_name(:website) %>:</span>
+    <%= link_to @club.website, @club.website, :class => "link" %>
   <% end %>
 </div>
 

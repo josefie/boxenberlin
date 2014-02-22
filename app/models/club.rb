@@ -41,7 +41,7 @@ class Club < ActiveRecord::Base
   end
   
   def format_url
-    #self.website = "http://#{self.website}" unless self.website[/^https?/] || self.website.blank?
+    self.website = "http://#{self.website}" unless self.website[/^https?/] || self.website.blank?
   end
   
 end

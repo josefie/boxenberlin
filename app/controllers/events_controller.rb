@@ -43,13 +43,13 @@ class EventsController < ApplicationController
     @stat = @event.calc_stat(@fights)
     
     @hash = Gmaps4rails.build_markers(@event) do |event, marker|
-      marker.lat event.latitude
-      marker.lng event.longitude
+      marker.lat event.location.latitude
+      marker.lng event.location.longitude
       marker.infowindow "<strong>#{event.title}</strong>"
     end
     
     @gmaps_options = {
-      "map_options" => { "auto_zoom" => false, "zoom" => 12, "center_latitude" => @event.latitude, "center_longitude" => @event.longitude },
+      "map_options" => { "auto_zoom" => false, "zoom" => 12, "center_latitude" => @event.location.latitude, "center_longitude" => @event.location.longitude },
       "markers" => { "data" => @hash }
     }
     
@@ -203,7 +203,7 @@ class EventsController < ApplicationController
       @boxers_left = @boxers_left.reject! {|boxer| [fight.opponent_red, fight.opponent_blue].include?(boxer) || [fight.opponent_red, fight.opponent_blue].include?(boxer) }
     end
     
-    @event.generate_fights(@boxers_left, ad, wd, sc, cs, alg).sort! { |a,b| a.priority <=> b.priority }
+    @event.generate_fights(@boxers_left, ad, wd, sc, cs, alg)
     redirect_to event_path(@event, :tab => "4")
   end
   
@@ -250,7 +250,7 @@ class EventsController < ApplicationController
       :approved,
       :deadline,
       schedule_items_attributes: [:id, :label, :time, :event_id, :_destroy],
-      location_attributes: [:id, :street, :number, :zip, :city, :country, :club_id, :event_id, :_destroy]
+      location_attributes: [:street, :number, :zip, :city, :country, :club_id, :event_id, :_destroy]
       )
     end
     
