@@ -3,11 +3,9 @@
 <div class="buttons icons">
 <% if can? :update, @boxer %>
   <%= link_to image_tag('edit.png', width: "25", alt: t('buttons.edit')), edit_boxer_path(@boxer), :class => "icon", :title => "Boxer bearbeiten" %>
-  <%#= link_to t('buttons.edit'), edit_boxer_path(@boxer), :class => "btn" %>
 <% end %>
 <% if can? :destroy, @boxer %>
   <%= link_to image_tag('delete.png', width: "25", alt: t('buttons.destroy')), boxer_path(@boxer), method: :delete, data: { confirm: t('messages.confirm_delete') }, :class => "icon delete", :title => "Boxer löschen" %>
-  <%#= link_to t('buttons.destroy'), @boxer, method: :delete, data: { confirm: t('messages.confirm_delete') }, :class => "btn delete" %>
 <% end %>
 </div>
 

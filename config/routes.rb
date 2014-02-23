@@ -1,6 +1,5 @@
 Boxenberlin::Application.routes.draw do
   
-  #resources :news
   get 'news' => 'news#homepage'
 
   get 'login' => 'sessions#new'

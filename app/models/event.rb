@@ -3,7 +3,7 @@ class Event < ActiveRecord::Base
   validates :club_id, presence: true
   validates :date, presence: true
   validates :title, presence: true
-  validate :at_least_one_schedule_item
+  #validate :at_least_one_schedule_item
   validate :deadline_before_date
   
   belongs_to :club, :foreign_key => 'club_id'
@@ -15,7 +15,7 @@ class Event < ActiveRecord::Base
   has_many :matching_stats, -> { distinct }
   
   accepts_nested_attributes_for :schedule_items, allow_destroy: true, reject_if: proc { |a| a['label'].blank? }
-  accepts_nested_attributes_for :location, allow_destroy: true#, reject_if: proc { |a| a['city'].blank? }
+  accepts_nested_attributes_for :location, allow_destroy: true#, reject_if: :all_blank
   
   def at_least_one_schedule_item
     if self.schedule_items.blank?

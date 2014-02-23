@@ -1,7 +1,6 @@
 <table class="fight-preview table table-striped">
   <tr class="fight-name">
     <td colspan="2"><%= fight.opponent_red.get_name %> vs. <%= fight.opponent_blue.get_name %></td>
-    <!--td><%= link_to "Bestätigen", "#", :class => "btn", :title => "Klicken, um diesen Kampf zu bestätigen." %></td-->
     <td>
     <%= form_for(fight, :remote => true, :class => "decline_fight_form", :html => {:onsubmit => "remove_fight(#{fight.id})"}) do |f| %>
         <%= f.hidden_field :approved, value: false %>
@@ -57,8 +56,8 @@
     <td><%= fight.opponent_blue.number_of_fights %> (<%= fight.opponent_blue.fights_won %>/<%= fight.opponent_blue.fights_lost %>/<%= fight.opponent_blue.fights_drawn %>)</td>
   </tr>
   <tr class="fight-values">
-    <td><%= fight.opponent_red.club_id %></td>
+    <td><%= fight.opponent_red.club.name %></td>
     <td class="fight-title">Verein</td>
-    <td><%= fight.opponent_blue.club_id %></td>
+    <td><%= fight.opponent_blue.club.name %></td>
   </tr>
 </table>

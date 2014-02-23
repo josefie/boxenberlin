@@ -1,8 +1,8 @@
 # ruby encoding: utf-8
 
-  @boxers_1 = Array.new
-  200.times do |n|
-    @boxers_1 << Boxer.create!({
+  @boxers = Array.new
+  150.times do |n|
+    @boxers << Boxer.create!({
       first_name: 'Boxer',
       last_name: n+1,
       date_of_birth: rand((Date.today-25.year)..(Date.today-10.year)),

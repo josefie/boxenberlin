@@ -76,7 +76,7 @@
   });
   
   $(function() {
-  $(".form-controls").tooltip();/*.off("mouseover mouseout");*/
+  $(".form-controls").tooltip();
   $(".btn").tooltip();
   $(".bar-chart").tooltip();
   $(".icon").tooltip();
@@ -86,15 +86,11 @@
     $("approve_fight_form").submit();
     $("#edit_fight_"+id+" .decline-fight.btn").css("display", "inline");
     $("#edit_fight_"+id+" .approve-fight.btn").css("display", "none");
-    /*$("#edit_fight_"+id).parent().parent().nextAll(".fight-values").css("display", "none");*/
-    /*$('#flash').html("<div class='notice'>Kampf wurde bestätigt.</div>");*/
   }
   
   function remove_fight(id) {
     $("decline_fight_form").submit();
     $("#edit_fight_"+id+" .approve-fight.btn").css("display", "inline");
     $("#edit_fight_"+id+" .decline-fight.btn").css("display", "none");
-    /*$("#edit_fight_"+id).parents("table").fadeOut(500);*/
-    /*$('#flash').html("<div class='alert'>Kampf wurde entfernt.</div>");*/
   }
   

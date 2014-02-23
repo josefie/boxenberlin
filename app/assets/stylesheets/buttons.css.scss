@@ -42,24 +42,6 @@
   
   ul li a {
     @include button-color;
-    /*background-color: $dark-color;
-    color: #FFF;
-    font-family: sawasdee;
-    font-weight: bold;
-    box-shadow: none;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    text-shadow: none;
-    border-top-right-radius: 4px;
-    border-top-left-radius: 4px;
-    
-    line-height: 25px;
-  
-    &:hover, &:active {
-      background-color: $main-color;
-      color: #fff;
-      border: none;
-    }*/
   }
   
   form.edit_fight {
@@ -84,7 +66,6 @@
   float: right;
   
   .icon img {
-/*  border: 2px solid $light-gray;*/
     background: $dark-color;
     padding: 8px;
     border-radius: 4px;

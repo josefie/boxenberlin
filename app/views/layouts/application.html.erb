@@ -2,8 +2,6 @@
 <html>
 <head>
   <title>Berliner Boxverband</title>
-  <%#= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%#= javascript_include_tag "application", "data-turbolinks-track" => true %>
   
   <%= stylesheet_link_tag "application.css", :cache => true %>
   <%= javascript_include_tag "application.js", :cache => true %>
@@ -12,18 +10,11 @@
   <%= javascript_include_tag "gmaps.js", :cache => true %>
   <!-- google maps -->
   <%= javascript_include_tag "http://maps.google.com/maps/api/js?sensor=false" %>
-  <!-- jquery -->
-  <%#= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" %>
-  <!-- jquery UI -->
-  <%#= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js" %>
   
   <%= csrf_meta_tags %>
 </head>
 
 <body>
-  
-  <%#= link_to "<h1 id='header'>Berliner Boxverband</h1>".html_safe, root_path %>
-
   <div id="nav-bar">
     <div>
       <ul id="main-nav" class="nav nav-list">

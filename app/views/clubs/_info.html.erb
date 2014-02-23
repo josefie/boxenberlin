@@ -3,7 +3,6 @@
 <div class="buttons icons">
   <% if can? :update, @club %>
     <%= link_to image_tag('edit.png', width: "25", alt: t('buttons.edit')), edit_profile_path, :class => "icon", :title => "Profil bearbeiten" %>
-    <%#= link_to t('buttons.edit'), edit_profile_path, :class => "btn" %>
   <% end %>
 </div>
 
