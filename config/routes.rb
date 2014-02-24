@@ -33,5 +33,6 @@ Boxenberlin::Application.routes.draw do
   get 'boxers' => 'boxers#my_boxers', as: :my_boxers
   get 'manage/(:status)' => 'events#manage', defaults: {status: 'open'}, as: :manage
 
-  root 'news#homepage'
+  root 'events#index'
+  
 end
