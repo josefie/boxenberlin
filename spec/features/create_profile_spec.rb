@@ -15,32 +15,8 @@ describe "Club", :type => :feature do
     visit my_profile_path
     click_link "Bearbeiten"
     expect(page).to have_css('input#club_name')
-    #expect(page).to have_css('input#club_street')
     expect(page).to have_css('input#club_website')
     expect(page).to have_css('input#club_contact_name')
-  end
-  
-  it "can add multiple locations" do
-    visit edit_club_path(@club)
-    click_link 'Ort hinzufügen'
-    expect(page).to have_content("Straße Nr. PLZ Ort")
-    #fill_in 'club_locations_street', :with => "street 1"
-    #fill_in 'club_locations_zip', :with => "12345"
-    click_button 'Speichern'
-    expect(page).to have_content("Berlin")
-  end
-  
-  it "can add coaches and trainings to profile", :js => true do
-    visit edit_club_path(@club)
-    click_link("Trainer hinzufügen")
-    expect(page).to have_css('.nested-form')
-    expect(page).to have_content("Vorname")
-    expect(page).to have_link("Entfernen")
-    
-    click_link("Training hinzufügen")
-    expect(page).to have_css('.nested-form')
-    expect(page).to have_content("Wochentag")
-    expect(page).to have_link("Entfernen")
   end
   
   it "shows up in the list of clubs" do
