@@ -33,8 +33,8 @@ ActiveRecord::Schema.define(version: 20140214174842) do
     t.integer "boxer_id", null: false
   end
 
-  add_index "boxers_events", ["boxer_id"], name: "index_boxers_events_on_boxer_id"
-  add_index "boxers_events", ["event_id"], name: "index_boxers_events_on_event_id"
+  add_index "boxers_events", ["boxer_id"], name: "index_boxers_events_on_boxer_id", using: :btree
+  add_index "boxers_events", ["event_id"], name: "index_boxers_events_on_event_id", using: :btree
 
   create_table "clubs", force: true do |t|
     t.string   "name"
@@ -60,8 +60,8 @@ ActiveRecord::Schema.define(version: 20140214174842) do
     t.integer "coach_id",    null: false
   end
 
-  add_index "coaches_trainings", ["coach_id"], name: "index_coaches_trainings_on_coach_id"
-  add_index "coaches_trainings", ["training_id"], name: "index_coaches_trainings_on_training_id"
+  add_index "coaches_trainings", ["coach_id"], name: "index_coaches_trainings_on_coach_id", using: :btree
+  add_index "coaches_trainings", ["training_id"], name: "index_coaches_trainings_on_training_id", using: :btree
 
   create_table "events", force: true do |t|
     t.string   "title"
@@ -90,8 +90,8 @@ ActiveRecord::Schema.define(version: 20140214174842) do
     t.integer "performance_class_id", null: false
   end
 
-  add_index "events_performance_classes", ["event_id"], name: "index_events_performance_classes_on_event_id"
-  add_index "events_performance_classes", ["performance_class_id"], name: "index_events_performance_classes_on_performance_class_id"
+  add_index "events_performance_classes", ["event_id"], name: "index_events_performance_classes_on_event_id", using: :btree
+  add_index "events_performance_classes", ["performance_class_id"], name: "index_events_performance_classes_on_performance_class_id", using: :btree
 
   create_table "fights", force: true do |t|
     t.boolean  "approved"

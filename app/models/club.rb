@@ -29,11 +29,14 @@ class Club < ActiveRecord::Base
   
   def get_hosting_events
     today = Date.today
-    Event.where('club_id == ? AND date >= ?', self.id, today)
+    Event.where('club_id = ? AND date >= ?', self.id, today)
   end
   
   def get_participating_events
-    Event.joins(:boxers).where(boxers: { id: [self.boxers.ids] }).group(:date)
+    #Event.joins(:boxers).where(boxers: { id: [self.boxers.ids] }).group(:date)
+    #Event.joins(:boxers).where(boxers: { id: [self.boxers.ids] }).group(:id)
+    
+    Event.includes(:boxers).where(boxers: {id: [self.boxers.ids]})
   end
   
   def get_past_events

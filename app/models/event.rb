@@ -52,7 +52,8 @@ class Event < ActiveRecord::Base
   end
   
   def self.by_date(date)
-    Event.where("strftime('%m', date) + 0 = ? AND strftime('%Y', date) + 0 = ?", date.month, date.year)
+    #Event.where("strftime('%m', date) + 0 = ? AND strftime('%Y', date) + 0 = ?", date.month, date.year)
+    Event.where("extract(month from date) + 0 = ? AND extract(year from date) + 0 = ?", date.month, date.year)
   end
   
   def upcoming?
