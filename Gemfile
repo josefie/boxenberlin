@@ -80,3 +80,5 @@ gem "prawn"
 # gem 'debugger', group: [:development, :test]
 
 gem "mocha", group: :test, require: false
+
+gem 'rails_12factor', group: :production
