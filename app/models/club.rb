@@ -33,10 +33,12 @@ class Club < ActiveRecord::Base
   end
   
   def get_participating_events
-    #Event.joins(:boxers).where(boxers: { id: [self.boxers.ids] }).group(:date)
-    #Event.joins(:boxers).where(boxers: { id: [self.boxers.ids] }).group(:id)
-    
-    Event.includes(:boxers).where(boxers: {id: [self.boxers.ids]})
+    boxer_ids = self.boxers.ids
+    unless boxer_ids.empty?
+      Event.includes(:boxers).where(boxers: {id: [boxer_ids]})
+    else
+      Event.none
+    end
   end
   
   def get_past_events
